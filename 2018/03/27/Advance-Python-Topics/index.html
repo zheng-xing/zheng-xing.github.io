@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Note: 这篇文章主要是对下面这本书(《Powerful Python》2nd edition, Aaron Maxwell)的总结。 Scaling with Generatorsgenerator 不同于一般的一个 list，它是lazy execution，里面的元素用到的时候才会运算取出来。  使用 iter() 可以获得一个 generator，但是要注意，generator 只能用一">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-28T08:37:16.000Z">
+<meta property="og:updated_time" content="2018-03-28T08:39:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Advance Python Topics">
 <meta name="twitter:description" content="Note: 这篇文章主要是对下面这本书(《Powerful Python》2nd edition, Aaron Maxwell)的总结。 Scaling with Generatorsgenerator 不同于一般的一个 list，它是lazy execution，里面的元素用到的时候才会运算取出来。  使用 iter() 可以获得一个 generator，但是要注意，generator 只能用一">
@@ -489,30 +489,30 @@
 <p>Because of this, Java developers quickly learn to make all their variables private by default - proactively creating getters and setters for every publicly<br>exposed chunk of data. They realize this boilerplate is far less painful than the<br>alternative, because if everyone must use the public getters and setters to<br>begin with, you always have the freedom to make internal changes later.</p>
 <h5 id="6-Factory-Patterns-参见单独的文章"><a href="#6-Factory-Patterns-参见单独的文章" class="headerlink" title="6. Factory Patterns 参见单独的文章"></a>6. Factory Patterns 参见单独的文章</h5><h5 id="7-Observer-Patterns-参见单独的文章"><a href="#7-Observer-Patterns-参见单独的文章" class="headerlink" title="7. Observer Patterns 参见单独的文章"></a>7. Observer Patterns 参见单独的文章</h5><h5 id="8-Magic-method-实际就是一些运算符的定义，重载"><a href="#8-Magic-method-实际就是一些运算符的定义，重载" class="headerlink" title="8. Magic method (实际就是一些运算符的定义，重载)"></a>8. Magic method (实际就是一些运算符的定义，重载)</h5><p>常见的 magic methods:</p>
 <ul>
-<li><strong>add</strong>               a + b</li>
-<li><strong>sub</strong>               a - b</li>
-<li><strong>mul</strong>               a * b</li>
-<li><strong>truediv</strong>           a / b (floating-point division)</li>
-<li><strong>mod</strong>               a % b</li>
-<li><strong>pow</strong>               a ** b</li>
+<li>__add__               a + b</li>
+<li>__sub__               a - b</li>
+<li>__mul__               a * b</li>
+<li>__truediv__           a / b (floating-point division)</li>
+<li>__mod__               a % b</li>
+<li>__pow__               a ** b</li>
 <li>也可以定义 bit 操作</li>
-<li><strong>lshift</strong></li>
-<li><strong>rshift</strong></li>
-<li><strong>and</strong></li>
-<li><strong>xor</strong></li>
-<li><strong>or</strong><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Angle</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        self.value = value % <span class="number">360</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> Angle(self.value + other.value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有了上面的定义，我们就可以执行下面的语句了。</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>total = Angle(<span class="number">30</span>) + Angle(<span class="number">45</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>total.value</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本质上，python 把 a + b 看成 a.__add__(b)</span></span><br></pre></td></tr></table></figure>
+<li>__lshift__</li>
+<li>__rshift__</li>
+<li>__and__</li>
+<li>__xor__</li>
+<li>__or__<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Angle</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        self.value = value % <span class="number">360</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> Angle(self.value + other.value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有了上面的定义，我们就可以执行下面的语句了。</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>total = Angle(<span class="number">30</span>) + Angle(<span class="number">45</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>total.value</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本质上，python 把 a + b 看成 a.__add__(b)</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>str</strong> 操作符: print() function, str() 和 string formating 操作会调用这个 magic method<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125; degrees'</span>.format(self.value)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(Angle(<span class="number">30</span>))</span><br><span class="line"><span class="number">30</span> degrees</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(Angle(<span class="number">45</span>))</span><br><span class="line"><span class="string">'45 degrees'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'&#123;&#125;'</span>.format(Angle(<span class="number">30</span>) + Angle(<span class="number">45</span>)))</span><br><span class="line"><span class="number">75</span> degrees</span><br></pre></td></tr></table></figure></p>
-<p><strong>repr</strong> 方法：这个方法的输出是 用来重新生成这个 object。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Angle(&#123;&#125;)'</span>.format(self.value)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(Angle(<span class="number">30</span>))</span><br><span class="line"><span class="string">'Angle(30)'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'&#123;!r&#125;'</span>.format(Angle(<span class="number">30</span>) + Angle(<span class="number">45</span>)))</span><br><span class="line">Angle(<span class="number">75</span>)</span><br></pre></td></tr></table></figure></p>
+<p>__str__ 操作符: print() function, str() 和 string formating 操作会调用这个 magic method<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125; degrees'</span>.format(self.value)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(Angle(<span class="number">30</span>))</span><br><span class="line"><span class="number">30</span> degrees</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(Angle(<span class="number">45</span>))</span><br><span class="line"><span class="string">'45 degrees'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'&#123;&#125;'</span>.format(Angle(<span class="number">30</span>) + Angle(<span class="number">45</span>)))</span><br><span class="line"><span class="number">75</span> degrees</span><br></pre></td></tr></table></figure></p>
+<p>__repr__ 方法：这个方法的输出是 用来重新生成这个 object。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Angle(&#123;&#125;)'</span>.format(self.value)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(Angle(<span class="number">30</span>))</span><br><span class="line"><span class="string">'Angle(30)'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'&#123;!r&#125;'</span>.format(Angle(<span class="number">30</span>) + Angle(<span class="number">45</span>)))</span><br><span class="line">Angle(<span class="number">75</span>)</span><br></pre></td></tr></table></figure></p>
 <p>比较运算符：</p>
 <ul>
-<li><strong>eq</strong></li>
-<li><strong>ne</strong></li>
-<li><strong>lt</strong></li>
-<li><strong>le</strong></li>
-<li><strong>gt</strong></li>
-<li><strong>ge</strong></li>
+<li>__eq__</li>
+<li>__ne__</li>
+<li>__lt__</li>
+<li>__le__</li>
+<li>__gt__</li>
+<li>__ge__</li>
 </ul>
 <h2 id="资料来源"><a href="#资料来源" class="headerlink" title="资料来源"></a>资料来源</h2><p>《OOD Powerful Python》</p>
 

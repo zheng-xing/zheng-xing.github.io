@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="C++ string 用法初始化1234567string s;//默认初始化，一个空字符串string s1(&quot;ssss&quot;);//s1是字面值“ssss”的副本string s2(s1);//s2是s1的副本string s3=s2;//s3是s2的副本string s4(10,&apos;c&apos;);//把s4初始化string s5=&quot;hiya&quot;;//拷贝初始化string s6=string(10,&apos;c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode string">
+<meta property="og:url" content="http://yoursite.com/2019/11/30/leetcode-string/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C++ string 用法初始化1234567string s;//默认初始化，一个空字符串string s1(&quot;ssss&quot;);//s1是字面值“ssss”的副本string s2(s1);//s2是s1的副本string s3=s2;//s3是s2的副本string s4(10,&apos;c&apos;);//把s4初始化string s5=&quot;hiya&quot;;//拷贝初始化string s6=string(10,&apos;c">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-01T08:53:16.371Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode string">
+<meta name="twitter:description" content="C++ string 用法初始化1234567string s;//默认初始化，一个空字符串string s1(&quot;ssss&quot;);//s1是字面值“ssss”的副本string s2(s1);//s2是s1的副本string s3=s2;//s3是s2的副本string s4(10,&apos;c&apos;);//把s4初始化string s5=&quot;hiya&quot;;//拷贝初始化string s6=string(10,&apos;c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/30/leetcode-string/"/>
+
+
+
+
+
+  <title>leetcode string | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/30/leetcode-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leetcode string</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-30T00:29:46-08:00">
+                2019-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/30/leetcode-string/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/11/30/leetcode-string/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="C-string-用法"><a href="#C-string-用法" class="headerlink" title="C++ string 用法"></a>C++ string 用法</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s;<span class="comment">//默认初始化，一个空字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s1</span><span class="params">(<span class="string">"ssss"</span>)</span></span>;<span class="comment">//s1是字面值“ssss”的副本</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s2</span><span class="params">(s1)</span></span>;<span class="comment">//s2是s1的副本</span></span><br><span class="line"><span class="built_in">string</span> s3=s2;<span class="comment">//s3是s2的副本</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s4</span><span class="params">(<span class="number">10</span>,<span class="string">'c'</span>)</span></span>;<span class="comment">//把s4初始化</span></span><br><span class="line"><span class="built_in">string</span> s5=<span class="string">"hiya"</span>;<span class="comment">//拷贝初始化</span></span><br><span class="line"><span class="built_in">string</span> s6=<span class="built_in">string</span>(<span class="number">10</span>,<span class="string">'c'</span>);<span class="comment">//拷贝初始化，生成一个初始化好的对象，拷贝给s6</span></span><br></pre></td></tr></table></figure>
+<h2 id="特性描述"><a href="#特性描述" class="headerlink" title="特性描述"></a>特性描述</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span><span class="keyword">const</span></span>;    <span class="comment">//返回当前容量（即string中不必增加内存即可存放的元素个数）</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max_size</span><span class="params">()</span><span class="keyword">const</span></span>;    <span class="comment">//返回string对象中可存放的最大字符串的长度</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span><span class="keyword">const</span></span>;    <span class="comment">//返回当前字符串的大小</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span><span class="keyword">const</span></span>;    <span class="comment">//返回当前字符串的长度</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span><span class="keyword">const</span></span>;    <span class="comment">//当前字符串是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> len,<span class="keyword">char</span> c)</span></span>;    <span class="comment">//把字符串当前大小置为len，并用字符c填充不足的部分</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s = <span class="string">"abcdefg"</span>;</span><br><span class="line">s.substr(<span class="number">1</span>,<span class="number">3</span>);   <span class="comment">// "bcd"</span></span><br><span class="line"></span><br><span class="line">s.append(<span class="string">"h"</span>);    <span class="comment">// "abcdefgh"</span></span><br></pre></td></tr></table></figure>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s.find(<span class="string">"cd"</span>);    <span class="comment">// 返回出现的位置 2, 没找到则返回 std::string::npos</span></span><br><span class="line"></span><br><span class="line">s.rfind(<span class="string">"cd"</span>);    <span class="comment">// 从后往前找，还是返回出现的位置 2, 没找到则返回 std::string::npos</span></span><br></pre></td></tr></table></figure>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">to_string(val)    <span class="comment">// val 转换成 string</span></span><br><span class="line"></span><br><span class="line">stoi(s,p,b)    <span class="comment">// 把字符串s从p开始转换成b进制的int</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ostringstream</span> os;</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">12</span>;</span><br><span class="line">os &lt;&lt; i;    <span class="comment">// 把 int 类型传递给 output string stream</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"the data is "</span> + os.str() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">istringstream</span> <span class="title">is</span><span class="params">(<span class="string">"12"</span>)</span></span>;</span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line">is &gt;&gt; i;    <span class="comment">// 把 input string steam 传递给 int 类型</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="Python-string-用法"><a href="#Python-string-用法" class="headerlink" title="Python string 用法"></a>Python string 用法</h1><h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="0516-最长回文子序列"><a href="#0516-最长回文子序列" class="headerlink" title="0516 最长回文子序列"></a>0516 最长回文子序列</h2><p>Given a string s, find the longest palindromic subsequence’s length in s. You may assume that the maximum length of s is 1000.</p>
+<p>Example 1:<br>Input:</p>
+<p>“bbbab”<br>Output:<br>4</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">动态规划： dp[i][j] = dp[i+1][j-1] + 2 if s.charAt(i) == s.charAt(j) </span></span><br><span class="line"><span class="comment">otherwise, dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1])</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestPalindromeSubseq</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.size() &lt;= <span class="number">1</span>) <span class="keyword">return</span> s.size();</span><br><span class="line">        <span class="keyword">if</span>(s.size() == <span class="number">2</span>) <span class="keyword">return</span> s[<span class="number">0</span>] == s[<span class="number">1</span>] ? <span class="number">2</span>:<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; mat(s.size(), <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(s.size(), <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++)</span><br><span class="line">            mat[i][i] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size()<span class="number">-1</span>; i++)</span><br><span class="line">            mat[i][i+<span class="number">1</span>] = (s[i] == s[i+<span class="number">1</span>] ? <span class="number">2</span> : <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">2</span>; k &lt; s.size(); k++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i + k &lt; s.size(); i++)&#123;</span><br><span class="line">                mat[i][i+k] = max(s[i] == s[i+k]? <span class="number">2</span> + mat[i+<span class="number">1</span>][i+k<span class="number">-1</span>] : mat[i+<span class="number">1</span>][i+k<span class="number">-1</span>], max(mat[i][i+k<span class="number">-1</span>], mat[i+<span class="number">1</span>][i+k]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> mat[<span class="number">0</span>][s.size()<span class="number">-1</span>];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="0151-翻转单词"><a href="#0151-翻转单词" class="headerlink" title="0151 翻转单词"></a>0151 翻转单词</h2><p>Given an input string, reverse the string word by word.</p>
+<p>Example 1:</p>
+<p>Input: “the sky is blue”<br>Output: “blue is sky the”</p>
+<p>Example 2:</p>
+<p>Input: “  hello world!  “<br>Output: “world! hello”<br>Explanation: Your reversed string should not contain leading or trailing spaces.</p>
+<p>Example 3:</p>
+<p>Input: “a good   example”<br>Output: “example good a”<br>Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">方法一：使用 stringstream</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">reverseWords</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">istringstream</span> <span class="title">is</span><span class="params">(s)</span></span>;</span><br><span class="line">        <span class="built_in">ostringstream</span> os;</span><br><span class="line">        <span class="built_in">string</span> ans;</span><br><span class="line">        <span class="built_in">string</span> temp;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; vec;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(is &gt;&gt; temp)&#123;</span><br><span class="line">            vec.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(vec.size()==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="keyword">int</span>(vec.size())<span class="number">-1</span>; i &gt;=<span class="number">0</span> ; i--)&#123;</span><br><span class="line">            os&lt;&lt;vec[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ans=os.str();</span><br><span class="line">        ans.resize(ans.size()<span class="number">-1</span>);    <span class="comment">// 小技巧</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">方法二：保证不开辟额外的 vector 来保存各个 word</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">可以先把 leading, trailing 的零和中间过多的 0 给去除掉</span></span><br><span class="line"><span class="comment">然后 resize</span></span><br><span class="line"><span class="comment">然后左右翻转，这个容易，但是这时候每个单词本身也左右翻转了。</span></span><br><span class="line"><span class="comment">需要对每个单词本身左右翻转一下。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">之后呢</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符替换和复制"><a href="#字符替换和复制" class="headerlink" title="字符替换和复制"></a>字符替换和复制</h2><p>删除一个字符串所有的 a, 并且复制所有的 b. 注意，字符数组足够大。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分析：先删除 a, 可以利用原来字符串的空间。</span></span><br><span class="line"><span class="keyword">int</span> n = <span class="number">0</span>, numb = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; s[i]; ++i)&#123;</span><br><span class="line">	<span class="keyword">if</span>(s[i] != <span class="string">'a'</span>)&#123;</span><br><span class="line">		s[n++] = s[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(s[i] == <span class="string">'b'</span>)&#123;</span><br><span class="line">		++numb;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">s[n] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 再复制 b, 注意字符串要加长。</span></span><br><span class="line"><span class="comment">//     先计算字符串里有几个 b，得到复制后的长度。</span></span><br><span class="line"><span class="comment">//     然后“倒着”复制 --- 管用技巧。</span></span><br><span class="line"><span class="keyword">int</span> newLength = n + numb;</span><br><span class="line">s[newLength] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = newLength - <span class="number">1</span>, j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j)&#123;</span><br><span class="line">	s[i--] = s[j];</span><br><span class="line">	<span class="keyword">if</span>(s[j] == <span class="string">'b'</span>)&#123;</span><br><span class="line">		s[i--] = <span class="string">'b'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0796-rotate-string"><a href="#0796-rotate-string" class="headerlink" title="0796 rotate string"></a>0796 rotate string</h2><p>We are given two strings, A and B.</p>
+<p>A shift on A consists of taking string A and moving the leftmost character to the rightmost position. For example, if A = ‘abcde’, then it will be ‘bcdea’ after one shift on A. Return True if and only if A can become B after some number of shifts on A.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这个题是个巧妙地解法。避免了尝试去分析到底字符串 A 平移了多少个位置才得到 B.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">rotateString</span><span class="params">(<span class="built_in">string</span> A, <span class="built_in">string</span> B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (A.size() != B.size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> (A+A).find(B) != <span class="built_in">string</span>::npos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="表示数值的字符串"><a href="#表示数值的字符串" class="headerlink" title="表示数值的字符串"></a>表示数值的字符串</h2><p>剑指offer: 表示数值的字符串<br>请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串”+100″,”5e2″,”-123″,”3.1416″和”-1E-16″都表示数值。 但是”12e”,”1a3.14″,”1.2.3″,”+-5″和”12e+4.3″都不是。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置三个标志符分别记录“+/-”、“e/E”和“.”是否出现过</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNumeric</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = str.length;</span><br><span class="line">        <span class="keyword">boolean</span> sign = <span class="keyword">false</span>, decimal = <span class="keyword">false</span>, hasE = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str[i] == <span class="string">'+'</span> || str[i] == <span class="string">'-'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(!sign &amp;&amp; i &gt; <span class="number">0</span> &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'e'</span> &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'E'</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(sign &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'e'</span> &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'E'</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                sign = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'e'</span> || str[i] == <span class="string">'E'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == len - <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(hasE)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                hasE = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'.'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(hasE || decimal)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                decimal = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] &lt; <span class="string">'0'</span> || str[i] &gt; <span class="string">'9'</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0010-regular-expression-matching-正则表达式"><a href="#0010-regular-expression-matching-正则表达式" class="headerlink" title="0010 regular expression matching 正则表达式"></a>0010 regular expression matching 正则表达式</h2><h2 id="0044-wildcard-matching-通配符匹配"><a href="#0044-wildcard-matching-通配符匹配" class="headerlink" title="0044 wildcard matching 通配符匹配"></a>0044 wildcard matching 通配符匹配</h2><h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2><p>谈到字符串问题，不得不提的就是 KMP 算法，它是用来解决字符串查找的问题，可以在一个字符串（S）中查找一个子串（W）出现的位置。KMP 算法把字符匹配的时间复杂度缩小到 O(m+n) ,而空间复杂度也只有O(m)。因为“暴力搜索”的方法会反复回溯主串，导致效率低下，而KMP算法可以利用已经部分匹配这个有效信息，保持主串上的指针不回溯，通过修改子串的指针，让模式串尽量地移动到有效的位置。<br>具体算法细节请参考：</p>
+<p><a href="http://note.youdao.com/noteshare?id=dda1246716d3e1f321ee1b637ad2b413" target="_blank" rel="external">KMP算法</a><br><a href="http://note.youdao.com/noteshare?id=13fe90f9adddde21b0d5f8f7880ebc1f" target="_blank" rel="external">史上最清楚的 KMP 算法介绍</a></p>
+<h2 id="Boyer-Moore-算法"><a href="#Boyer-Moore-算法" class="headerlink" title="Boyer Moore 算法"></a>Boyer Moore 算法</h2><p>BM算法也是一种精确字符串匹配算法，它采用从右向左比较的方法，同时应用到了两种启发式规则，即坏字符规则 和好后缀规则 ，来决定向右跳跃的距离。基本思路就是从右往左进行字符匹配，遇到不匹配的字符后从坏字符表和好后缀表找一个最大的右移值，将模式串右移继续匹配。<br>字符串匹配的KMP算法</p>
+<h2 id="Manacher-算法"><a href="#Manacher-算法" class="headerlink" title="Manacher 算法"></a>Manacher 算法</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/25/算法leetcode/" rel="next" title="算法leetcode">
+                <i class="fa fa-chevron-left"></i> 算法leetcode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/04/leetcode-数组/" rel="prev" title="leetcode 数组">
+                leetcode 数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Zheng Xing" />
+            
+              <p class="site-author-name" itemprop="name">Zheng Xing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-string-用法"><span class="nav-number">1.</span> <span class="nav-text">C++ string 用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">1.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性描述"><span class="nav-number">1.2.</span> <span class="nav-text">特性描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串处理"><span class="nav-number">1.3.</span> <span class="nav-text">字符串处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找"><span class="nav-number">1.4.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.5.</span> <span class="nav-text">类型转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-string-用法"><span class="nav-number">2.</span> <span class="nav-text">Python string 用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成"><span class="nav-number">2.1.</span> <span class="nav-text">生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">3.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0516-最长回文子序列"><span class="nav-number">3.1.</span> <span class="nav-text">0516 最长回文子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0151-翻转单词"><span class="nav-number">3.2.</span> <span class="nav-text">0151 翻转单词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符替换和复制"><span class="nav-number">3.3.</span> <span class="nav-text">字符替换和复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0796-rotate-string"><span class="nav-number">3.4.</span> <span class="nav-text">0796 rotate string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表示数值的字符串"><span class="nav-number">3.5.</span> <span class="nav-text">表示数值的字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0010-regular-expression-matching-正则表达式"><span class="nav-number">3.6.</span> <span class="nav-text">0010 regular expression matching 正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0044-wildcard-matching-通配符匹配"><span class="nav-number">3.7.</span> <span class="nav-text">0044 wildcard matching 通配符匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP-算法"><span class="nav-number">3.8.</span> <span class="nav-text">KMP 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boyer-Moore-算法"><span class="nav-number">3.9.</span> <span class="nav-text">Boyer Moore 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manacher-算法"><span class="nav-number">3.10.</span> <span class="nav-text">Manacher 算法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zheng Xing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://githubio-2.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/11/30/leetcode-string/';
+          this.page.identifier = '2019/11/30/leetcode-string/';
+          this.page.title = 'leetcode string';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://githubio-2.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

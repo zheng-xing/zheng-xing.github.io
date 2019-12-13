@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介 O(n) 是什么 注意 n 是什么？图的节点？边？ 扫一遍 两头扫 双重循环，但是内循环变量不减 单调性 队列 堆栈   组合数学 下一个排列（上一个排列） 巧妙地证明 计数 != 枚举   动态规划    例题1. 名人问题题目：有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。名人定义为他不认识任何人且所有人都认识他的人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leecode O(n) time complexity">
+<meta property="og:url" content="http://yoursite.com/2019/12/11/leecode-O-n-time-complexity/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介 O(n) 是什么 注意 n 是什么？图的节点？边？ 扫一遍 两头扫 双重循环，但是内循环变量不减 单调性 队列 堆栈   组合数学 下一个排列（上一个排列） 巧妙地证明 计数 != 枚举   动态规划    例题1. 名人问题题目：有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。名人定义为他不认识任何人且所有人都认识他的人">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-13T07:16:24.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leecode O(n) time complexity">
+<meta name="twitter:description" content="简介 O(n) 是什么 注意 n 是什么？图的节点？边？ 扫一遍 两头扫 双重循环，但是内循环变量不减 单调性 队列 堆栈   组合数学 下一个排列（上一个排列） 巧妙地证明 计数 != 枚举   动态规划    例题1. 名人问题题目：有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。名人定义为他不认识任何人且所有人都认识他的人">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/11/leecode-O-n-time-complexity/"/>
+
+
+
+
+
+  <title>leecode O(n) time complexity | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/leecode-O-n-time-complexity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leecode O(n) time complexity</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-11T19:36:14-08:00">
+                2019-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/11/leecode-O-n-time-complexity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/12/11/leecode-O-n-time-complexity/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li>O(n) 是什么<ul>
+<li>注意 n 是什么？图的节点？边？</li>
+<li>扫一遍</li>
+<li>两头扫</li>
+<li>双重循环，但是内循环变量不减</li>
+<li>单调性<ul>
+<li>队列</li>
+<li>堆栈</li>
+</ul>
+</li>
+<li>组合数学<ul>
+<li>下一个排列（上一个排列）</li>
+<li>巧妙地证明</li>
+<li>计数 != 枚举</li>
+</ul>
+</li>
+<li>动态规划</li>
+</ul>
+</li>
+</ul>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1-名人问题"><a href="#1-名人问题" class="headerlink" title="1. 名人问题"></a>1. 名人问题</h2><p>题目：<br>有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。<br>名人定义为他不认识任何人且所有人都认识他的人。请求出所有名人。</p>
+<p>分析：<br>最多有几个名人？1 个！</p>
+<p>O(n) 的方法：<br>对于两个人 i 和 j，如果 i 认识 j，则 i 显然不是名人，排除掉；<br>如果 i 不认识 j，则 j 显然不是名人，排除掉。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现一：一头扫</span></span><br><span class="line"><span class="comment">// i &lt; j, [0...i-1]没有名人，[i...j-1] 没有名人</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(; j &lt; n; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>(known[i][j])&#123;</span><br><span class="line">		i = j;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>((i != j) &amp;&amp; (known[i][j] || !known[j][i]))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现二：两头扫</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>, j = n - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">	<span class="keyword">if</span>(known[i][j])&#123;</span><br><span class="line">		++i;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		--j;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>((i != j) &amp;&amp; (known[i][j] || !known[j][i]))&#123;  <span class="comment">// i认识j或者j不认识i</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> i;</span><br></pre></td></tr></table></figure>
+<h2 id="Trapping-in-Rain-Water-leetcode-0042"><a href="#Trapping-in-Rain-Water-leetcode-0042" class="headerlink" title="Trapping in Rain Water leetcode 0042"></a>Trapping in Rain Water leetcode 0042</h2><h2 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h2><p>题目：<br>a[i] 表示横坐标为 i 出有一个高度为 a[i] 的竖线。把两个竖线当做一个容器左右边的高度，<br>横轴当做底，问哪两条线段组成的容器容量最大？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> n = height.size();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = n - <span class="number">1</span>; i &lt; j; )&#123;</span><br><span class="line">    		best = max(best, min(height[i], height[j]) * (j - i));</span><br><span class="line">    		<span class="keyword">if</span>(height[i] &lt; height[j])&#123;</span><br><span class="line">    			++i;</span><br><span class="line">    		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    			--j;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> best;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最大间隔问题"><a href="#最大间隔问题" class="headerlink" title="最大间隔问题"></a><strong>最大间隔问题</strong></h2><p>题目<br>给定数组 a，求下标对 i，j 满足 a[i]&lt;=a[j]，并且 j-i 最大。</p>
+<p>分析：</p>
+<ul>
+<li>假设目前最优解是 d，对于 j，至少要检查 i = j - d - 1 才可能更优。</li>
+<li>记录前缀最小值 p[x] = min{p[0…x]}</li>
+<li>倒着循环 j，对于每个 j 看一下 p[j-d-1] 是否 &lt;= a[j]，用 p 引导。</li>
+<li>如果前面都比 a[j] 大，则这个 j 得不到更优的解。</li>
+</ul>
+<p><mark>这一题我实在没有想到这个巧妙地思路，我始终局限在两个 pointer 指到元素上面。<br>但是它其实是有一个 “pointer” 是 d！参考下面的代码。</mark></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">run</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = a.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p(n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		p[i] = ((i ==<span class="number">0</span>) || (a[i] &lt; p[i<span class="number">-1</span>])) ? a[i] : p[i<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt; best; --j)&#123;</span><br><span class="line">		<span class="keyword">while</span>((j &gt; best) &amp;&amp; (a[j] &gt;= p[j - best <span class="number">-1</span>]))&#123;</span><br><span class="line">			++best;</span><br><span class="line">		&#125;  <span class="comment">// 对于每一个 j, 内层循环都试图找到这个 j 所能允许的最大的 gap.</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> best;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="01-相等的串"><a href="#01-相等的串" class="headerlink" title="01 相等的串"></a>01 相等的串</h2><p>题目：<br>给定一个 01 串，求它的一个最长的子串满足 0 和 1 的个数相等。</p>
+<p>分析：</p>
+<ul>
+<li><mark>把 0 看成 -1，1 当做 +1</mark>，还是使用“前缀和”的技巧<ul>
+<li><font color="orange">这个把 0 看成 -1 的操作绝了！本来这一段区间内即使 0 1 的数量相等，区间和也有很多种数值可能，现在把 0 当成 -1 以后，这么多的可能都塌缩到一种可能: 0!!</font></li>
+</ul>
+</li>
+<li>如果有两个前缀和相等，则这两个前缀和之间的子串满足 0，1 的个数相等。</li>
+<li>需要对前缀和排序吗？那就是 O(nlogn) 的时间复杂度了</li>
+<li>优化！不需要排序<ul>
+<li>前缀和的范围是[-n…n]，我们加上 n 之后就是 [0…2n]，只要记录<mark>第一次出现</mark>的位置。</li>
+<li>本质！用 hash 代替排序。当 hash 值是比较小的非负整数时，可以用做数组下标。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">run</span><span class="params">(<span class="keyword">char</span> *s)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="built_in">strlen</span>(s);</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; have((n &lt;&lt; <span class="number">1</span>) | <span class="number">1</span>, <span class="number">-1</span>);  <span class="comment">// 擦，括号里面就是 2n+1 的意思。</span></span><br><span class="line">	have[n] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = n;</span><br><span class="line">	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		sum += (s[i] == <span class="string">'0'</span>) ? (<span class="number">-1</span>) : (+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">if</span>(have[sum] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">			best = max(best, i - have[sum] + <span class="number">1</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			have[sum] = i + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> best;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二进制矩阵中-1-的个数"><a href="#二进制矩阵中-1-的个数" class="headerlink" title="二进制矩阵中 1 的个数"></a>二进制矩阵中 1 的个数</h2><p>题目：<br>给定 n * n 的 01 方阵，每一行都是降序的（即先连续的一段 1，再连续的一段 0），求 1 最多的那行中 1 的个数？</p>
+<p>分析：</p>
+<ul>
+<li>思路一：数出每一行的 1 … 复杂度O(n^2)</li>
+<li>思路二：二分法找到每一行 0 和 1 的分界线，复杂度 O(nlogn)</li>
+<li>思路三：从左上角开始，如果某个位置是 1，就向右走，如果是 0 则向下走！（我们只需要找到比本行更多的 1 才有意义！）</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">run</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;a)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = a.size();</span><br><span class="line">	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; (best &lt; n) &amp;&amp; (i &lt; n); ++i)&#123;</span><br><span class="line">		<span class="keyword">while</span>((best &lt; n) &amp;&amp; (a[i][best] == <span class="string">'1'</span>))&#123;</span><br><span class="line">			++best;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> best;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="其他题目"><a href="#其他题目" class="headerlink" title="其他题目"></a>其他题目</h2><ul>
+<li>最大子数组和</li>
+<li>KMP</li>
+<li>Manacher</li>
+<li>最大直方图（单调堆栈）</li>
+<li>滑动窗口最大值（单调队列）</li>
+<li>快排 partition 过程</li>
+<li>杨氏矩阵查找<ul>
+<li>荷兰国旗问题</li>
+<li>First Missing Positive</li>
+</ul>
+</li>
+<li>排列组合相关<ul>
+<li>Next/Previous permutation</li>
+</ul>
+</li>
+<li>树相关<ul>
+<li>二叉树遍历，（最大、最小）深度，同构，镜像判断，平衡判断</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/10/排序算法总结/" rel="next" title="排序算法总结">
+                <i class="fa fa-chevron-left"></i> 排序算法总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Zheng Xing" />
+            
+              <p class="site-author-name" itemprop="name">Zheng Xing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例题"><span class="nav-number">2.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-名人问题"><span class="nav-number">2.1.</span> <span class="nav-text">1. 名人问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trapping-in-Rain-Water-leetcode-0042"><span class="nav-number">2.2.</span> <span class="nav-text">Trapping in Rain Water leetcode 0042</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Container-With-Most-Water"><span class="nav-number">2.3.</span> <span class="nav-text">Container With Most Water</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大间隔问题"><span class="nav-number">2.4.</span> <span class="nav-text">最大间隔问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#01-相等的串"><span class="nav-number">2.5.</span> <span class="nav-text">01 相等的串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二进制矩阵中-1-的个数"><span class="nav-number">2.6.</span> <span class="nav-text">二进制矩阵中 1 的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他题目"><span class="nav-number">2.7.</span> <span class="nav-text">其他题目</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zheng Xing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://githubio-2.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/12/11/leecode-O-n-time-complexity/';
+          this.page.identifier = '2019/12/11/leecode-O-n-time-complexity/';
+          this.page.title = 'leecode O(n) time complexity';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://githubio-2.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

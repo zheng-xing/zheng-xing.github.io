@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="WIKIBit manipulation is the act of algorithmically manipulating bits or other pieces of data shorter than a word. Computer programming tasks that require bit manipulation include low-level device cont">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-07-26T07:48:33.294Z">
+<meta property="og:updated_time" content="2019-12-13T07:16:23.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bit_manipulation">
 <meta name="twitter:description" content="WIKIBit manipulation is the act of algorithmically manipulating bits or other pieces of data shorter than a word. Computer programming tasks that require bit manipulation include low-level device cont">
@@ -293,6 +293,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -357,7 +379,7 @@ Exclusive-or is commonly abbreviated XOR.
 <li>Use ==^== to remove even exactly same numbers and save the odd, or save the distinct bits and remove the same.</li>
 <li>Use ==^== and ==&amp;== to add two integers</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b==<span class="number">0</span>? a:getSum(a^b, (a&amp;b)&lt;&lt;<span class="number">1</span>); <span class="comment">//be careful about the terminating condition;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b==<span class="number">0</span>? a:getSum(a^b, (a&amp;b)&lt;&lt;<span class="number">1</span>); <span class="comment">//be careful about the terminating condition;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者不用递归</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (b!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> carry = a &amp; b;</span><br><span class="line">            a = a^b; </span><br><span class="line">            b = carry &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ol>
 <li>Given an array containing n distinct numbers taken from 0, 1, 2, …, n, find the one that is missing from the array. For example, Given nums = [0, 1, 3] return 2. (Of course, you can do this by math.)</li>
 </ol>
@@ -394,6 +416,10 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
 <p>Actually there are two more methods to handle this using recursion and iteration respectively.</p>
 <h5 id="BITSET"><a href="#BITSET" class="headerlink" title="BITSET"></a>BITSET</h5><p>A bitset stores bits (elements with only two possible values: 0 or 1, true or false, …).<br>The class emulates an array of bool elements, but optimized for space allocation: generally, each element occupies only one bit (which, on most systems, is eight times less than the smallest elemental type: char).</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bitset::count</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;       // std::cout</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;         // std::string</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bitset&gt;         // std::bitset</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;8&gt; foo (<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"10110011"</span>));</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; foo &lt;&lt; <span class="string">" has "</span>;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; foo.count() &lt;&lt; <span class="string">" ones and "</span>;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; (foo.size()-foo.count()) &lt;&lt; <span class="string">" zeros.\n"</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="bitwise-AND-of-Numbers-Range-leetcode-0201"><a href="#bitwise-AND-of-Numbers-Range-leetcode-0201" class="headerlink" title="bitwise AND of Numbers Range leetcode 0201"></a>bitwise AND of Numbers Range leetcode 0201</h4><p>题目描述:<br>Given a range [m, n] where 0 &lt;= m &lt;= n &lt;= 2147483647, return the bitwise AND of all numbers in this range, inclusive.<br>For example, given the range [5, 7], you should return 4.</p>
+<p>分析：<br>这一题实际上就是在找 两个 integer 二进制写法的公共 prefix</p>
+<p>The hardest part of this problem is to find the regular pattern.<br>For example, for number 26 to 30<br>Their binary form are:<br>1 1 0 1 0<br>1 1 0 1 1<br>1 1 1 0 0　　<br>1 1 1 0 1　　<br>1 1 1 1 0<br>Because we are trying to find bitwise AND, so if any bit there are at least one 0 and one 1, it always 0. In this case, it is 11000.<br>So we are go to cut all these bit that they are different. In this case we cut the right 3 bit.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rangeBitwiseAnd</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(m != n)&#123;</span><br><span class="line">            m &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (m &lt;&lt; i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ol>
 <li><a href="https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently" target="_blank" rel="external">https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently</a></li>
 </ol>
@@ -530,7 +556,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -541,7 +567,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -552,7 +578,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -587,7 +613,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WIKI"><span class="nav-number">1.</span> <span class="nav-text">WIKI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Details"><span class="nav-number">2.</span> <span class="nav-text">Details</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basics"><span class="nav-number">2.1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Examples"><span class="nav-number">2.2.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Count-the-number-of-ones-in-the-binary-representation-of-the-given-number"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. Count the number of ones in the binary representation of the given number</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Is power of four (actually map-checking, iterative and recursive methods can do the same)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-tricks"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. ==^== tricks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-tricks"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. ==|== tricks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-amp-tricks"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. ==&== tricks</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Application"><span class="nav-number">2.3.</span> <span class="nav-text">Application</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SETS"><span class="nav-number">2.3.1.</span> <span class="nav-text">SETS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BITSET"><span class="nav-number">2.3.2.</span> <span class="nav-text">BITSET</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WIKI"><span class="nav-number">1.</span> <span class="nav-text">WIKI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Details"><span class="nav-number">2.</span> <span class="nav-text">Details</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basics"><span class="nav-number">2.1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Examples"><span class="nav-number">2.2.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Count-the-number-of-ones-in-the-binary-representation-of-the-given-number"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. Count the number of ones in the binary representation of the given number</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Is power of four (actually map-checking, iterative and recursive methods can do the same)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-tricks"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. ==^== tricks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-tricks"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. ==|== tricks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-amp-tricks"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. ==&== tricks</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Application"><span class="nav-number">2.3.</span> <span class="nav-text">Application</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SETS"><span class="nav-number">2.3.1.</span> <span class="nav-text">SETS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BITSET"><span class="nav-number">2.3.2.</span> <span class="nav-text">BITSET</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bitwise-AND-of-Numbers-Range-leetcode-0201"><span class="nav-number">2.4.</span> <span class="nav-text">bitwise AND of Numbers Range leetcode 0201</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
             
 
           </div>

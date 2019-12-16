@@ -374,14 +374,14 @@
 </ul>
 </li>
 </ul>
-<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1-名人问题"><a href="#1-名人问题" class="headerlink" title="1. 名人问题"></a>1. 名人问题</h2><p>题目：<br>有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。<br>名人定义为他不认识任何人且所有人都认识他的人。请求出所有名人。</p>
-<p>分析：<br>最多有几个名人？1 个！</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1-名人问题"><a href="#1-名人问题" class="headerlink" title="1. 名人问题"></a>1. 名人问题</h2><p>[题目]<br>有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。<br>名人定义为他不认识任何人且所有人都认识他的人。请求出所有名人。</p>
+<p>[分析]<br>最多有几个名人？1 个！</p>
 <p>O(n) 的方法：<br>对于两个人 i 和 j，如果 i 认识 j，则 i 显然不是名人，排除掉；<br>如果 i 不认识 j，则 j 显然不是名人，排除掉。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现一：一头扫</span></span><br><span class="line"><span class="comment">// i &lt; j, [0...i-1]没有名人，[i...j-1] 没有名人</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(; j &lt; n; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>(known[i][j])&#123;</span><br><span class="line">		i = j;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>((i != j) &amp;&amp; (known[i][j] || !known[j][i]))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现二：两头扫</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>, j = n - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">	<span class="keyword">if</span>(known[i][j])&#123;</span><br><span class="line">		++i;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		--j;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>((i != j) &amp;&amp; (known[i][j] || !known[j][i]))&#123;  <span class="comment">// i认识j或者j不认识i</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> i;</span><br></pre></td></tr></table></figure>
-<h2 id="Trapping-in-Rain-Water-leetcode-0042"><a href="#Trapping-in-Rain-Water-leetcode-0042" class="headerlink" title="Trapping in Rain Water leetcode 0042"></a>Trapping in Rain Water leetcode 0042</h2><h2 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h2><p>题目：<br>a[i] 表示横坐标为 i 出有一个高度为 a[i] 的竖线。把两个竖线当做一个容器左右边的高度，<br>横轴当做底，问哪两条线段组成的容器容量最大？</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> n = height.size();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = n - <span class="number">1</span>; i &lt; j; )&#123;</span><br><span class="line">    		best = max(best, min(height[i], height[j]) * (j - i));</span><br><span class="line">    		<span class="keyword">if</span>(height[i] &lt; height[j])&#123;</span><br><span class="line">    			++i;</span><br><span class="line">    		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    			--j;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> best;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="最大间隔问题"><a href="#最大间隔问题" class="headerlink" title="最大间隔问题"></a><strong>最大间隔问题</strong></h2><p>题目<br>给定数组 a，求下标对 i，j 满足 a[i]&lt;=a[j]，并且 j-i 最大。</p>
-<p>分析：</p>
+<h2 id="Trapping-in-Rain-Water-leetcode-0042"><a href="#Trapping-in-Rain-Water-leetcode-0042" class="headerlink" title="Trapping in Rain Water leetcode 0042"></a>Trapping in Rain Water leetcode 0042</h2><h2 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h2><p>[题目]<br>a[i] 表示横坐标为 i 出有一个高度为 a[i] 的竖线。把两个竖线当做一个容器左右边的高度，<br>横轴当做底，问哪两条线段组成的容器容量最大？</p>
+<p>[代码]<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> n = height.size();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = n - <span class="number">1</span>; i &lt; j; )&#123;</span><br><span class="line">    		best = max(best, min(height[i], height[j]) * (j - i));</span><br><span class="line">    		<span class="keyword">if</span>(height[i] &lt; height[j])&#123;</span><br><span class="line">    			++i;</span><br><span class="line">    		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    			--j;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> best;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="最大间隔问题"><a href="#最大间隔问题" class="headerlink" title="最大间隔问题"></a><strong>最大间隔问题</strong></h2><p>[题目]<br>给定数组 a，求下标对 i，j 满足 a[i]&lt;=a[j]，并且 j-i 最大。</p>
+<p>[分析]</p>
 <ul>
 <li>假设目前最优解是 d，对于 j，至少要检查 i = j - d - 1 才可能更优。</li>
 <li>记录前缀最小值 p[x] = min{p[0…x]}</li>
@@ -390,8 +390,8 @@
 </ul>
 <p><mark>这一题我实在没有想到这个巧妙地思路，我始终局限在两个 pointer 指到元素上面。<br>但是它其实是有一个 “pointer” 是 d！参考下面的代码。</mark></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">run</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = a.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p(n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		p[i] = ((i ==<span class="number">0</span>) || (a[i] &lt; p[i<span class="number">-1</span>])) ? a[i] : p[i<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt; best; --j)&#123;</span><br><span class="line">		<span class="keyword">while</span>((j &gt; best) &amp;&amp; (a[j] &gt;= p[j - best <span class="number">-1</span>]))&#123;</span><br><span class="line">			++best;</span><br><span class="line">		&#125;  <span class="comment">// 对于每一个 j, 内层循环都试图找到这个 j 所能允许的最大的 gap.</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> best;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="01-相等的串"><a href="#01-相等的串" class="headerlink" title="01 相等的串"></a>01 相等的串</h2><p>题目：<br>给定一个 01 串，求它的一个最长的子串满足 0 和 1 的个数相等。</p>
-<p>分析：</p>
+<h2 id="01-相等的串"><a href="#01-相等的串" class="headerlink" title="01 相等的串"></a>01 相等的串</h2><p>[题目]<br>给定一个 01 串，求它的一个最长的子串满足 0 和 1 的个数相等。</p>
+<p>[分析]</p>
 <ul>
 <li><mark>把 0 看成 -1，1 当做 +1</mark>，还是使用“前缀和”的技巧<ul>
 <li><font color="orange">这个把 0 看成 -1 的操作绝了！本来这一段区间内即使 0 1 的数量相等，区间和也有很多种数值可能，现在把 0 当成 -1 以后，这么多的可能都塌缩到一种可能: 0!!</font></li>
@@ -406,8 +406,8 @@
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">run</span><span class="params">(<span class="keyword">char</span> *s)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="built_in">strlen</span>(s);</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; have((n &lt;&lt; <span class="number">1</span>) | <span class="number">1</span>, <span class="number">-1</span>);  <span class="comment">// 擦，括号里面就是 2n+1 的意思。</span></span><br><span class="line">	have[n] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = n;</span><br><span class="line">	<span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		sum += (s[i] == <span class="string">'0'</span>) ? (<span class="number">-1</span>) : (+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">if</span>(have[sum] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">			best = max(best, i - have[sum] + <span class="number">1</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			have[sum] = i + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> best;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二进制矩阵中-1-的个数"><a href="#二进制矩阵中-1-的个数" class="headerlink" title="二进制矩阵中 1 的个数"></a>二进制矩阵中 1 的个数</h2><p>题目：<br>给定 n * n 的 01 方阵，每一行都是降序的（即先连续的一段 1，再连续的一段 0），求 1 最多的那行中 1 的个数？</p>
-<p>分析：</p>
+<h2 id="二进制矩阵中-1-的个数"><a href="#二进制矩阵中-1-的个数" class="headerlink" title="二进制矩阵中 1 的个数"></a>二进制矩阵中 1 的个数</h2><p>[题目]<br>给定 n * n 的 01 方阵，每一行都是降序的（即先连续的一段 1，再连续的一段 0），求 1 最多的那行中 1 的个数？</p>
+<p>[分析]</p>
 <ul>
 <li>思路一：数出每一行的 1 … 复杂度O(n^2)</li>
 <li>思路二：二分法找到每一行 0 和 1 的分界线，复杂度 O(nlogn)</li>
@@ -435,13 +435,13 @@
 </ul>
 </li>
 </ul>
-<h2 id="下一个排列-leetcode-0031-STL亦如此实现"><a href="#下一个排列-leetcode-0031-STL亦如此实现" class="headerlink" title="下一个排列 leetcode 0031 (STL亦如此实现)"></a>下一个排列 leetcode 0031 (STL亦如此实现)</h2><p>题目<br>Next Permutation 找到字典序里的下一个排列。12345 的下一个是 12354，而54321 的下一个是 12345.</p>
-<p>分析</p>
+<h2 id="下一个排列-leetcode-0031-STL亦如此实现"><a href="#下一个排列-leetcode-0031-STL亦如此实现" class="headerlink" title="下一个排列 leetcode 0031 (STL亦如此实现)"></a>下一个排列 leetcode 0031 (STL亦如此实现)</h2><p>[题目]<br>Next Permutation 找到字典序里的下一个排列。12345 的下一个是 12354，而54321 的下一个是 12345.</p>
+<p>[分析]</p>
 <ul>
 <li>a[0], a[1], …, a[n-1], 下一个排列是字典序比它大，最小的</li>
 <li>找到尽可能大的 m, b[0] = a[0], b[1] = a[1], …, b[m-1] = a[m-1], 而 b[m] &gt; a[m], b[m+1 … n-1] 是按照升序排列的。</li>
 </ul>
-<p>形象点的分析</p>
+<p>[形象点的分析]</p>
 <ul>
 <li>目前的排列是: (A)a<a href="B">x</a></li>
 <li>下一个排列是: (A)a<a href="B&#39;">y</a><ul>
@@ -460,7 +460,7 @@
 </ul>
 </li>
 </ul>
-<p>算法 (二找、一交换、一翻转)</p>
+<p>[算法 (二找、一交换、一翻转)]</p>
 <ul>
 <li>找到最后一个严格升序的首位 (a[i] &lt; a[i+1])，定义为 x<ul>
 <li>(A) = a[0…x-1], (B) = a[x+1…n-1]</li>
@@ -488,26 +488,26 @@
 <li>交换 a[x], a[y]</li>
 <li>对 (x+1) 位后进行逆转</li>
 </ul>
-<h2 id="均分01"><a href="#均分01" class="headerlink" title="均分01"></a>均分01</h2><p>题目<br>给定一个01串，签好包含 2n 个 0 和 2n 个 1，你可以把它切成若干段，再把它们任意拼接，要求拼接出两部分，每部分恰好包含 n 个 0，n 个 1，如何使得切得段数最少？</p>
-<p>举例一：0101，从中间切一刀形成(01)(01)，分别作为两部分<br>举例二：0011，切成 3 段 (0)(01)(1), 把中间 (01) 单独作为一部分，生育的 (0)(1) 作为另外一部分。</p>
-<p>思路<br>这一题其实都不算是算法题我觉得。<br>先考虑前面 2n 个数字，如果里面 1 的个数超过 0，那么把这个长度为 2n 的窗口向右挪，中间肯定在某个位置使得 1 和 0 的个数相等？为啥呢？因为不可能在所有的位置都有 2n 窗口内 1 的个数大于 0 的个数，这与题目的条件 4n 窗口内有 2n 个 1 和 2n 个 0 相冲突！</p>
-<p>答案<br>如果最前面 2n 个数满足 1 和 0 个数相等，那么就分成两段就可以了；<br>如果不是，那么就分成三部分。</p>
-<h2 id="X-的个数"><a href="#X-的个数" class="headerlink" title="X 的个数"></a>X 的个数</h2><p>题目<br>给定一个长度为 n 的整数数组 a，下标从 0 开始，再给定一个元素 X，求一个位置 m，满足 0&lt;=m&lt;=n，且 a[0…m-1] 中 X 的个数（如果m=0表示空数组）和 a[m…n-1] 中非 X 的个数（如果 m==n，表示空数组）相等。</p>
-<p>分析</p>
+<h2 id="均分01"><a href="#均分01" class="headerlink" title="均分01"></a>均分01</h2><p>[题目]<br>给定一个01串，签好包含 2n 个 0 和 2n 个 1，你可以把它切成若干段，再把它们任意拼接，要求拼接出两部分，每部分恰好包含 n 个 0，n 个 1，如何使得切得段数最少？</p>
+<p>[示例]<br>举例一：0101，从中间切一刀形成(01)(01)，分别作为两部分<br>举例二：0011，切成 3 段 (0)(01)(1), 把中间 (01) 单独作为一部分，生育的 (0)(1) 作为另外一部分。</p>
+<p>[思路]<br>这一题其实都不算是算法题我觉得。<br>先考虑前面 2n 个数字，如果里面 1 的个数超过 0，那么把这个长度为 2n 的窗口向右挪，中间肯定在某个位置使得 1 和 0 的个数相等？为啥呢？因为不可能在所有的位置都有 2n 窗口内 1 的个数大于 0 的个数，这与题目的条件 4n 窗口内有 2n 个 1 和 2n 个 0 相冲突！</p>
+<p>[答案]<br>如果最前面 2n 个数满足 1 和 0 个数相等，那么就分成两段就可以了；<br>如果不是，那么就分成三部分。</p>
+<h2 id="X-的个数"><a href="#X-的个数" class="headerlink" title="X 的个数"></a>X 的个数</h2><p>[题目]<br>给定一个长度为 n 的整数数组 a，下标从 0 开始，再给定一个元素 X，求一个位置 m，满足 0&lt;=m&lt;=n，且 a[0…m-1] 中 X 的个数（如果m=0表示空数组）和 a[m…n-1] 中非 X 的个数（如果 m==n，表示空数组）相等。</p>
+<p>[分析]</p>
 <ul>
 <li>假设 a 中一共有 x 个 X，给定 m，假设 a[0…m-1] 中有 y 个 X，则 a[m…n-1] 中非 X 的个数是 (n-m)-(x-y) = n-m-x+y == y</li>
 <li>化简可得 m = n - x</li>
 <li>解存在且唯一！</li>
 </ul>
-<p>解法</p>
+<p>[解法]</p>
 <ul>
 <li>直接统计下有多少个 X 就可以了</li>
 <li>O(n) 时间，O(1) 空间</li>
 </ul>
-<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><p>10个硬币，有四个是正面的，在不开灯的情况下，把他们分成两组，如果做可以使得正面的个数相等？（可以手动改变某些硬币的正反面）</p>
-<p>答案<br>分成两组，一组 6 个，一组 4 个，然后把 4 个的那组所有硬币都翻个面。</p>
-<h2 id="PAT-的个数"><a href="#PAT-的个数" class="headerlink" title="PAT 的个数"></a>PAT 的个数</h2><p>题目<br>给定一个只包含 P, A, T 的串，求一共出现多少个 “PAT” 子序列？</p>
-<p>分析：计数和枚举不同</p>
+<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><p>[题目]<br>10个硬币，有四个是正面的，在不开灯的情况下，把他们分成两组，如果做可以使得正面的个数相等？（可以手动改变某些硬币的正反面）</p>
+<p>[答案]<br>分成两组，一组 6 个，一组 4 个，然后把 4 个的那组所有硬币都翻个面。</p>
+<h2 id="PAT-的个数"><a href="#PAT-的个数" class="headerlink" title="PAT 的个数"></a>PAT 的个数</h2><p>[题目]<br>给定一个只包含 P, A, T 的串，求一共出现多少个 “PAT” 子序列？</p>
+<p>[分析：计数和枚举不同]</p>
 <ul>
 <li>p, pa, pat 表示之前出现的 “P”, “PA”, “PAT” 的个数</li>
 <li>s[i] == “P”, ++p</li>
@@ -515,11 +515,11 @@
 <li>s[i] == ‘T’, pat += pa</li>
 <li>时间复杂度 O(n)，空间复杂度 O(1)</li>
 </ul>
-<h3 id="思考题-distinct-subsequences-leetcode-115"><a href="#思考题-distinct-subsequences-leetcode-115" class="headerlink" title="思考题 distinct subsequences leetcode 115"></a>思考题 distinct subsequences leetcode 115</h3><p>题目<br>Given a string S and a string T, count the number of distinct subsequences of S which equals T.</p>
+<h3 id="思考题-distinct-subsequences-leetcode-115"><a href="#思考题-distinct-subsequences-leetcode-115" class="headerlink" title="思考题 distinct subsequences leetcode 115"></a>思考题 distinct subsequences leetcode 115</h3><p>[题目]<br>Given a string S and a string T, count the number of distinct subsequences of S which equals T.</p>
 <p>A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, “ACE” is a subsequence of “ABCDE” while “AEC” is not).</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">注意内层的 for 循环是倒着来算的，这样子可以排除掉出现相同字母的情形。</span></span><br><span class="line"><span class="comment">比如 S = "rabbbit", T = "rabbit"</span></span><br><span class="line"><span class="comment">T 的第三第四个位置都是 'b'</span></span><br><span class="line"><span class="comment">如果你从左往右看 T, 第三个 'b' 那里你把 dp[2]更新了，</span></span><br><span class="line"><span class="comment">这会导致第四个 'b' 那里你用 dp[2] 来计算 dp[3] 出现错误。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDistinct</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">long</span>&gt; dp(t.size(), <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = t.size()<span class="number">-1</span>; j &gt;= <span class="number">0</span>; j --) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i] == t[j])</span><br><span class="line">                    dp[j] += j ? dp[j<span class="number">-1</span>] : <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp.back();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="最小平均值子数组-codility"><a href="#最小平均值子数组-codility" class="headerlink" title="最小平均值子数组 codility"></a>最小平均值子数组 codility</h2><p>题目<br>给定一个数组，求一个至少包含两个元素的子数组，满足平均值最小。<br>输出子数组的起点，多个的时候输出最小的。</p>
-<p>分析</p>
+<p>[代码]<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">注意内层的 for 循环是倒着来算的，这样子可以排除掉出现相同字母的情形。</span></span><br><span class="line"><span class="comment">比如 S = "rabbbit", T = "rabbit"</span></span><br><span class="line"><span class="comment">T 的第三第四个位置都是 'b'</span></span><br><span class="line"><span class="comment">如果你从左往右看 T, 第三个 'b' 那里你把 dp[2]更新了，</span></span><br><span class="line"><span class="comment">这会导致第四个 'b' 那里你用 dp[2] 来计算 dp[3] 出现错误。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDistinct</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">long</span>&gt; dp(t.size(), <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = t.size()<span class="number">-1</span>; j &gt;= <span class="number">0</span>; j --) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i] == t[j])</span><br><span class="line">                    dp[j] += j ? dp[j<span class="number">-1</span>] : <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp.back();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="最小平均值子数组-codility"><a href="#最小平均值子数组-codility" class="headerlink" title="最小平均值子数组 codility"></a>最小平均值子数组 codility</h2><p>[题目]<br>给定一个数组，求一个至少包含两个元素的子数组，满足平均值最小。<br>输出子数组的起点，多个的时候输出最小的。</p>
+<p>[分析]</p>
 <ul>
 <li>如果最优解长度为偶数，把它拆成长度为 2 的若干段</li>
 <li>如果最优解长度为奇数 (&gt;2), 我们把它柴承长度为 2 的若干段，和一段长度为 3 的段</li>
@@ -529,8 +529,8 @@
 </li>
 <li>！！！ 一次，只需要考虑长度为 2 和 3 的段计算就可以了。</li>
 </ul>
-<h2 id="环形最大子数组和-from-itint5-com-Q9"><a href="#环形最大子数组和-from-itint5-com-Q9" class="headerlink" title="环形最大子数组和 from itint5.com Q9"></a>环形最大子数组和 from itint5.com Q9</h2><p>题目<br>给定一个数组，是环形的，最后一个元素和第一个元素相接，求最大子数组和。</p>
-<p>分析</p>
+<h2 id="环形最大子数组和-from-itint5-com-Q9"><a href="#环形最大子数组和-from-itint5-com-Q9" class="headerlink" title="环形最大子数组和 from itint5.com Q9"></a>环形最大子数组和 from itint5.com Q9</h2><p>[题目]<br>给定一个数组，是环形的，最后一个元素和第一个元素相接，求最大子数组和。</p>
+<p>[分析]</p>
 <ul>
 <li>环形最大子数组和<ul>
 <li>普通最大子数组和，例如 1 2 -4 <mark> 5 6 -9 </mark></li>
@@ -546,8 +546,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="允许交换一次的最大子数组和"><a href="#允许交换一次的最大子数组和" class="headerlink" title="允许交换一次的最大子数组和"></a>允许交换一次的最大子数组和</h2><p><mark> 这一题非常难！要好好琢磨其 DP 思路 </mark><br>题目<br>给定一个数组，在允许交换两个数的前提下（只允许交换一次，可以不换），求最大子数组的和。</p>
-<p>分析</p>
+<h2 id="允许交换一次的最大子数组和"><a href="#允许交换一次的最大子数组和" class="headerlink" title="允许交换一次的最大子数组和"></a>允许交换一次的最大子数组和</h2><p><mark> 这一题非常难！要好好琢磨其 DP 思路 </mark></p>
+<p>[题目]<br>给定一个数组，在允许交换两个数的前提下（只允许交换一次，可以不换），求最大子数组的和。</p>
+<p>[分析]</p>
 <ul>
 <li>定义 f[i] 为两部分之和<ul>
 <li>以 a[i] 结尾的最大子数组的和（可以为空）</li>
@@ -570,6 +571,217 @@
 <li>我们只考虑 j &lt; i 的情况，对于 j &gt; i, 把 a 翻转再做一次就可以了。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">help</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = a.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; f, g;</span><br><span class="line">	f.resize(n);</span><br><span class="line">	f[<span class="number">0</span>] = a[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">int</span> now = a[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">		now = max(now, a[i]);</span><br><span class="line">		f[i] = max(a[i] + f[i<span class="number">-1</span>], now);</span><br><span class="line">	&#125;</span><br><span class="line">	g.resize(n);</span><br><span class="line">	g[n<span class="number">-1</span>] = a[n<span class="number">-1</span>];</span><br><span class="line">	<span class="keyword">int</span> ans = a[n<span class="number">-1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = n<span class="number">-2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">		g[i] = max(g[i+<span class="number">1</span>], <span class="number">0</span>) + a[i];</span><br><span class="line">		answer = max(answer, g[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">		answer = max(answer, g[i] - a[i] + f[i<span class="number">-1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> answer = help(A);</span><br><span class="line">	reverse(A.begin(), A.end());</span><br><span class="line">	answer = max(answer, help(A));</span><br><span class="line">	<span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>计数 != 枚举</li>
+<li>没有讲到的问题<ul>
+<li>O(n^3) 优化到 O(n^2)</li>
+<li>序列相关的问题<ul>
+<li>给定一个 1-n 的排列，每次只能把一个数放到序列开头，至少几次能排好循序？</li>
+<li>给定一个 1-n 的排列，每次可以把一个数放到序列开头，也可以放到结尾，至少几次能排好序？</li>
+</ul>
+</li>
+<li>更多前缀、后缀的利用</li>
+</ul>
+</li>
+</ul>
+<h2 id="最大子数组"><a href="#最大子数组" class="headerlink" title="最大子数组"></a>最大子数组</h2><h3 id="leetcode-53-最大连续子数组和"><a href="#leetcode-53-最大连续子数组和" class="headerlink" title="leetcode 53 最大连续子数组和"></a>leetcode 53 最大连续子数组和</h3><p>[题目]<br>给定一个数组，求最大的连续子数组和。</p>
+<p>[分析]</p>
+<ul>
+<li>方法一 记录最小前缀和（两个前缀和的差就是一段连续的子数组）</li>
+<li>方法二 动态规划，记录以每个位置结束的最大子数组的和。</li>
+</ul>
+<h3 id="leetcode-152-求最大的连续子数组乘积"><a href="#leetcode-152-求最大的连续子数组乘积" class="headerlink" title="leetcode 152 求最大的连续子数组乘积"></a>leetcode 152 求最大的连续子数组乘积</h3><p>[分析]</p>
+<ul>
+<li>首先要考虑一下是否会溢出</li>
+<li>到当前项乘积最大要考虑之前乘积的绝对值，因此要记录<ul>
+<li>之前最小乘积</li>
+<li>之前最大乘积</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> n = nums.size();</span><br><span class="line">    	<span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> mini = nums[<span class="number">0</span>], maxi = nums[<span class="number">0</span>], ansmin = nums[<span class="number">0</span>], ansmax = nums[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</span><br><span class="line">    		<span class="keyword">int</span> tempmin = min(nums[i], min(mini * nums[i], maxi * nums[i]));</span><br><span class="line">    		<span class="keyword">int</span> tempmax = max(nums[i], max(mini * nums[i], maxi * nums[i]));</span><br><span class="line">    		mini = tempmin;</span><br><span class="line">    		maxi = tempmax;</span><br><span class="line">    		ansmin = min(mini, ansmin);</span><br><span class="line">    		ansmax = max(maxi, ansmax);</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> ansmax;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="循环移位"><a href="#循环移位" class="headerlink" title="循环移位"></a>循环移位</h2><p>[题目]<br>一个数组，比如 {1,2,3,4,5} 循环移动一位就是 {2,3,4,5,1}，再移动一位就是 {3,4,5,1,2}.</p>
+<p>[分析]</p>
+<ul>
+<li>长度为 n，把它移动 m 位，和移动 m % n 位是一样的。</li>
+<li>翻转前 m 位</li>
+<li>翻转后 (n-m) 位</li>
+<li>总体再翻转</li>
+<li>翻转可以O(n)做到：<ul>
+<li>for(int i = from, j = to; i &lt; j; swap(a[i++], a[j–]));</li>
+</ul>
+</li>
+</ul>
+<h3 id="单词翻转"><a href="#单词翻转" class="headerlink" title="单词翻转"></a>单词翻转</h3><h3 id="回文判断"><a href="#回文判断" class="headerlink" title="回文判断"></a>回文判断</h3><h2 id="快排-partition"><a href="#快排-partition" class="headerlink" title="快排 partition"></a>快排 partition</h2><ul>
+<li>荷兰国旗问题 leetcode 75</li>
+<li>奇偶数分开，正负数分开</li>
+<li>01 交换排序</li>
+<li>交换星号</li>
+<li>第一个缺失的整数 leetcode 41</li>
+<li>中位数、第k大（小）的书、最大（小）的k个数<ul>
+<li>找第 k 大的数关键<ul>
+<li>5 数取中做 pivot (3 数取中会退化)</li>
+<li>Partition 过程分三段（分两段有相同数会退化）<ul>
+<li>算法导论“偷懒”了（它假设了没有相同的数做了分析）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>找到最小的 k 个数<ul>
+<li>基于 partition 的方法找到的数是无序的</li>
+<li>如果要有序建议用堆 O(nlogk)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="众数问题"><a href="#众数问题" class="headerlink" title="众数问题"></a>众数问题</h2><ul>
+<li>找出出现次数超过一半的数</li>
+<li>推广：找出出现次数大于 1/k 的数，用 (k-1) 个 map，复杂度 O(n * k)，注意 k 是常数的时候就是 O(n).</li>
+</ul>
+<h2 id="单调堆栈"><a href="#单调堆栈" class="headerlink" title="单调堆栈"></a>单调堆栈</h2><p>[题目]<br>最大直方图</p>
+<p>[思路]</p>
+<ul>
+<li>入栈时左边界确定</li>
+<li>出栈时右边界确定</li>
+<li>每块只出入栈一次<ul>
+<li>O(n)</li>
+</ul>
+</li>
+</ul>
+<h2 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h2><h3 id="滑动窗口最值-栈和队列-例6"><a href="#滑动窗口最值-栈和队列-例6" class="headerlink" title="滑动窗口最值 (栈和队列 例6)"></a>滑动窗口最值 (栈和队列 例6)</h3><h3 id="codility-题目"><a href="#codility-题目" class="headerlink" title="codility 题目"></a>codility 题目</h3><p>[题目]<br>给定一个数组 A 和整数 K，问有多少对下标 i&lt;=j 满足 max(A[i…j]) - min(A[i…j]) &lt;= K</p>
+<p>[分析]</p>
+<ul>
+<li>如果(i,j)满足条件，则(i+1,j), (i+2,j)…都满足条件。</li>
+<li>对每个 i, 找到第一个不满足条件的 j</li>
+<li>如何求 [i…j] 的最大最小值<ul>
+<li>单调队列</li>
+<li>滑动窗口（两个边界都只增大不减）<ul>
+<li>滑动出去的不会进来</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> K, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; qmin, qmax;</span><br><span class="line">	<span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; A.size(); i++)&#123;</span><br><span class="line">		<span class="keyword">while</span>(j &lt; A.size())&#123;</span><br><span class="line">			<span class="keyword">while</span>((!qmin.empty()) &amp;&amp; (A[qmin.back()] &gt;= A[j]))&#123;</span><br><span class="line">				qmin.pop_back();</span><br><span class="line">			&#125; <span class="comment">// qmin 里面的元素是单调递增的！</span></span><br><span class="line">			qmin.push_back(j);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">while</span>((!qmax.empty()) &amp;&amp; (A[qmax.back()] &lt;= A[j]))&#123;</span><br><span class="line">				qmax.pop_back();</span><br><span class="line">			&#125; <span class="comment">// qmax 里面的元素是单调递减的！</span></span><br><span class="line">			qmax.push_back(j);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span>(A[qmax.front()] - A[qmin.front()] &lt;= K)&#123;</span><br><span class="line">				++j;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;  <span class="comment">// 这个 while 循环找到最远的 j。</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(qmin.front() == i)&#123;</span><br><span class="line">			qmin.pop_front();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(qmax.front() == i)&#123;</span><br><span class="line">			qmax.pop_front();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		answer += j - i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="树相关"><a href="#树相关" class="headerlink" title="树相关"></a>树相关</h2><ul>
+<li>树的高度</li>
+<li>二叉树对称判断</li>
+<li>二叉树平衡判断</li>
+<li>二叉树的最小深度</li>
+<li>指定和的路径</li>
+<li>二叉树双向链表转换</li>
+<li>前中后序遍历</li>
+</ul>
+<h3 id="距离最远的点"><a href="#距离最远的点" class="headerlink" title="距离最远的点"></a>距离最远的点</h3><p>[题目]<br>给定一个无根的树（无向<mark>无环图</mark>），求距离最远的两个点（树的直径）。</p>
+<p>[易忽略]</p>
+<ul>
+<li>对于一个自由树的直径，《算法导论》上的说明是“树中所有最短路径的最大值即为树的直径。”</li>
+<li>记住，“无环图”这个概念很重要。</li>
+<li>最笨的方法<ul>
+<li>就是对每一个节点进行 BFS, 找到最远的点。这个方法时间复杂度是 O(n^2).</li>
+</ul>
+</li>
+<li>简单巧妙的贪心<ul>
+<li>以任意一点为根、找到距离它最远的节点 x</li>
+<li>以 x 为根找到距离 x 最远的点 y</li>
+<li>(x, y) 就是一条直径</li>
+</ul>
+</li>
+<li>如何找最远的点？dfs 求深度</li>
+<li>思考：算法证明？</li>
+</ul>
+<p>[证明]<br>但是在证明定义之前，先证明一个引理：</p>
+<p>引理：在一个连通无向无环图中，x、y 和 z 是三个不同的结点。当 x 到 y 的最短路与 y 到 z 的最短路不重合时，x 到 z 的最短路就是这两条最短路的拼接。</p>
+<p>证明：假设 x 到 z 有一条不经过 y 的更短路δ(x,z)，则该路与δ(x,y)、δ(y,z)形成一个环，与前提矛盾。</p>
+<p>定理：在一个连通无向无环图中，以任意结点出发所能到达的最远结点，一定是该图直径的端点之一。</p>
+<p>证明：假设这条直径是δ(s,t)。分两种情况：</p>
+<ul>
+<li>当出发结点 y 在δ(s,t)时，假设到达的最远结点 z 不是 s,t 中的任一个。这时将δ(y,z)与不与之重合的δ(y,s)拼接（也可以假设不与之重合的是直径的另一个方向），可以得到一条更长的直径，与前提矛盾。</li>
+<li>当出发结点 y 不在δ(s,t)上时，分两种情况：<ul>
+<li>1). 当 y 到达的最远结点 z 横穿δ(s,t)时，记与之相交的结点为 x。此时有δ(y,z)=δ(y,x)+δ(x,z)。而此时δ(y,z)&gt;δ(y,t)，故可得δ(x,z)&gt;δ(x,t)。由1的结论可知该假设不成立。<br>2). 当 y 到达的最远结点 z 与δ(s,t)不相交时，记 y 到 t 的最短路首先与δ(s,t)相交的结点是 x。由假设δ(y,z)&gt;δ(y,x)+δ(x,t)。而δ(y,z)+δ(y,x)+δ(x,s)又可以形成δ(z,s)，而δ(z,s)&gt;δ(x,s)+δ(x,t)+2δ(y,x)=δ(s,t)+2δ(y,x)，显然与题意矛盾。</li>
+</ul>
+</li>
+</ul>
+<p>因此定理成立。</p>
+<h3 id="二叉树的直径"><a href="#二叉树的直径" class="headerlink" title="二叉树的直径"></a>二叉树的直径</h3><p>[题目]<br>The diameter of a tree (sometimes called the width) is the number of nodes on the longest path between two end nodes</p>
+<p>[分析]<br>The diameter of a tree T is the largest of the following quantities:</p>
+<ul>
+<li>the diameter of T’s left subtree</li>
+<li>the diameter of T’s right subtree</li>
+<li>the longest path between leaves that goes through the root of T (this can be computed from the heights of the subtrees of T)</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">xz注：这个代码是用 C 实现的，函数的调用需要记录两个变量，</span></span><br><span class="line"><span class="comment">tree height &amp; tree diameter，它这里采用的是通过传递</span></span><br><span class="line"><span class="comment">指针过去来计算得到 height, 然后函数返回的是 tree diameter.</span></span><br><span class="line"><span class="comment">如果使用 C++ 的话，可以让函数返回 vector&lt;int&gt; = &#123;tree_height, tree_diameter&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">The second parameter is to store the height of tree. </span></span><br><span class="line"><span class="comment">   Initially, we need to pass a pointer to a location with value </span></span><br><span class="line"><span class="comment">   as 0. So, function should be used as follows: </span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">   int height = 0; </span></span><br><span class="line"><span class="comment">   struct node *root = SomeFunctionToMakeTree(); </span></span><br><span class="line"><span class="comment">   int diameter = diameterOpt(root, &amp;height); */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">diameterOpt</span><span class="params">(struct node *root, <span class="keyword">int</span>* height)</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">  <span class="comment">/* lh --&gt; Height of left subtree </span></span><br><span class="line"><span class="comment">     rh --&gt; Height of right subtree */</span></span><br><span class="line">  <span class="keyword">int</span> lh = <span class="number">0</span>, rh = <span class="number">0</span>; </span><br><span class="line">   </span><br><span class="line">  <span class="comment">/* ldiameter  --&gt; diameter of left subtree </span></span><br><span class="line"><span class="comment">     rdiameter  --&gt; Diameter of right subtree */</span></span><br><span class="line">  <span class="keyword">int</span> ldiameter = <span class="number">0</span>, rdiameter = <span class="number">0</span>; </span><br><span class="line">   </span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">NULL</span>) </span><br><span class="line">  &#123; </span><br><span class="line">    *height = <span class="number">0</span>; </span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">/* diameter is also 0 */</span></span><br><span class="line">  &#125; </span><br><span class="line">   </span><br><span class="line">  <span class="comment">/* Get the heights of left and right subtrees in lh and rh </span></span><br><span class="line"><span class="comment">    And store the returned values in ldiameter and ldiameter */</span></span><br><span class="line">  ldiameter = diameterOpt(root-&gt;left, &amp;lh); </span><br><span class="line">  rdiameter = diameterOpt(root-&gt;right, &amp;rh); </span><br><span class="line">   </span><br><span class="line">  <span class="comment">/* Height of current node is max of heights of left and </span></span><br><span class="line"><span class="comment">     right subtrees plus 1*/</span></span><br><span class="line">  *height = max(lh, rh) + <span class="number">1</span>; </span><br><span class="line">   </span><br><span class="line">  <span class="keyword">return</span> max(lh + rh + <span class="number">1</span>, max(ldiameter, rdiameter)); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="滑动窗口相关"><a href="#滑动窗口相关" class="headerlink" title="滑动窗口相关"></a>滑动窗口相关</h2><h3 id="leetcode-209"><a href="#leetcode-209" class="headerlink" title="leetcode 209"></a>leetcode 209</h3><p>[题目]<br>给定一个数组，里面全是正整数，再给一个正整数 s, 求数组里面最少多少个连续的数，满足总和不小于 s.</p>
+<p>[分析]</p>
+<ul>
+<li>核心：大窗口不满足条件，它的任意子窗口也不满足条件。</li>
+<li>窗口 [i…j]<ul>
+<li>过小，++j</li>
+<li>过大, ++i</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> s, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> n = nums.size();</span><br><span class="line">    	<span class="keyword">int</span> answer = n;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, sum = <span class="number">0</span>, length = <span class="number">0</span>; j &lt; n; )&#123;</span><br><span class="line">    		<span class="keyword">while</span>((sum &lt; s) &amp;&amp; (j &lt; n))&#123;</span><br><span class="line">    			sum += nums[j++];</span><br><span class="line">    		&#125;</span><br><span class="line">    		<span class="keyword">if</span>(sum &gt;= s)&#123;</span><br><span class="line">    			<span class="keyword">for</span>(; sum &gt;= s; sum -= nums[i++])</span><br><span class="line">    			;</span><br><span class="line">    			answer = min(answer, j - i + <span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> (answer &gt;= n) ? <span class="number">0</span> : answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="子串变位词"><a href="#子串变位词" class="headerlink" title="子串变位词"></a>子串变位词</h3><p>easy TODO</p>
+<h3 id="leetcode-76-最短子串包含全部子母"><a href="#leetcode-76-最短子串包含全部子母" class="headerlink" title="leetcode 76 最短子串包含全部子母"></a>leetcode 76 最短子串包含全部子母</h3><p>easy TODO</p>
+<h3 id="leetcode-3-无重复字符的最长子串"><a href="#leetcode-3-无重复字符的最长子串" class="headerlink" title="leetcode 3 无重复字符的最长子串"></a>leetcode 3 无重复字符的最长子串</h3><p>easy TODO</p>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><ul>
+<li>长度</li>
+<li>（K 个一组）翻转 leetcode 206, 92, 25</li>
+<li>插入 leetcode 147</li>
+<li>删除 leetcode 203, 82, 83</li>
+<li>复制 leetcode 138</li>
+<li>求交 leetcode 160</li>
+<li>找环 leetcode 141, 142</li>
+<li>（倒数）第 k 个元素 leetcode 19</li>
+<li>链表判断是否回文</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="2-SUM"><a href="#2-SUM" class="headerlink" title="2-SUM"></a>2-SUM</h3><p>使用hash easy</p>
+<h3 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h3><p>[题目]<br>给定一个 1-n 的排列，每次只能把一个数放到序列末尾，至少几次能排好顺序。</p>
+<p>[分析]</p>
+<ul>
+<li>需要移动 1 吗？不，其他都排好了，1 自然就好了。</li>
+<li>如果要移动 x，则我们必须把 (x+1), (x+2), …, n 都移动了</li>
+<li>从 1 到 (x-1) 是有序的<ul>
+<li>x 有多大？</li>
+</ul>
+</li>
+</ul>
+<font color="red">注意这一题跟下面两个题目不一样的地方是：这一题只能把数字移动到末尾。因此我们必须找从数字 1 开始的子序列，看看能达到多大。<br><br>假设可以达到 x，那么说明 x+1, x+2, …, n 都在 x 的前面出现了，那么为了让数组有序，需要依次把 x+1, x+2, …, n 放到数组最后。<br></font>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Solution</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = a.size(), want = <span class="number">1</span>;  <span class="comment">// 从 1 开始的子序列</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    	<span class="keyword">if</span>(a[i] == want)&#123;  <span class="comment">// 每次找到 want 以后，就加 1.</span></span><br><span class="line">    		++want;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;  <span class="comment">// 这个找的实际上是有多少个数字出现在了比它小的数字的前面。。。</span></span><br><span class="line">    <span class="comment">// want ... n must be moved</span></span><br><span class="line">    <span class="keyword">return</span> n - want + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组排序2"><a href="#数组排序2" class="headerlink" title="数组排序2"></a>数组排序2</h3><p>题目<br>给定一个 1 到 n 的排列，每次可以把一个数放到序列开头，也可以放到结尾，至少几次能排好序。</p>
+<p>分析</p>
+<ul>
+<li><font color="red">这一题跟上一题不一样，数字可以移动到开头，所以不需要限制从 1 开始找，只需要找到 y 到 x 最长的就可以。</font></li>
+<li>把数字 1 到数字 y 移动到开头，把数字 x 到 数字 n 移动到末尾</li>
+<li>[y+1…x-1] 必须按顺序出现</li>
+<li>所以目的就是要找到最小的 y 和 最大的 x，这样子 移动的数字才最少。</li>
+<li>dp[x] 表示从 x 开始在原数组中往后按顺序出现的最长长度<ul>
+<li>即 x, x+1, …, x+dp[x]-1 按顺序出现</li>
+<li>倒着循环 i, dp[a[i]] = dp[a[i]+1] + 1</li>
+</ul>
+</li>
+</ul>
+<font color="orange">我其实觉得很奇怪，这个 dp 序列在更新的时候，不是按照一定的顺序来逐个得到的。而是来回跳。。。（取决于数组 a 里面的数字从右往左出现的顺序）。</font>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = a.size(), m = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(n+<span class="number">2</span>, <span class="number">0</span>); <span class="comment">// 使用 1...n+1 注意下标范围</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)&#123;</span><br><span class="line">		m = max(m, dp[a[i]] = dp[a[i]+<span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> n - m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组排序3-NOIP，很难"><a href="#数组排序3-NOIP，很难" class="headerlink" title="数组排序3 NOIP，很难"></a>数组排序3 NOIP，很难</h3><p>[题目描述]<br>给定一个长度为N的数列Ai。<br>你可以对数列进行若干次操作，每次操作可以从数列中任选一个数，把它移动到数列的开头或者结尾。<br>求最少经过多少次操作，可以把数列变成单调不减的。“单调不减”意味着数列中的任意一个数都不大于排在它后边的数。</p>
+<p>[输入格式]<br>第一行是一个正整数N。<br>第二行是N个正整数Ai。</p>
+<p>[输出格式]<br>输出一个整数，表示最少需要的操作次数。</p>
+<p>[样例输入]<br>5<br>6 3 7 8 6</p>
+<p>[样例输出]<br>2</p>
+<p>[题解]</p>
+<font color="red">这一题跟上一题不一样的地方在于这一题的数字不一定是 1 到 n，并且数字还可以允许出现重复数字。</font>
+
+<p>经过分析可以发现，最优解情况下，需要保持一个子序列不动，这个子序列满足：</p>
+<ul>
+<li>子序列单调递增；</li>
+<li>若子序列中最小数是L，最大数是R，则子序列必须包含[L+1,R−1]中的数列中的所有数。</li>
+</ul>
+<p>用单调队列求出满足这两个条件的子序列的最大长度，用n减去就是答案。<br>即这个子序列保持不动，其余数向前或后移动一次。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">1000010</span>;</span><br><span class="line"><span class="keyword">int</span> a[SIZE], q[SIZE];</span><br><span class="line"><span class="keyword">int</span> n, m, ans;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; b[SIZE];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	freopen(<span class="string">"change.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"change.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]);</span><br><span class="line">		b[a[i]].push_back(i);</span><br><span class="line">		m = max(m, a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">1</span>, r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">		reverse(b[i].begin(), b[i].end());</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b[i].size(); j++) &#123;</span><br><span class="line">			<span class="keyword">int</span> k = b[i][j];</span><br><span class="line">			<span class="keyword">while</span> (l &lt;= r &amp;&amp; q[r] &gt; k) &#123;</span><br><span class="line">				<span class="keyword">while</span> (l &lt; r &amp;&amp; a[q[l]] &lt; a[q[r]]) l++;</span><br><span class="line">				r--;</span><br><span class="line">			&#125;</span><br><span class="line">			ans = max(ans, r - l + <span class="number">2</span> + j);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = b[i].size() - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">			q[++r] = b[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; ans &lt;&lt; endl;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; n - ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         

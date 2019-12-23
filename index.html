@@ -2107,10 +2107,248 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这个题是个巧妙地解法。避免了尝试去分析到底字符串 A 平移了多少个位置才得到 B.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">rotateString</span><span class="params">(<span class="built_in">string</span> A, <span class="built_in">string</span> B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (A.size() != B.size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> (A+A).find(B) != <span class="built_in">string</span>::npos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="表示数值的字符串"><a href="#表示数值的字符串" class="headerlink" title="表示数值的字符串"></a>表示数值的字符串</h2><p>剑指offer: 表示数值的字符串<br>请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串”+100″,”5e2″,”-123″,”3.1416″和”-1E-16″都表示数值。 但是”12e”,”1a3.14″,”1.2.3″,”+-5″和”12e+4.3″都不是。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置三个标志符分别记录“+/-”、“e/E”和“.”是否出现过</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNumeric</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = str.length;</span><br><span class="line">        <span class="keyword">boolean</span> sign = <span class="keyword">false</span>, decimal = <span class="keyword">false</span>, hasE = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str[i] == <span class="string">'+'</span> || str[i] == <span class="string">'-'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(!sign &amp;&amp; i &gt; <span class="number">0</span> &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'e'</span> &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'E'</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(sign &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'e'</span> &amp;&amp; str[i-<span class="number">1</span>] != <span class="string">'E'</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                sign = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'e'</span> || str[i] == <span class="string">'E'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == len - <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(hasE)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                hasE = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'.'</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(hasE || decimal)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                decimal = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str[i] &lt; <span class="string">'0'</span> || str[i] &gt; <span class="string">'9'</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="0010-regular-expression-matching-正则表达式"><a href="#0010-regular-expression-matching-正则表达式" class="headerlink" title="0010 regular expression matching 正则表达式"></a>0010 regular expression matching 正则表达式</h2><h2 id="0044-wildcard-matching-通配符匹配"><a href="#0044-wildcard-matching-通配符匹配" class="headerlink" title="0044 wildcard matching 通配符匹配"></a>0044 wildcard matching 通配符匹配</h2><h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2><p>谈到字符串问题，不得不提的就是 KMP 算法，它是用来解决字符串查找的问题，可以在一个字符串（S）中查找一个子串（W）出现的位置。KMP 算法把字符匹配的时间复杂度缩小到 O(m+n) ,而空间复杂度也只有O(m)。因为“暴力搜索”的方法会反复回溯主串，导致效率低下，而KMP算法可以利用已经部分匹配这个有效信息，保持主串上的指针不回溯，通过修改子串的指针，让模式串尽量地移动到有效的位置。<br>具体算法细节请参考：</p>
+<h2 id="0010-regular-expression-matching-正则表达式"><a href="#0010-regular-expression-matching-正则表达式" class="headerlink" title="0010 regular expression matching 正则表达式"></a>0010 regular expression matching 正则表达式</h2><h2 id="0044-wildcard-matching-通配符匹配"><a href="#0044-wildcard-matching-通配符匹配" class="headerlink" title="0044 wildcard matching 通配符匹配"></a>0044 wildcard matching 通配符匹配</h2><h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
+<li>【目的】字符串查找！给定文本串 text 和模式串 pattern, 从文本串 text 中找到模式串 pattern 第一次出现的位置。</li>
+<li>【复杂度】KMP 算法把字符匹配的时间复杂度缩小到 O(m+n) ,而空间复杂度也只有O(m)。</li>
+<li>【解释】因为“暴力搜索”的方法会反复回溯主串，导致效率低下，而KMP算法可以利用已经部分匹配这个有效信息，保持主串上的指针不回溯，通过修改子串的指针，让模式串尽量地移动到有效的位置。</li>
+</ul>
+<h3 id="BF与KMP区别"><a href="#BF与KMP区别" class="headerlink" title="BF与KMP区别"></a>BF与KMP区别</h3><ul>
+<li>假设当前文本串 text 匹配到 i 位置，模式串 pattern 匹配到 j 位置（模式串的开头与 text 串的 i 位置对齐）。</li>
+<li>BF算法做法<ul>
+<li>如果当前字符匹配成功，即 text[i+j] == pattern[j]，另 i++, j++, 继续匹配下一个字符；</li>
+<li>如果字符匹配失败，即 text[i+j] != pattern[j], 另 i++, j=0, 即失败的情况下，模式串 pattern 相对于文本串 text 向右移动了一位。</li>
+</ul>
+</li>
+<li>KMP 算法做法<ul>
+<li>如果当前字符匹配成功，同上，i++, j++, 继续匹配下一个字符</li>
+<li>如果匹配失败，另 i 不变，j=next<a href="此处 next[j]&lt;=j-1">j</a>, 即模式串 pattern 相对于文本串 text 向右移动了至少一位(移动的实际位数 j-next[j]&gt;=1)</li>
+</ul>
+</li>
+</ul>
+<h3 id="字符串比较机制"><a href="#字符串比较机制" class="headerlink" title="字符串比较机制"></a>字符串比较机制</h3><p>我们的想法是：不要出现回溯！如果已经匹配到了 text 串的 i+j 位置，即使没有匹配成功，接下来也要继续从当前位置匹配下去，不能回溯到 i+1 位置重新开始匹配！</p>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga642xvt9aj20ii0cm0x9.jpg" alt="Screen Shot 2019-12-22 at 11.22.19.png"></p>
+<p><mark>如上图所示，pattern 串的绿色位置和 text 串的黄色字符不匹配，这个时候我们把 pattern 串往右移动，让 C 那个位置去和 text 串的黄色(就是上面提到的 i+j 位置)去比较！而这么比较的前提是，B 方块与 A 方块一样！这就是说 pattern 串在 d 之前的那一部分的 前缀串A 与 后缀串B 相同！</mark></p>
+<h3 id="最大k前缀与k后缀"><a href="#最大k前缀与k后缀" class="headerlink" title="最大k前缀与k后缀"></a>最大k前缀与k后缀</h3><p>因此，问题就转化为如下问题</p>
+<ul>
+<li>对于模式串 pattern 的位置 j，考察 <mark>p[0]p[1]…p[j-2]p[j-1]</mark>，查找其<mark>最大相等的 k前缀 和 k后缀</mark>。<ul>
+<li>注意！计算 next[j] 的时候，考察的字符串是模式串的前 j-1 个字符，与 p[j] 无关。</li>
+</ul>
+</li>
+<li>即：查找满足条件的最大的 k，使得 <mark>p[0]p[1]…p[k-1] = p[j-k]p[j-k+1]…p[j-1]</mark></li>
+</ul>
+<p>[一个具体的例子如下]<br><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga64in2byhj20lw0dgwke.jpg" alt="Screen Shot 2019-12-22 at 11.45.00.png"></p>
+<h3 id="next的递推关系"><a href="#next的递推关系" class="headerlink" title="next的递推关系"></a>next的递推关系</h3><ul>
+<li>对于模式串的位置 j, 有 next[j]=k, 即 p[0]p[1]…p[k-1]=p[j-k]p[j-k+1]p[j-1]</li>
+<li>则，对于模式串的位置 j+1, 考察 p[j]</li>
+<li>若 p[k]==p[j]<ul>
+<li>则 next[j+1] = next[j]+1</li>
+</ul>
+</li>
+<li>反之若 p[k]!=p[j]<ul>
+<li>记 h=next[k]; 如果 p[h]==p[j], 则 next[j+1]=h+1, 否则重复此过程</li>
+</ul>
+</li>
+</ul>
+<p>[相等时候]<br><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga64w29cejj20dg07idjh.jpg" alt="Screen Shot 2019-12-22 at 11.58.12.png"></p>
+<p>[不相等时候的递推]<br><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga64wzy4gxj20jo0d60zc.jpg" alt="Screen Shot 2019-12-22 at 11.59.13.png"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算 Next 数组</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetNext</span><span class="params">(<span class="built_in">string</span> p, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = p.size();</span><br><span class="line">	next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">-1</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(j &lt; n<span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="comment">// 此刻 k = next[j-1], 且 p[k] 表示前缀，p[j] 表示后缀</span></span><br><span class="line">		<span class="comment">// k==-1 表示未找到 k 前缀与 k 后缀相等，首次分析可先忽略</span></span><br><span class="line">		<span class="keyword">if</span>(k == <span class="number">-1</span> || p[j] == p[k])&#123;</span><br><span class="line">			++j;</span><br><span class="line">			++k;</span><br><span class="line">			next[j] = k;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;  <span class="comment">// p[j]与p[k]匹配失败，则继续递归计算前缀 p[next[k]]</span></span><br><span class="line">            k = next[k];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// KMP Code</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">-1</span>, i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> n = pattern.size();</span><br><span class="line">	<span class="keyword">while</span>(i &lt; n)&#123;</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">-1</span> || text[i] == pattern[j])&#123;</span><br><span class="line">			++i;</span><br><span class="line">			++j;</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			j = next[j];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(j == n)&#123;</span><br><span class="line">			ans = i - n;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="进一步分析-next"><a href="#进一步分析-next" class="headerlink" title="进一步分析 next"></a>进一步分析 next</h3><ul>
+<li>文本串匹配到 i，模式串匹配到 j，此刻若 text[i] != pattern[j]，即失败的情况</li>
+<li>若 next[j]=k, 说明模式串应该从 j 滑动到 k 位置；</li>
+<li>若此时满足 pattern[j] == pattern[k], 因为 text[i] != pattern[j], 所以 text[i] != pattern[k]<ul>
+<li>即 i 和 k 没有匹配，应该继续滑动到 next[k]</li>
+<li>换句话，在原始的 next 数组中，若 next[j]=k 并且 pattern[j] == pattern[k], next[j] 可以直接等于 next[k].</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga660po260j20ha06yac8.jpg" alt="Screen Shot 2019-12-22 at 12.37.22.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetNext2</span><span class="params">(<span class="built_in">string</span> p, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = p.size();</span><br><span class="line">	next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">-1</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(j &lt; n<span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="comment">// 此刻 k = next[j-1], 且 p[k] 表示前缀，p[j] 表示后缀</span></span><br><span class="line">		<span class="comment">// k==-1 表示未找到 k 前缀与 k 后缀相等，首次分析可先忽略</span></span><br><span class="line">		<span class="keyword">if</span>(k == <span class="number">-1</span> || p[j] == p[k])&#123;</span><br><span class="line">			++j;</span><br><span class="line">			++k;</span><br><span class="line">			<span class="keyword">if</span>(p[j] == p[k])&#123;</span><br><span class="line">				next[j] = next[k];</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			    next[j] = k;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;  <span class="comment">// p[j]与p[k]匹配失败，则继续递归计算前缀 p[next[k]]</span></span><br><span class="line">            k = next[k];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>[例子]</p>
+<table>
+<thead>
+<tr>
+<th>模式串</th>
+<th>a</th>
+<th>b</th>
+<th>a</th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>a</th>
+<th>b</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始next</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>新next</td>
+<td>-1</td>
+<td>0</td>
+<td>-1</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>-1</td>
+<td>0</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>模式串</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始next</td>
+<td>-1</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>新next</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="KMP-时间复杂度"><a href="#KMP-时间复杂度" class="headerlink" title="KMP 时间复杂度"></a>KMP 时间复杂度</h3><ul>
+<li>考察模式串的”串头”和主串的对应位置，也就是暴力算法中的 i</li>
+<li>不匹配：串头后移，保证尽快结束算法</li>
+<li>匹配：串头保持不动，i++, j++, 但一旦发现不匹配，会跳过匹配过的字符(next[j])</li>
+<li>最坏的情况，当串头位于 N-M 的位置时候算法才结束</li>
+<li>因此，匹配的时间复杂度为 O(N)，算上计算 next 的O(M) 时间，整体时间复杂度 O(M+N)，其实一般就认为是 O(N) 了。</li>
+<li>最好情况：当模式串的首字符和其他字符都不相等时，模式串不存在相等的 k前缀和 k后缀，next 数组全为 -1<ul>
+<li>一旦匹配失败，模式串直接跳过已经比较的字符。比较次数为 N</li>
+</ul>
+</li>
+<li>最差情况：当模式串的首字符和其他字符全都相等时候，模式串存在最长的 k 前缀和 k后缀，next 数组呈现递增样式: -1, 0, 1, 2, …<ul>
+<li>每个周期中 m 1 1 1 …</li>
+<li>周期 n/m</li>
+<li>总次数：(2 - 1/M) * N &lt; 2N</li>
+<li><mark>此时变种KMP 的运行情况比较总次数依然为 N.</mark></li>
+</ul>
+</li>
+</ul>
+<h3 id="一个应用-PowerString-问题"><a href="#一个应用-PowerString-问题" class="headerlink" title="一个应用 PowerString 问题"></a>一个应用 PowerString 问题</h3><p>[题目]<br>给定一个长度为 n 的字符串 S，如果存在一个字符串 T，重复若干次 T 能够得到 S，那么，S 叫做周期串，T 叫做 S 的一个周期。请设计一个算法，计算 S 的最小周期。如果不存在周期，返回空串。</p>
+<p>[Examples]<br>字符串 abababab 是周期串，abab 和 ab 都是它的周期，其中 ab 是它的最小周期。</p>
+<p>[思路]<br>使用 next，限行时间解决问题</p>
+<ul>
+<li>计算 S 的 next 数组<ul>
+<li>记 k = next[length], p = length - k</li>
+<li>若 len%p==0，则 p 为最小周期长度，前 p 个字符就是最小周期。</li>
+</ul>
+</li>
+<li>说明<ul>
+<li>使用的是经典 KMP 的 next 算法，不是变种的 next 算法</li>
+<li>要”多”计算到 length, 即 next[length]</li>
+</ul>
+</li>
+<li>思考：如何证明？<ul>
+<li>考察字符串 S 的 k前缀 head 和 k后缀 tail</li>
+<li>head 和 tail 的前 p 个字符</li>
+<li>head 和 tail 的前 2p 个字符</li>
+<li>head 和 tail 的前 3p 个字符</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga6737iy1oj20mu0dmn3l.jpg" alt="Screen Shot 2019-12-22 at 13.14.24.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MinPeriod</span><span class="params">(<span class="built_in">string</span> p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = p.size();</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next(n, <span class="number">-1</span>);  <span class="comment">// 仿照KMP 求伪 next, next[0] = -1 是哨兵，串首标志</span></span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">-1</span>, j = <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">while</span>(j &lt; n - <span class="number">1</span>)&#123;</span><br><span class="line">    	<span class="keyword">if</span>(k==<span class="number">-1</span> || p[j+<span class="number">1</span>] == p[k])&#123;</span><br><span class="line">    		++k;</span><br><span class="line">    		++j;</span><br><span class="line">    		next[j] = k;</span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		k = next[k];</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">0</span>;  <span class="comment">// 恢复成逻辑上的 0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> nLast = next[n<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">if</span>(n % (n-nLast) == <span class="number">0</span>)&#123;</span><br><span class="line">    	<span class="keyword">return</span> n-nLast;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h3><ul>
+<li>KMP 的 next，实际上是建立了 DFA</li>
+<li>DFA: Deterministic Finite Automaton</li>
+<li>以当前位置为 DFA 的状态，以模式串的字符为 DFA 的转移条件，建立确定有穷自动机。</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga66p8zqirj20kq0cqq9r.jpg" alt="Screen Shot 2019-12-22 at 13.00.57.png"></p>
+<p>具体算法细节请参考：</p>
 <p><a href="http://note.youdao.com/noteshare?id=dda1246716d3e1f321ee1b637ad2b413" target="_blank" rel="external">KMP算法</a><br><a href="http://note.youdao.com/noteshare?id=13fe90f9adddde21b0d5f8f7880ebc1f" target="_blank" rel="external">史上最清楚的 KMP 算法介绍</a></p>
-<h2 id="Boyer-Moore-算法-了解"><a href="#Boyer-Moore-算法-了解" class="headerlink" title="Boyer Moore 算法 (了解)"></a>Boyer Moore 算法 (了解)</h2><p>BM算法也是一种精确字符串匹配算法，它采用从右向左比较的方法，同时应用到了两种启发式规则，即坏字符规则 和好后缀规则 ，来决定向右跳跃的距离。基本思路就是从右往左进行字符匹配，遇到不匹配的字符后从坏字符表和好后缀表找一个最大的右移值，将模式串右移继续匹配。<br>字符串匹配的KMP算法</p>
-<h2 id="Manacher-算法-了解"><a href="#Manacher-算法-了解" class="headerlink" title="Manacher 算法 (了解)"></a>Manacher 算法 (了解)</h2>
+<h2 id="Boyer-Moore-算法-了解"><a href="#Boyer-Moore-算法-了解" class="headerlink" title="Boyer Moore 算法 (了解)"></a>Boyer Moore 算法 (了解)</h2><p>1977年由德克萨斯大学的 Robert S. Boyer 教授和 J Strother Moore 教授发明的字符串匹配算法。BM算法也是一种精确字符串匹配算法，它采用从右向左比较的方法，同时应用到了两种启发式规则，即坏字符规则 和好后缀规则 ，来决定向右跳跃的距离。基本思路就是从右往左进行字符匹配，遇到不匹配的字符后从坏字符表和好后缀表找一个最大的右移值，将模式串右移继续匹配。</p>
+<p>效率很高，构思巧妙，拥有在最坏情况下 O(N) 的时间复杂度。实践中比 KMP 算法的实际效能高。</p>
+<h2 id="Manacher-算法-了解"><a href="#Manacher-算法-了解" class="headerlink" title="Manacher 算法 (了解)"></a>Manacher 算法 (了解)</h2><h2 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2><h3 id="二叉树的节点"><a href="#二叉树的节点" class="headerlink" title="二叉树的节点"></a>二叉树的节点</h3><ul>
+<li>另有两个孩子，1 个孩子，0 个孩子的节点个数分别为 n2, n1, n0</li>
+<li>所有节点的出度为 2<em>n2+1</em>n1+0*n0</li>
+<li>除了根节点，其他所有节点的入度都是 1，从而所有节点的入度为 (n0+n1+n2)-1</li>
+<li>总入度等于总出度，2<em>n2+1</em>n1+0*n0 = n2+n1+n0-1</li>
+<li>化简得到 n0 - n2 = 1</li>
+<li>也就是说二叉树叶子节点数目比拥有两个孩子的节点数目多 1</li>
+</ul>
+<h3 id="编码思想"><a href="#编码思想" class="headerlink" title="编码思想"></a>编码思想</h3><ul>
+<li>无损压缩编码方案</li>
+<li>概率高的字符使用较短的编码，概率低的使用较长的编码，从而使得编码后的字符串长度期望最小</li>
+<li>Huffman 编码是一种贪心算法：每次总选择两个最小概率的字符节点合并<ul>
+<li>称字符出现的次数为频数，则概率约等于频数除以字符总长；因此概率可以用频数代替</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga6aj3zolrj20g40fa796.jpg" alt="Screen Shot 2019-12-22 at 15.13.26.png"></p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>使用数组来实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HuffmanCoding</span><span class="params">(<span class="keyword">int</span> *pWeight, <span class="keyword">int</span> N, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; code)</span></span>&#123;</span><br><span class="line">    <span class="comment">// code 传进来时候是空的 vector&lt;vector&lt;char&gt;&gt; 引用，后面会修改。</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (N&lt;=<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">2</span> * N - <span class="number">1</span>;  <span class="comment">// N个节点的 Huffman 树需要 2N-1 个节点</span></span><br><span class="line">	HuffmanNode* pHuffmanTree = <span class="keyword">new</span> HuffmanNode[m];  <span class="comment">// 在动态内存空间里建立这个 vector</span></span><br><span class="line">	<span class="keyword">int</span> s1, s2;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="comment">// 建立叶子节点</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">		pHuffmanTree[i].nWeight = pWeight[i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 每次选择权值最小的两个节点，建树</span></span><br><span class="line">	<span class="keyword">for</span>(i = N; i &lt; m; i++)&#123;</span><br><span class="line">		SelectNode(pHuffmanTree, i, s1, s2);  <span class="comment">// 在前 i 个 nodes 里面找到权值最小的两个节点。用过的节点不会被再用。因为用过的节点有 nParent 信息了。</span></span><br><span class="line">		pHuffmanTree[s1].nParent = pHuffmanTree[s2].nParent = i;  <span class="comment">// s1 和 s2 的父节点是 i 节点</span></span><br><span class="line">		pHuffmanTree[i].nLeft = s1;</span><br><span class="line">		pHuffmanTree[i].nRight = s2;</span><br><span class="line">		pHuffmanTree[i].nWeight = pHuffmanTree[s1].nWeight + pHuffmanTree[s2].nWeight;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 根据建好的 Huffman 树从叶子到根计算每个叶节点的编码</span></span><br><span class="line">	<span class="keyword">int</span> node, nParent;</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="comment">// code[i] 就是 node i 的编码！</span></span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&amp; cur = code[i];    <span class="comment">// 此时还是空的 vector</span></span><br><span class="line">		node = i;</span><br><span class="line">		nParent = pHuffmanTree[node].nParent;</span><br><span class="line">		<span class="keyword">while</span>(nParent != <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(pHuffmanTree[nParent].nLeft == node)&#123;</span><br><span class="line">				cur.push_back(<span class="string">'0'</span>);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				cur.push_back(<span class="string">'1'</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			node = nParent;</span><br><span class="line">			nParent = pHuffmanTree[node].nParent;</span><br><span class="line">		&#125;</span><br><span class="line">		reverse(cur.begin(), cur.end());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用指针来实现<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A Tree node</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> ch;</span><br><span class="line">	<span class="keyword">int</span> freq;</span><br><span class="line">	Node *left, *right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Function to allocate a new tree node</span></span><br><span class="line"><span class="function">Node* <span class="title">getNode</span><span class="params">(<span class="keyword">char</span> ch, <span class="keyword">int</span> freq, Node* left, Node* right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Node* node = <span class="keyword">new</span> Node();</span><br><span class="line"></span><br><span class="line">	node-&gt;ch = ch;</span><br><span class="line">	node-&gt;freq = freq;</span><br><span class="line">	node-&gt;left = left;</span><br><span class="line">	node-&gt;right = right;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Comparison object to be used to order the heap</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">comp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(Node* l, Node* r)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// highest priority item has lowest frequency</span></span><br><span class="line">		<span class="keyword">return</span> l-&gt;freq &gt; r-&gt;freq;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// traverse the Huffman Tree and store Huffman Codes</span></span><br><span class="line"><span class="comment">// in a map.</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">encode</span><span class="params">(Node* root, <span class="built_in">string</span> str,</span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="built_in">string</span>&gt; &amp;huffmanCode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">nullptr</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// found a leaf node</span></span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right) &#123;</span><br><span class="line">		huffmanCode[root-&gt;ch] = str;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	encode(root-&gt;left, str + <span class="string">"0"</span>, huffmanCode);</span><br><span class="line">	encode(root-&gt;right, str + <span class="string">"1"</span>, huffmanCode);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// traverse the Huffman Tree and decode the encoded string</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">decode</span><span class="params">(Node* root, <span class="keyword">int</span> &amp;index, <span class="built_in">string</span> str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// found a leaf node</span></span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; root-&gt;ch;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	index++;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (str[index] ==<span class="string">'0'</span>)</span><br><span class="line">		decode(root-&gt;left, index, str);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		decode(root-&gt;right, index, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Builds Huffman Tree and decode given input text</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">buildHuffmanTree</span><span class="params">(<span class="built_in">string</span> text)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// count frequency of appearance of each character</span></span><br><span class="line">	<span class="comment">// and store it in a map</span></span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; freq;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> ch: text) &#123;</span><br><span class="line">		freq[ch]++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Create a priority queue to store live nodes of</span></span><br><span class="line">	<span class="comment">// Huffman tree;</span></span><br><span class="line">	priority_queue&lt;Node*, <span class="built_in">vector</span>&lt;Node*&gt;, comp&gt; pq;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Create a leaf node for each character and add it</span></span><br><span class="line">	<span class="comment">// to the priority queue.</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> pair: freq) &#123;</span><br><span class="line">		pq.push(getNode(pair.first, pair.second, <span class="literal">nullptr</span>, <span class="literal">nullptr</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// do till there is more than one node in the queue</span></span><br><span class="line">	<span class="keyword">while</span> (pq.size() != <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Remove the two nodes of highest priority</span></span><br><span class="line">		<span class="comment">// (lowest frequency) from the queue</span></span><br><span class="line">		Node *left = pq.top(); pq.pop();</span><br><span class="line">		Node *right = pq.top();	pq.pop();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Create a new internal node with these two nodes</span></span><br><span class="line">		<span class="comment">// as children and with frequency equal to the sum</span></span><br><span class="line">		<span class="comment">// of the two nodes' frequencies. Add the new node</span></span><br><span class="line">		<span class="comment">// to the priority queue.</span></span><br><span class="line">		<span class="keyword">int</span> sum = left-&gt;freq + right-&gt;freq;</span><br><span class="line">		pq.push(getNode(<span class="string">'\0'</span>, sum, left, right));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// root stores pointer to root of Huffman Tree</span></span><br><span class="line">	Node* root = pq.top();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// traverse the Huffman Tree and store Huffman Codes</span></span><br><span class="line">	<span class="comment">// in a map. Also prints them</span></span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="built_in">string</span>&gt; huffmanCode;</span><br><span class="line">	encode(root, <span class="string">""</span>, huffmanCode);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Huffman Codes are :\n"</span> &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> pair: huffmanCode) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; pair.first &lt;&lt; <span class="string">" "</span> &lt;&lt; pair.second &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"\nOriginal string was :\n"</span> &lt;&lt; text &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// print encoded string</span></span><br><span class="line">	<span class="built_in">string</span> str = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> ch: text) &#123;</span><br><span class="line">		str += huffmanCode[ch];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"\nEncoded string is :\n"</span> &lt;&lt; str &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// traverse the Huffman Tree again and this time</span></span><br><span class="line">	<span class="comment">// decode the encoded string</span></span><br><span class="line">	<span class="keyword">int</span> index = <span class="number">-1</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"\nDecoded string is: \n"</span>;</span><br><span class="line">	<span class="keyword">while</span> (index &lt; (<span class="keyword">int</span>)str.size() - <span class="number">2</span>) &#123;</span><br><span class="line">		decode(root, index, str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Huffman coding algorithm</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> text = <span class="string">"Huffman coding is a data compression algorithm."</span>;</span><br><span class="line"></span><br><span class="line">	buildHuffmanTree(text);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Huffman总结：前缀编码"><a href="#Huffman总结：前缀编码" class="headerlink" title="Huffman总结：前缀编码"></a>Huffman总结：前缀编码</h3><ul>
+<li>Huffman编码是<mark>不等长编码</mark><ul>
+<li>字符的编码长度不完全相等</li>
+</ul>
+</li>
+<li>不等长编码如果需要译码，必须满足<mark>前缀编码</mark>的条件<ul>
+<li>任何一个字符的编码都不是另外一个字符编码的前缀</li>
+</ul>
+</li>
+<li>从Huffman树的角度考虑，就是<mark>所有的待编码元素都位于叶子节点上</mark>！</li>
+</ul>
+<p>[思考]</p>
+<ul>
+<li>Huffman 编码是如何解决前缀编码问题的？</li>
+<li>实际算法是由多个”小算法”堆砌而成<ul>
+<li>空格压缩问题</li>
+<li>取数组最大/小的两个数</li>
+</ul>
+</li>
+<li>代码实现中并非直接使用指针形成的二叉树节点，而是实现开辟足够大的缓冲空间(2n+1)，每次从缓冲区获取一个节点，使用数组代替二叉树<ul>
+<li>在堆排序，双数组 Trie 树结构等问题中会再次遇到</li>
+</ul>
+</li>
+<li>最后，由于 Huffman 树的节点权值（频数）可能相等，因此对某些文本，Huffman 编码不唯一。<ul>
+<li>左赋 1，右赋 0 或者 左赋 0，右赋 1 都可以。</li>
+</ul>
+</li>
+</ul>
+
           
         
       

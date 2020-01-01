@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="简介 O(n) 是什么 注意 n 是什么？图的节点？边？ 扫一遍 两头扫 双重循环，但是内循环变量不减 单调性 队列 堆栈   组合数学 下一个排列（上一个排列） 巧妙地证明 计数 != 枚举   动态规划    例题1. 名人问题[题目]有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。名人定义为他不认识任何人且所有人都认识他的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-29T07:28:45.232Z">
+<meta property="og:updated_time" content="2019-12-29T08:07:32.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leecode O(n) time complexity">
 <meta name="twitter:description" content="简介 O(n) 是什么 注意 n 是什么？图的节点？边？ 扫一遍 两头扫 双重循环，但是内循环变量不减 单调性 队列 堆栈   组合数学 下一个排列（上一个排列） 巧妙地证明 计数 != 枚举   动态规划    例题1. 名人问题[题目]有 n 个人他们之间认识与否用邻接矩阵表示（1 表示认识，0 表示不认识），并且A认识 B 并不意味着 B 认识 A。名人定义为他不认识任何人且所有人都认识他的">
@@ -657,6 +657,17 @@
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Holland</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; arr)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> begin = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> current = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> end = <span class="keyword">int</span>(arr.size()) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(current &lt;= end)&#123;</span><br><span class="line">		<span class="keyword">if</span>(arr[current] == <span class="number">2</span>)&#123;</span><br><span class="line">			swap(arr[end], arr[current]);</span><br><span class="line">			end--;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[current] == <span class="number">1</span>)&#123;</span><br><span class="line">			current++;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;                  <span class="comment">// if(a[current] == 0)</span></span><br><span class="line">			<span class="keyword">if</span>(current != begin)&#123;</span><br><span class="line">				swap(arr[current], arr[begin]);</span><br><span class="line">			&#125;</span><br><span class="line">			begin++;</span><br><span class="line">			current++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>[荷兰国旗与快排的优化]</mark></p>
+<p>传统的快排每次选取 pivot，然后把元素分成 &lt;=pivot 和 &gt;pivot 两部分。<br>在有相同元素的时候，每次分割递归的时候还是把 pivot 左边的，pivot 右边的递归。</p>
+<p>而使用荷兰国旗思想，则可以优化有大量重复数字的情况。</p>
+<p>假设选取的 pivot 呢，有很多相同元素，荷兰国旗的思想就是把元素分成三段！<br>第一段小于 pivot, 第二段等于 pivot, 第三段大于 pivot.</p>
+<p>然后递归的时候，中间等于 pivot 的那一段就不需要在处理了！！！<br>因此有很多优化。</p>
+<p><mark>快排的最坏情况</mark></p>
+<ol>
+<li>本来已经是顺序排好了</li>
+<li>本来已经是逆序排好了</li>
+<li>所有元素都一样！(这个可以用荷兰国旗思想来优化！)</li>
+</ol>
 <h2 id="众数问题"><a href="#众数问题" class="headerlink" title="众数问题"></a>众数问题</h2><ul>
 <li>找出出现次数超过一半的数</li>
 <li>推广：找出出现次数大于 1/k 的数，用 (k-1) 个 map，复杂度 O(n * k)，注意 k 是常数的时候就是 O(n).</li>

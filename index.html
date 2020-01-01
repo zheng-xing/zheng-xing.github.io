@@ -391,7 +391,78 @@
 </ul>
 </li>
 </ul>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="所有括号匹配的字符串"><a href="#所有括号匹配的字符串" class="headerlink" title="所有括号匹配的字符串"></a>所有括号匹配的字符串</h2><p>[题目]<br>N 对括号能够得到的有效括号序列有哪些？</p>
+<p>[例子]<br>N = 3, 有效括号串共 5 个，分别为：</p>
+<ol>
+<li>()()()</li>
+<li>()(())</li>
+<li>(())()</li>
+<li>(()())</li>
+<li>((()))</li>
+</ol>
+<p>[问题分析]</p>
+<ul>
+<li>任何一个括号序列，都可以写成形式 (A)B<ul>
+<li>A 和 B 都是若干括号对形成的合法串（可以是空串）</li>
+<li>若 N=0, 括号序列为空</li>
+<li>若 N=1, 括号序列只能是 () 这一种。</li>
+</ul>
+</li>
+<li>算法描述: i 属于 [0, N-1]<ul>
+<li>计算 i 对括号的可行序列 A</li>
+<li>计算 N-i-1 对括号的可行序列 B</li>
+<li>组合得到 (A)B</li>
+<li>注：加上额外一对括号 (), 总括号数量是 N 对</li>
+</ul>
+</li>
+</ul>
+<p><mark>注意下面算法有直接修改数组最后一个元素! 使用了返回引用的方法！！！</mark><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; AllParentheses(<span class="keyword">int</span> n)&#123;</span><br><span class="line">	<span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> &#123;<span class="string">""</span>&#125;;</span><br><span class="line">	<span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> &#123;<span class="string">"()"</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; prefix, suffix, result;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		prefix = AllParentheses(i);</span><br><span class="line">		suffix = AllParentheses(n-i<span class="number">-1</span>);</span><br><span class="line">		Unit(result, prefix, suffix);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Unit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; result, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; prefix, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; suffix)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> ip = prefix.begin(); ip != prefix.end(); ip++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> is = suffix.begin(); is != suffix.end(); is++)&#123;</span><br><span class="line">			result.push_back(<span class="string">""</span>);</span><br><span class="line">			<span class="built_in">string</span>&amp; r = result.back();    <span class="comment">// 这里返回的是引用！技巧啊！！</span></span><br><span class="line">			r += <span class="string">"("</span>;</span><br><span class="line">			r += *ip;</span><br><span class="line">			r += <span class="string">")"</span>;</span><br><span class="line">			r += *is;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>[思考]</p>
+<ul>
+<li>可以通过增加缓存的方式，对已经计算得到的字串直接获取，以空间换时间，降低时间复杂度。</li>
+<li>如果只是计算可行括号串的数目，如何计算？<ul>
+<li>事实上，数组 A[i] 表示长度为 i 的括号串的可行数目，即著名的 Catalan 数！</li>
+</ul>
+</li>
+<li>Calalan 数（从 0 开始数）<ul>
+<li>1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, …</li>
+</ul>
+</li>
+</ul>
+<h2 id="最小平方划分"><a href="#最小平方划分" class="headerlink" title="最小平方划分"></a>最小平方划分</h2><p>[题目]<br>一个正整数可以由若干个正整数的平方和表示，求整数 201314 最小的平方划分数目。</p>
+<p>[我的本来思路]<br>用DP的方法！</p>
+<p>假设已知 1, …, n-1 的最小划分保存在数组 split[i] 中。求数 n 最小划分。</p>
+<p>只需要遍历 1, …, n/2，然后看哪一个 split[i] + split[n-i] 最小，即是 n 的最小划分。</p>
+<p>[优化的思路]<br>我的思路时间复杂度是 O(n^2), 因为对于每一个 n, 我都要考虑到 n/2 种情况。</p>
+<p>事实上，这个题目可以优化到 O(n sqrt(n)) 的时间复杂度。具体做法就是考虑 n = a + K^2。<br>也就是说，只需要考虑 1 … K 这么多数字，其中 K = sqrt(n).<br>若 split[n - k^2] + 1 &lt; x (x 是当前的 n 的最小划分数目), 则将 x 更新为 split[n - k^2] + 1</p>
+<p><mark>[如何求平方根]</mark><br>可以使用牛顿法。<br>牛顿法就是求一个方程的解的方法。</p>
+<p>[题外话]<br>四平方和定理</p>
+<ul>
+<li>每个正整数均可表示为最多4个整数的平方和。</li>
+<li>证明<ul>
+<li>首先欧拉发现：如果正整数 m 和 n 能表示成 4 个整数的平方和，则其乘积 mn 也能表示成 4 个整数的平方和。</li>
+<li>而由于每个正整数要么是质数，要么是合数，而合数都可以表达成质数的乘积形式。</li>
+<li>因此只需要证明每个质数可以表示成四个整数的平方和即可！</li>
+<li>拉格朗日和欧拉分别在 1770 和 1773 年做出证明。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Palindrome-Partitioning-所有划分"><a href="#Palindrome-Partitioning-所有划分" class="headerlink" title="Palindrome Partitioning 所有划分"></a>Palindrome Partitioning 所有划分</h2><p>[题目]<br>给定一个字符串 str, 将 str 划分成若干子串，使得每一个子串都是回文串。计算 str 的所有可能的划分。</p>
+<p>note: 因为单个字符一定是回文串，所以一定有解！</p>
+<p>[思路一]</p>
+<ul>
+<li>若当前计算得到了 str[0 … i-1] 的所有划分，可否添加 str[i … j], 得到更大的划分呢？<ul>
+<li>显然，若 str[i…j] 是回文串，则可以添加。</li>
+</ul>
+</li>
+<li>剪枝: 在每一步都可以判断中间结果是否为合法结果<ul>
+<li>回溯 + 剪枝：如果某一次发现划分不合法，立刻对该分支限界</li>
+</ul>
+</li>
+</ul>
+<p>[思路一的代码]<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FindSolution</span><span class="params">(<span class="built_in">string</span>&amp; str, <span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; res, <span class="keyword">int</span> start, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; oneSolution, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt;&amp; isPalindrome)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(start &gt;= n)&#123;</span><br><span class="line">        res.push_back(oneSolution);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(isPalindrome[start][i])&#123;</span><br><span class="line">			oneSolution.push_back(str.substr(start, i - start + <span class="number">1</span>));</span><br><span class="line">			FindSolution(str, n, res, i + <span class="number">1</span>, oneSolution, isPalindrome);</span><br><span class="line">			oneSolution.pop_back();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用二维 DP 来构建 isPalindrome 矩阵</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ConstructIsPalindromeMatrix</span><span class="params">(<span class="built_in">string</span> str, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt;&amp; isPalindrome)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="keyword">int</span> n = str.size();</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; str.size(); i++)&#123;</span><br><span class="line">		p[i][i] = True;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">		isPalindrome[i][i+<span class="number">1</span>] = (str[i] == str[i+<span class="number">1</span>]);</span><br><span class="line">		<span class="keyword">for</span>(j = i + <span class="number">2</span>; j &lt; n; j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>((str[i] == str[j]) &amp;&amp; isPalindrome[i+<span class="number">1</span>][j<span class="number">-1</span>])&#123;</span><br><span class="line">				isPalindrome[i][j] = True;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; PalindromePartitioning(<span class="built_in">string</span> str)&#123;</span><br><span class="line">	<span class="keyword">int</span> n = str.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;str&gt;&gt; res;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; isPalindrome(n, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(n));</span><br><span class="line">	ConstructIsPalindromeMatrix(str, isPalindrome);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;str&gt; oneSolution;    <span class="comment">// 记录一个解！！！</span></span><br><span class="line">	FindSolution(str, n, res, start, oneSolution, isPalindrome);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>[思路二：动态规划]</p>
+
           
         
       
@@ -848,6 +919,17 @@
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Holland</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; arr)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> begin = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> current = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> end = <span class="keyword">int</span>(arr.size()) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(current &lt;= end)&#123;</span><br><span class="line">		<span class="keyword">if</span>(arr[current] == <span class="number">2</span>)&#123;</span><br><span class="line">			swap(arr[end], arr[current]);</span><br><span class="line">			end--;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[current] == <span class="number">1</span>)&#123;</span><br><span class="line">			current++;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;                  <span class="comment">// if(a[current] == 0)</span></span><br><span class="line">			<span class="keyword">if</span>(current != begin)&#123;</span><br><span class="line">				swap(arr[current], arr[begin]);</span><br><span class="line">			&#125;</span><br><span class="line">			begin++;</span><br><span class="line">			current++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>[荷兰国旗与快排的优化]</mark></p>
+<p>传统的快排每次选取 pivot，然后把元素分成 &lt;=pivot 和 &gt;pivot 两部分。<br>在有相同元素的时候，每次分割递归的时候还是把 pivot 左边的，pivot 右边的递归。</p>
+<p>而使用荷兰国旗思想，则可以优化有大量重复数字的情况。</p>
+<p>假设选取的 pivot 呢，有很多相同元素，荷兰国旗的思想就是把元素分成三段！<br>第一段小于 pivot, 第二段等于 pivot, 第三段大于 pivot.</p>
+<p>然后递归的时候，中间等于 pivot 的那一段就不需要在处理了！！！<br>因此有很多优化。</p>
+<p><mark>快排的最坏情况</mark></p>
+<ol>
+<li>本来已经是顺序排好了</li>
+<li>本来已经是逆序排好了</li>
+<li>所有元素都一样！(这个可以用荷兰国旗思想来优化！)</li>
+</ol>
 <h2 id="众数问题"><a href="#众数问题" class="headerlink" title="众数问题"></a>众数问题</h2><ul>
 <li>找出出现次数超过一半的数</li>
 <li>推广：找出出现次数大于 1/k 的数，用 (k-1) 个 map，复杂度 O(n * k)，注意 k 是常数的时候就是 O(n).</li>

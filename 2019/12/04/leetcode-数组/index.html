@@ -89,7 +89,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://discuss.leetcode.com/assets/uploads/files/1510941017203-137.single-number-ii-resized.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png">
-<meta property="og:updated_time" content="2019-12-24T07:15:43.865Z">
+<meta property="og:updated_time" content="2020-01-01T05:26:05.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode 数组">
 <meta name="twitter:description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list题目局部极小值 leetcode 162一个给定的不包含相同元素的整数数组，每个局部极小值的定义是一个值比左右相邻的（如果存在）都小的值。求它的一个局部极小值。 分析：">
@@ -401,6 +401,26 @@
 <li>时间复杂度是 O(n^2)</li>
 </ul>
 </li>
+</ul>
+<p>[方法三 贪心的算法]<br>这个方法比较难想出来，也难以表达清楚。这里先给出过程如下。</p>
+<p>假设原来的序列是 3 4 5 1 2 3 4</p>
+<p>逐个考察这些数</p>
+<ul>
+<li>考察 3 得到 [3]</li>
+<li>考察 4 比 3 大，放到后面，得到 [3, 4]</li>
+<li>考察 5 比 4 大，放到后面，得到 [3, 4, 5]</li>
+<li>考察 1 比 3 还小，替换掉 3, 得到 [1, 4, 5]</li>
+<li>考察 2 比 4 还小，替换掉 4， 得到 [1, 2, 5]</li>
+<li>考察 3 比 5 还小，替换掉 5， 得到 [1, 2, 3]</li>
+<li>考察 4 比 3 大，放到后面，得到 [1, 2, 3, 4]</li>
+<li>最终得到的数组长度为 4，那么就代表最长的递增子序列长度为 4.</li>
+</ul>
+<p><mark>[上面构造的数组的意义]</mark><br>数组 temp 中第 i 个位置的数组 temp[i] 代表原数组中当前能够找到的，长度为 i 的递增子序列中末尾数子最小的是 temp[i].</p>
+<p>比如考虑到上面考察到 2 的时候，得到的 temp 数组是 [1, 2, 5].</p>
+<ul>
+<li>这个 temp 数组中数字 1 表示长度为 1 的递增子序列中末尾数字最小的是 1</li>
+<li>这个 temp 数组中数字 2 表示长度为 2 的递增子序列中末尾数字最小的是 2</li>
+<li>这个 temp 数组中数字 5 表示长度为 3 的递增子序列中末尾数字最小的是 5</li>
 </ul>
 <h2 id="第一个缺失的正整数-leetcode-41"><a href="#第一个缺失的正整数-leetcode-41" class="headerlink" title="第一个缺失的正整数 leetcode 41"></a>第一个缺失的正整数 leetcode 41</h2><p>[题目]<br>给一个数组，找到从 1 开始第一个不在里面的正整数。</p>
 <p>[例如]<br>输入：[3, 4, -1, 1]<br>输出：2.</p>
@@ -821,7 +841,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -843,7 +863,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -898,7 +918,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

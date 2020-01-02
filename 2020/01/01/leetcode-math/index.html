@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="概率本福特定律本福特定律（本福特法则，Frank Benford），又称第一数字定律，是指在实际生活得出的一组数据中，以 1 为首位数字出现的概率约为总数的三成；是直观想象 1/9 的三倍。  阶乘，素数数列，斐波那契数列 住宅地址号码 经济数据反欺诈（检验是否符合本定律） 选举投票发欺诈     数字 出现概率     1 30.1%   2 17.6%   3 12.5%   4 9.7%">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-01T18:49:22.386Z">
+<meta property="og:updated_time" content="2020-01-02T00:52:27.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode-math">
 <meta name="twitter:description" content="概率本福特定律本福特定律（本福特法则，Frank Benford），又称第一数字定律，是指在实际生活得出的一组数据中，以 1 为首位数字出现的概率约为总数的三成；是直观想象 1/9 的三倍。  阶乘，素数数列，斐波那契数列 住宅地址号码 经济数据反欺诈（检验是否符合本定律） 选举投票发欺诈     数字 出现概率     1 30.1%   2 17.6%   3 12.5%   4 9.7%">
@@ -406,6 +406,16 @@
 </tr>
 </tbody>
 </table>
+<h2 id="随机序列"><a href="#随机序列" class="headerlink" title="随机序列"></a>随机序列</h2><p>[题目]<br>给定 N 个数，设计算法，输出随机排列的一个结果。</p>
+<p>[思路]</p>
+<ol>
+<li>直接一个数字一个数字的选择就可以了</li>
+</ol>
+<p>[代码]<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Random2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> rand() % (b - a + <span class="number">1</span>) + a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RandomShuffle2</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a.size() &lt;= <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">int</span> j;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.size() - <span class="number">1</span>; i++)&#123;    <span class="comment">// i 是待生成的第几个数</span></span><br><span class="line">        j = Random2(i, a.size() - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>[思考]</p>
+<ol>
+<li>其实 STL 里面有 std::random_shuffle 可以直接得到结果。</li>
+</ol>
 
       
     </div>
@@ -445,6 +455,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/01/massive-data-analysis/" rel="prev" title="massive-data-analysis">
+                massive-data-analysis <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -535,7 +549,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -557,7 +571,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -592,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li></ol></li></ol></div>
             
 
           </div>

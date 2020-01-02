@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="WIKIBit manipulation is the act of algorithmically manipulating bits or other pieces of data shorter than a word. Computer programming tasks that require bit manipulation include low-level device cont">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-13T07:16:23.217Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/6a607485gy1gahrk1gyp1j20z80mgtpl.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/6a607485gy1gahrkghaycj20zk0l2hcw.jpg">
+<meta property="og:updated_time" content="2020-01-01T21:32:55.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bit_manipulation">
 <meta name="twitter:description" content="WIKIBit manipulation is the act of algorithmically manipulating bits or other pieces of data shorter than a word. Computer programming tasks that require bit manipulation include low-level device cont">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/6a607485gy1gahrk1gyp1j20z80mgtpl.jpg">
 
 
 
@@ -374,6 +377,21 @@ Exclusive-or is commonly abbreviated XOR.
 <li>Get all 1-bits ~0</li>
 </ol>
 <h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><h5 id="1-Count-the-number-of-ones-in-the-binary-representation-of-the-given-number"><a href="#1-Count-the-number-of-ones-in-the-binary-representation-of-the-given-number" class="headerlink" title="1. Count the number of ones in the binary representation of the given number"></a>1. Count the number of ones in the binary representation of the given number</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">count_one</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(n)</span><br><span class="line">    &#123;</span><br><span class="line">        n = n&amp;(n<span class="number">-1</span>);</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>一个牛逼的分治思路</mark></p>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gahrk1gyp1j20z80mgtpl.jpg" alt="Screen Shot 2020-01-01 at 13.23.13.png"></p>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gahrkghaycj20zk0l2hcw.jpg" alt="Screen Shot 2020-01-01 at 13.23.25.png"></p>
+<p>我来解释一下思路！</p>
+<ol>
+<li>如果原始数字是一个 4 位的二进制数，假设是 1110.</li>
+<li>那么我们先用 0101 与它做与操作，得到从右边数第一和第三个位置上的数字是 1 的数量，结果是 0100，表示右数第一个位置上有 0 个 1，右数第三个位置上有 1 个 1.</li>
+<li>然后用 1010 与它做与操作，得到从右边数第二和第四个位置上数字是 1 的数量，结果是 1010, 表示右数第二个位置上有 1 个 1，右数第四个位置上有 1 个 1. 把这个 1010 向右 shift 一个位子，得到 0101，然后与上面的 0100 相加，得到 1001. </li>
+<li>对 1001 的解释<ol>
+<li>前面一半 “10” 代表原始数字的 4 个 bit 中前面两个含有 2 个 1， 后面一半 “01” 表示后面两个 bit 位置上含有 1 个 1.</li>
+</ol>
+</li>
+<li>继续递归，我们需要把 “10” 和 “01” 相加得到 4 个 bit 中一共有多少个 1.</li>
+</ol>
+<p>[代码二]<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">HammingWeight</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    n = (n &amp; <span class="number">0x55555555</span>) + ((n &amp; <span class="number">0xaaaaaaaa</span>) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x33333333</span>) + ((n &amp; <span class="number">0xcccccccc</span>) &gt;&gt; <span class="number">2</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x0f0f0f0f</span>) + ((n &amp; <span class="number">0xf0f0f0f0</span>) &gt;&gt; <span class="number">4</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x00ff00ff</span>) + ((n &amp; <span class="number">0xff00ff00</span>) &gt;&gt; <span class="number">8</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x0000ffff</span>) + ((n &amp; <span class="number">0xffff0000</span>) &gt;&gt; <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">return</span> n;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h5 id="2-Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same"><a href="#2-Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same" class="headerlink" title="2. Is power of four (actually map-checking, iterative and recursive methods can do the same)"></a>2. Is power of four (actually map-checking, iterative and recursive methods can do the same)</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPowerOfFour</span><span class="params">(<span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !(n&amp;(n<span class="number">-1</span>)) &amp;&amp; (n&amp;<span class="number">0x55555555</span>);</span><br><span class="line">    <span class="comment">//check the 1-bit location;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="3-tricks"><a href="#3-tricks" class="headerlink" title="3. ==^== tricks"></a>3. ==^== tricks</h5><ol>
 <li>Use ==^== to remove even exactly same numbers and save the odd, or save the distinct bits and remove the same.</li>
@@ -556,7 +574,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -578,7 +596,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

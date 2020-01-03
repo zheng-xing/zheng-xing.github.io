@@ -436,10 +436,31 @@
 <li>SPIN 模型检测器使用 BloomFilter 在大规模验证问题时跟踪可达状态空间</li>
 <li>Google Chrome 浏览器使用 BloomFilter 加速安全浏览服务</li>
 <li>在很多 Key-Value 系统中也是用 BloomFilter 来加快查询过程，如 HBase, Accumulo, Leveldb<ol>
-<li>一般而言，value 保存在磁盘中，访问磁盘需要花费大量时间，然而使用 BloomFilter 可以快速判断某个 Key 是否存在，因此可以避免很多不必要的磁盘 IO 操作；lingwan</li>
+<li>一般而言，value 保存在磁盘中，访问磁盘需要花费大量时间，然而使用 BloomFilter 可以快速判断某个 Key 是否存在，因此可以避免很多不必要的磁盘 IO 操作；另外，引入布隆过滤器会带来一定的内存消耗。</li>
+<li>如果你真的非常在意 false positive 的话，那么可以在 Bloom Filter 给出“存在”的结论时候，再去磁盘真的查询一次看看到底在不在。</li>
 </ol>
 </li>
 </ol>
+<h2 id="跳跃链表（skip-list）"><a href="#跳跃链表（skip-list）" class="headerlink" title="跳跃链表（skip list）"></a>跳跃链表（skip list）</h2><ol>
+<li>Treaps/RB-Tree/BTree</li>
+<li>跳跃链表是一种随机化数据结构，基于并联的链表，其效率与 RBTree 相当。具有简单、高效、动态（Simple, Effective, Dynamic）的特点。</li>
+<li>跳跃链表对有序的链表副驾辅助结构，在链表中的查找可以快速的跳过部分节点（由此得名）。<ol>
+<li>查找、增加、删除的期望时间都是 O(logN)</li>
+<li>with high probability (W.H.P. ~ 1 - 1/(n^alpha))</li>
+</ol>
+</li>
+<li>跳跃链表在并行计算中非常有用，数据插入可以再跳表的不同部分并行进行，而不用全局的数据结构重新平衡。</li>
+<li>跳跃列表是按层建造的。底层是一个普通的有序链表。每个更高层都充当下面列表的“快速跑道“，这里在层 i 中的元素按某个固定的概率 p 出现在层 i+1 中。平均起来，每个元素都在 1/(1-p) 个列表中出现。<ol>
+<li>为什么是 1/(1-p)?</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gaj8c6p5coj20na0eqtg7.jpg" alt="Screen Shot 2020-01-02 at 19.29.50.png"></p>
+<p>由上图可以看出来，要找一个元素，先在最上层找，找不到再往下走一层找。</p>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gaj8grgkdvj20ns0gcti8.jpg" alt="Screen Shot 2020-01-02 at 19.54.17.png"></p>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gaj8ip6lijj20lu0caqa8.jpg" alt="Screen Shot 2020-01-02 at 19.56.13.png"></p>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gaj8kf7iagj20nk0fqdsc.jpg" alt="Screen Shot 2020-01-02 at 19.57.54.png"></p>
+<p><mark><br>    注意上面这个计算有错！<br>    k = ln(N) 这个结果没什么毛病。但是 T(N) 的表达有问题 T(N) = ln(N) <em> N^(1 / ln(N))<br>    而乘法号后面的 N^(1 / ln(N)) 等于数学常量 e<br>    因此 T(N) = e </em> ln(N)<br></mark></p>
 
           
         

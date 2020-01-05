@@ -249,6 +249,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-linked-list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/08/leetcode-linked-list/" itemprop="url">leetcode linked list</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-08T11:16:04-08:00">
+                2019-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/08/leetcode-linked-list/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/12/08/leetcode-linked-list/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题目总体分析"><a href="#题目总体分析" class="headerlink" title="题目总体分析"></a>题目总体分析</h1><p>TODO</p>
+<h1 id="C-相关操作语法"><a href="#C-相关操作语法" class="headerlink" title="C++ 相关操作语法"></a>C++ 相关操作语法</h1><p>TODO</p>
+<h1 id="Python-相关操作语法"><a href="#Python-相关操作语法" class="headerlink" title="Python 相关操作语法"></a>Python 相关操作语法</h1><p>TODO</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="翻转单链表"><a href="#翻转单链表" class="headerlink" title="翻转单链表"></a>翻转单链表</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从头开始翻</span></span><br><span class="line">ListNode *result = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">while</span>(head)&#123;</span><br><span class="line">	temp = head-&gt;next;</span><br><span class="line">	head-&gt;next = result;</span><br><span class="line">	result = head;</span><br><span class="line">	head = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">### TODO 思考：翻转部分链表 leetcode <span class="number">92</span></span><br><span class="line">- 如何找到第 m 个元素和第 n 个元素</span><br><span class="line">- 如何处理前面和后面</span><br><span class="line">    - 保存前面部分最后一个元素</span><br><span class="line">    - 保存后面部分第一个元素</span><br><span class="line">    - 特殊情况？</span><br><span class="line"></span><br><span class="line">### TODO 思考： 每 k 个元素翻转一次 leetcode <span class="number">25</span></span><br><span class="line">- 前面翻好的部分（小链表）</span><br><span class="line">- 要翻转的部分（K 个）</span><br><span class="line">- 后面没处理的部分（小链表）</span><br><span class="line">- 不足 k 个怎么办？</span><br><span class="line"></span><br><span class="line">## 单链表含有环 leetcode <span class="number">0141</span>, <span class="number">0142</span></span><br><span class="line"></span><br><span class="line">分析</span><br><span class="line">- 假设链表起点到圈起点距离是 a，相遇点到圈起点距离是 b</span><br><span class="line">- 那么有</span><br><span class="line">    - slow pointer 走了 a + b</span><br><span class="line">    - fast pointer 走了 a + b + k*n == <span class="number">2</span>*(a+b)</span><br><span class="line">    - 从而 a + b = k * n</span><br><span class="line">- 如何找圈的起点</span><br><span class="line">    - 相遇后，把 slow pointer 拉回链表起点，fast pointer 从相遇点继续走。</span><br><span class="line">    - 注意这个时候两个指针都一步一步的走</span><br><span class="line">    - 这个时候二者会在圈起点相遇！！！</span><br><span class="line">- 如何找圈长</span><br><span class="line">    - 相遇后，slow pointer 再走一圈并统计长度就是圈长。</span><br><span class="line">```c++</span><br><span class="line">class Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ListNode *detectCycle(ListNode *head)&#123;</span><br><span class="line">    	ListNode *p1 = head, *p2 = head;</span><br><span class="line">    	<span class="keyword">do</span> &#123;</span><br><span class="line">    		<span class="keyword">if</span>((!p2) || (p2-&gt;next == <span class="literal">nullptr</span>))&#123;</span><br><span class="line">    			<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    		p2 = p2-&gt;next-&gt;next;</span><br><span class="line">    		p1 = p1-&gt;next;</span><br><span class="line">    	&#125; <span class="keyword">while</span>(p1 != p2);</span><br><span class="line">    	<span class="keyword">for</span>(p1 = head; p1 != p2; p1 = p1-&gt;next, p2 = p2-&gt;next)</span><br><span class="line">    	;</span><br><span class="line">    	<span class="keyword">return</span> p1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="两个单链表是否相交-leetcode-160"><a href="#两个单链表是否相交-leetcode-160" class="headerlink" title="两个单链表是否相交 leetcode 160"></a>两个单链表是否相交 leetcode 160</h2><p>就是检测是否是 Y 型结构。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!headA || !headB) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode *tempA = headA, *tempB = headB;</span><br><span class="line">        <span class="keyword">int</span> lenA, lenB;</span><br><span class="line">        <span class="keyword">for</span>(lenA = <span class="number">0</span>; tempA; tempA = tempA-&gt;next) lenA++;</span><br><span class="line">        <span class="keyword">for</span>(lenB = <span class="number">0</span>; tempB; tempB = tempB-&gt;next) lenB++;</span><br><span class="line">        tempA = headA;</span><br><span class="line">        tempB = headB;</span><br><span class="line">        <span class="keyword">if</span>(lenA &gt; lenB)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenA - lenB; i++) tempA = tempA-&gt;next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenB - lenA; i++) tempB = tempB-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(tempA)&#123;</span><br><span class="line">            <span class="keyword">if</span>(tempA == tempB) <span class="keyword">return</span> tempA;</span><br><span class="line">            tempA = tempA-&gt;next;</span><br><span class="line">            tempB = tempB-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="复制带随机指针的链表-leetcode-138"><a href="#复制带随机指针的链表-leetcode-138" class="headerlink" title="复制带随机指针的链表 leetcode 138"></a>复制带随机指针的链表 leetcode 138</h2><p>方法一：使用 map&lt;旧地址，新地址&gt;</p>
+<p>方法二：不用 map</p>
+<ul>
+<li>插入：每个旧节点后面插入一个自身的“复本”</li>
+<li>复制 random 指针<ul>
+<li>一个旧节点 a 的复本是 a-&gt;next</li>
+<li>a-&gt;ranom 的复本是 a-&gt;random-&gt;next</li>
+<li>新节点的random 指针 a-&gt;next-&gt;random = a-&gt;random-&gt;next (空值单独判断)</li>
+</ul>
+</li>
+<li>拆分<ul>
+<li>旧节点链表是奇数项</li>
+<li>新节点链表是偶数项<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">RandomListNode *<span class="title">copyRandomList</span><span class="params">(RandomListNode *head)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(head == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">for</span>(RandomListNode *now = head; now; )&#123;</span><br><span class="line">    		RandomListNode *copy = <span class="keyword">new</span> RandomListNode(now-&gt;label);</span><br><span class="line">    		copy-&gt;next = now-&gt;next;</span><br><span class="line">    		now-&gt;next = copy;</span><br><span class="line">    		now = copy-&gt;next;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">for</span>(RandomListNode *now = head; now; now = now-&gt;next-&gt;next)&#123;</span><br><span class="line">    		now-&gt;next-&gt;random = (now-&gt;random == <span class="literal">nullptr</span>) ? <span class="literal">nullptr</span> : now-&gt;random-&gt;next;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	RandomListNode *h = head-&gt;next, *t = h, *tail = head;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">for</span>(;;)&#123;</span><br><span class="line">    		tail = tail-&gt;next = t-&gt;next;</span><br><span class="line">    		<span class="keyword">if</span>(!tail)</span><br><span class="line">    		    <span class="keyword">break</span>;</span><br><span class="line">    		t = t-&gt;next = tail-&gt;next;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> h;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="链表-partition-leetcode-86"><a href="#链表-partition-leetcode-86" class="headerlink" title="链表 partition leetcode 86"></a>链表 partition leetcode 86</h2><p>链表里存放整数，给定 x 把比 x 小的节点放到比 x 大的节点之前。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">partition</span><span class="params">(ListNode* head, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	    ListNode *h1 = <span class="literal">nullptr</span>, *t1 = <span class="literal">nullptr</span>, *h2 = <span class="literal">nullptr</span>, *t2 = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">for</span>( ; head; head = head-&gt;next)&#123;</span><br><span class="line">	    	<span class="keyword">if</span>(head-&gt;val &lt; x)&#123;</span><br><span class="line">	    		<span class="keyword">if</span>(t1)&#123;    <span class="comment">// 需要看一下是不是 nullptr</span></span><br><span class="line">	    			t1 = t1-&gt;next = head;</span><br><span class="line">	    		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	    			h1 = t1 = head;</span><br><span class="line">	    		&#125;</span><br><span class="line">	    	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (t2)&#123;</span><br><span class="line">	    		t2 = t2-&gt;next = head;</span><br><span class="line">	    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	    		h2 = t2 = head;</span><br><span class="line">	    	&#125;</span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">if</span>(t2) t2-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">	    <span class="keyword">if</span>(t1) t1-&gt;next = h2;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">return</span> h1? h1 : h2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/07/leetcode-stack-queue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2368,138 +2544,6 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/总目录索引/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Xing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/29/总目录索引/" itemprop="url">总目录索引</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T20:37:22-07:00">
-                2018-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/29/总目录索引/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/29/总目录索引/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://zheng-xing.github.io/2018/08/29/Algorithms-Questions/" target="_blank" rel="external">Algorithm Questions</a></p>
-<p><a href="https://zheng-xing.github.io/2018/08/29/ML-DL-basic-knowledge/" target="_blank" rel="external">机器学习和深度学习基础知识</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2554,7 +2598,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2565,7 +2609,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2576,7 +2620,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

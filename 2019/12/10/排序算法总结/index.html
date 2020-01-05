@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="总结 几个重要的排序法讲解快速排序快速排序由于排序效率在同为O(N*logN)的几种排序方法中效率较高，因此经常被采用，再加上快速排序思想分治法也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。 总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对大家">
+<meta name="description" content="总结 几个重要的排序法讲解快速排序快速排序由于排序效率在同为O(N * logN)的几种排序方法中效率较高，因此经常被采用，再加上快速排序思想分治法也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。 总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对">
 <meta name="keywords" content="sorting">
 <meta property="og:type" content="article">
 <meta property="og:title" content="排序算法总结">
 <meta property="og:url" content="http://yoursite.com/2019/12/10/排序算法总结/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="总结 几个重要的排序法讲解快速排序快速排序由于排序效率在同为O(N*logN)的几种排序方法中效率较高，因此经常被采用，再加上快速排序思想分治法也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。 总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对大家">
+<meta property="og:description" content="总结 几个重要的排序法讲解快速排序快速排序由于排序效率在同为O(N * logN)的几种排序方法中效率较高，因此经常被采用，再加上快速排序思想分治法也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。 总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://7xsnb0.com1.z0.glb.clouddn.com/2016-07-15_%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png">
 <meta property="og:image" content="http://bubkoo.qiniudn.com/shell-sort-animation.gif">
 <meta property="og:image" content="http://bubkoo.qiniudn.com/shell-sort-step1.1.png">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/6a607485gy1ga6qe45peoj20d40d875m.jpg">
-<meta property="og:updated_time" content="2019-12-23T08:32:30.288Z">
+<meta property="og:updated_time" content="2020-01-05T18:19:45.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序算法总结">
-<meta name="twitter:description" content="总结 几个重要的排序法讲解快速排序快速排序由于排序效率在同为O(N*logN)的几种排序方法中效率较高，因此经常被采用，再加上快速排序思想分治法也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。 总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对大家">
+<meta name="twitter:description" content="总结 几个重要的排序法讲解快速排序快速排序由于排序效率在同为O(N * logN)的几种排序方法中效率较高，因此经常被采用，再加上快速排序思想分治法也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。 总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对">
 <meta name="twitter:image" content="http://7xsnb0.com1.z0.glb.clouddn.com/2016-07-15_%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png">
 
 
@@ -359,7 +359,7 @@
 
       
         <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><img src="http://7xsnb0.com1.z0.glb.clouddn.com/2016-07-15_%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png" alt=""></p>
-<h1 id="几个重要的排序法讲解"><a href="#几个重要的排序法讲解" class="headerlink" title="几个重要的排序法讲解"></a>几个重要的排序法讲解</h1><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序由于<mark>排序效率在同为O(N*logN)的几种排序方法中效率较高</mark>，因此经常被采用，再加上快速排序思想<mark>分治法</mark>也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。</p>
+<h1 id="几个重要的排序法讲解"><a href="#几个重要的排序法讲解" class="headerlink" title="几个重要的排序法讲解"></a>几个重要的排序法讲解</h1><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序由于<mark>排序效率在同为O(N * logN)的几种排序方法中效率较高</mark>，因此经常被采用，再加上快速排序思想<mark>分治法</mark>也确实实用，因此很多软件公司的笔试面试，包括像腾讯，微软等知名IT公司都喜欢考这个，还有大大小的程序方面的考试如软考，考研中也常常出现快速排序的身影。</p>
 <p>总的说来，要直接默写出快速排序还是有一定难度的，因为本人就自己的理解对快速排序作了下白话解释，希望对大家理解有帮助，达到快速排序，快速搞定.</p>
 <p>快速排序是C.R.A.Hoare于1962年提出的一种划分交换排序。它采用了一种分治的策略，通常称其为分治法(Divide-and-ConquerMethod)。</p>
 <p>该方法的基本思想是：</p>
@@ -373,7 +373,7 @@
 <p>2．j–由后向前找比它小的数，找到后挖出此数填前一个坑a[i]中。</p>
 <p>3．i++由前向后找比它大的数，找到后也挖出此数填到前一个坑a[j]中。</p>
 <p>4．再重复执行2，3二步，直到i==j，将基准数填入a[i]中。</p>
-<h4 id="Shell-排序"><a href="#Shell-排序" class="headerlink" title="Shell 排序"></a>Shell 排序</h4><p><img src="http://bubkoo.qiniudn.com/shell-sort-animation.gif" alt=""></p>
+<h2 id="Shell-排序"><a href="#Shell-排序" class="headerlink" title="Shell 排序"></a>Shell 排序</h2><p><img src="http://bubkoo.qiniudn.com/shell-sort-animation.gif" alt=""></p>
 <p>希尔排序是基于插入排序的以下两点性质而提出改进方法的：</p>
 <ol>
 <li>插入排序在对几乎已经排好序的数据操作时， 效率高， 即可以达到线性排序的效率</li>
@@ -616,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个重要的排序法讲解"><span class="nav-number">2.</span> <span class="nav-text">几个重要的排序法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">2.1.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Shell-排序"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">Shell 排序</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各种排序算法的C-代码"><span class="nav-number">3.</span> <span class="nav-text">各种排序算法的C++代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快排为什么快"><span class="nav-number">4.</span> <span class="nav-text">快排为什么快</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#猜数字"><span class="nav-number">4.2.</span> <span class="nav-text">猜数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#称球"><span class="nav-number">4.3.</span> <span class="nav-text">称球</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">4.4.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么堆排比快排慢"><span class="nav-number">4.4.1.</span> <span class="nav-text">为什么堆排比快排慢</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个重要的排序法讲解"><span class="nav-number">2.</span> <span class="nav-text">几个重要的排序法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">2.1.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-排序"><span class="nav-number">2.2.</span> <span class="nav-text">Shell 排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各种排序算法的C-代码"><span class="nav-number">3.</span> <span class="nav-text">各种排序算法的C++代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快排为什么快"><span class="nav-number">4.</span> <span class="nav-text">快排为什么快</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#猜数字"><span class="nav-number">4.2.</span> <span class="nav-text">猜数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#称球"><span class="nav-number">4.3.</span> <span class="nav-text">称球</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">4.4.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么堆排比快排慢"><span class="nav-number">4.4.1.</span> <span class="nav-text">为什么堆排比快排慢</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

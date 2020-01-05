@@ -249,6 +249,413 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/04/cpp-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/04/cpp-summary/" itemprop="url">cpp-summary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-04T17:28:42-08:00">
+                2020-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/04/cpp-summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/01/04/cpp-summary/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="class-有关"><a href="#class-有关" class="headerlink" title="class 有关"></a>class 有关</h2><h3 id="概念题"><a href="#概念题" class="headerlink" title="概念题"></a>概念题</h3><p>[Differnce with struct]</p>
+<ol>
+<li>The only difference between “class” and “struct” is whether the beginning content in the class body (before first appearance of “private”/“public” keyword) is public or private. For class, that part is private. For struct, that part is public.</li>
+</ol>
+<p>[Method 定义的位置]</p>
+<ol>
+<li>定义在 class body 中的话，是要求这些 function become inline, thus avoid function call overhead.</li>
+<li>定义在 class body 外的话，就会有 function call.</li>
+</ol>
+<p>[Compiler generated functions]</p>
+<ol>
+<li>Compilter silently write 4 functions if they are not explicitly declared:<ol>
+<li>Copy constructor</li>
+<li>Copy Assignment Operator</li>
+<li>Destructor</li>
+<li>Default Constructor (Only if there is no constructor declared)<ol>
+<li>If there exists copy constructor, then compiler will not generate default constructor.</li>
+<li>However, if there exists some constructor (not copy constructor), compiler will generate copy constructor if needed.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h3><p>多态背后的技术叫做动态绑定！底层的实现是使用虚函数表。</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>为了实现C++的多态<mark>（关于多态，简而言之就是用父类型别的指针指向其子类的实例，然后通过父类的指针调用实际子类的成员函数。这种技术可以让父类的指针有“多种形态”，这是一种泛型技术。所谓泛型技术，说白了就是试图使用不变的代码来实现可变的算法。比如：模板技术，RTTI技术，虚函数技术，要么是试图做到在编译时决议，要么试图做到运行时决议。<br>）</mark>，C++使用了一种动态绑定的技术。这个技术的核心是虚函数表（下文简称虚表）。本文介绍虚函数表是如何实现动态绑定的。</p>
+<h4 id="类的虚表"><a href="#类的虚表" class="headerlink" title="类的虚表"></a>类的虚表</h4><p>每个包含了虚函数的类都包含一个虚表。</p>
+<p>我们知道，当一个类 A 继承另一个类 B 时，类 A 会继承类 B 的函数的调用权。所以如果一个基类包含了虚函数，那么其继承类也可以调用这些虚函数。<br>换句话说，一个类继承了包含虚函数的基类，那么这个类也拥有自己的虚表。</p>
+<p>简单的例子，看一下下面的代码:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">vfunc1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">vfunc2</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m_data1, m_data2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>由上面的代码可知，类 A 有虚函数，因此它有一个虚表。</p>
+<p>类 A 的虚表如下图所示<br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/classA-virtual-table.png" alt=""></p>
+<p><mark>虚表是一个指针数组，其元素是虚函数的指针。每个元素对应一个虚函数的函数指针。<br>需要指出的是，普通的函数，即非虚函数，其调用并不需要经过虚表。<br>因此虚表的元素并不包括普通函数的函数指针。</mark></p>
+<h4 id="虚表指针"><a href="#虚表指针" class="headerlink" title="虚表指针"></a>虚表指针</h4><p><mark>虚表是属于类的，而不是属于某个具体的对象！一个类只需要一个虚表即可！同一个类的所有对象都使用同一个虚表。</mark></p>
+<p>为了指定对象的虚表，对象内部包含一个虚表的指针，来指向自己所使用的虚表。<br>为了让每个包含虚表的类的对象都拥有一个虚表指针，<mark>编译器在类中添加了一个指针，<code>*__vptr</code>, 用来指向虚表。</mark><br>这样，当类的对象在创建时便拥有了这个指针，且这个指针的值会自动被设置为指向类的虚表。</p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/classA-virtual-table-pointer.png" alt=""></p>
+<p>再重复一遍！一个继承类的基类如果包含虚函数，那么这个继承类也有自己的虚表，这个继承类的对象也包含一个虚表指针，用来指向它的虚表。</p>
+<h4 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h4><p>下面讲一下 C++ 是如何利用虚表和虚表指针实现动态绑定的。先看一段代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">vfunc1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">vfunc2</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m_data1, m_data2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">vfunc1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m_data3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span> <span class="keyword">public</span> B &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">vfunc2</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m_data1, m_data4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类 A 是基类，类 B 继承类 A，类 C 又继承类 B。<br>它们三个的对象模型如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/classA-virtual-table-with-object-model.png" alt=""></p>
+<p>[关于上图的几点说明]</p>
+<ol>
+<li>由于<mark>这三个类都有虚函数，故编译器为每个类都创建了一个虚表</mark>，即类 A 有虚表 vtbl_A, 类 B 有虚表 vtbl_B, 类 C 有虚表 vtbl_C. 类A, B, C 的<code>对象</code>都拥有一个虚表指针， <code>*__vptr</code>, 用来指向自己所属类的虚表。</li>
+<li>类 A 包括两个虚函数，故 vtbl_A 包含两个指针，分别指向 A::vfunc1() 和 A::vfunc2().</li>
+<li>类 B 继承于类 A，故类 B 可以调用类 A 的函数，但由于类 B 重写了 B::vfunc1() 函数，故 vtbl_B 的两个指针分别指向 B::vfunc1() 和 A::vfunc2().</li>
+<li>类 C 继承于类 B，故类 C 可以调用类 B 的函数，但由于类 C 重写了 C::vfunc2() 函数，故 vtbl_C 的两个指针分别指向 B::vfunc1() (指向继承的最近的一个类的函数) 和 C::vfunc2().</li>
+<li>图三看起来有点复杂，但是核心还是：<mark>对象的虚表指针用来指向自己所属类的虚表，虚表中的指针会指向其继承的最近的一个类的虚函数</mark>。抓住这个核心思想，就可以快速将这几个类的对象模型在脑中想象出来！</li>
+<li>非虚函数的调用不用经过虚表，故不需要虚表中的指针指向这些函数。</li>
+</ol>
+<p>假设我们定义一个类 B 的对象如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	B bObject;  <span class="comment">// bObject 是 B 的一个对象，故包含一个虚表指针，指向类 B 的虚表</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 接下来用基类指针指向子类对象</span></span><br><span class="line">	A *p = &amp; bObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><mark>这里要注意了，虽然 <code>p</code> 是基类的指针，只能指向基类的部分，但是虚表指针也属于基类的部分，亦即 b 实例内存中的虚表指针也属于基类部分。所以 <code>p</code> 可以访问到对象 bObject 的虚表指针. bObject 的虚表指针指向类 B 的虚表，所以 <code>p</code> 可以访问到 vtbl_B. </mark></p>
+<p>当我们使用 p 来调用 vfunc1() 函数时候，会发横什么现象?</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	B bObject;  <span class="comment">// bObject 是 B 的一个对象，故包含一个虚表指针，指向类 B 的虚表</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 接下来用基类指针指向子类对象</span></span><br><span class="line">	A *p = &amp; bObject;</span><br><span class="line">	p-&gt;vfunc1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序在执行 <code>p-&gt;vfunc1()</code> 时会发现 p 是个指针，且调用的函数式虚函数，接下来便会进行以下的步骤</p>
+<ol>
+<li>首先，根据虚表指针 <code>p-&gt;__vptr</code> 来访问对象 bObject 对应的虚表。虽然指针 p 是基类 <code>A*</code> 类型，但是 <code>*__vptr</code> 也是基类的一部分，所以可以通过 <code>p-&gt;__vptr</code> 访问到对象对应的虚表。</li>
+<li>然后，在虚表中查找所调用的函数对应的条目。由于虚表在编一阶段就可以构造出来了，所以可以根据所调用的函数定位到虚表中的对应条目。对于 <code>p-&gt;vfunc1()</code> 的调用，vtbl_B 的第一项即是 vfunc1 对应的条目。</li>
+<li>最后，根据虚表中找到的函数指针，调用函数。从上图可以看出，vtbl_B 的第一项指向 B::vfunc1()，所以 <code>p-&gt;vfunc1()</code> 实质会调用 B::vfunc1() 函数。</li>
+</ol>
+<p>而如果 p 指向类 A 的对象，<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	A aObject;  <span class="comment">// bObject 是 B 的一个对象，故包含一个虚表指针，指向类 B 的虚表</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 接下来用基类指针指向子类对象</span></span><br><span class="line">	A *p = &amp; aObject;</span><br><span class="line">	p-&gt;vfunc1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当 aObject 在创建时，它的虚表指针 <code>__vptr</code> 已设置为指向 vtbl_A，这样 <code>p-&gt;__vptr</code> 就指向 vtbl_A. vfunc1 在 vtbl_A 对应的条目指向了 A::vfunc1() 函数，所以 <code>p-&gt;vfunc1()</code> 实质会调用 <code>A::vfunc1()</code> 函数。</p>
+<p><mark>可以看到，通过使用这些虚函数表，即使使用的是基类的指针来调用函数，也可以达到正确调用运行中实际对象的虚函数。</mark></p>
+<p>[动态绑定]<br>我们把<mark>经过虚表调用虚函数的过程称为动态绑定</mark>，其表现出来的现象称为<mark>运行时多态</mark>。动态绑定区别于传统的函数调用，传统的函数调用我们称之为静态绑定，即函数的调用在编译阶段就可以确定下来了。</p>
+<p>那么，<mark>什么时候会执行函数的动态绑定？</mark>这需要符合以下三个条件。</p>
+<ol>
+<li>通过指针来调用函数</li>
+<li>指针 upcast 向上转型（继承类向基类的转换称为 upcast，关于什么是upcast，可以参考本文的参考资料）</li>
+<li>调用的是虚函数</li>
+</ol>
+<p>如果一个函数调用符合以上三个条件，编译器就会把该函数调用编译成动态绑定，其函数的调用过程走的是上述通过虚表的机制。</p>
+<h2 id="fundamental-concept-基本概念"><a href="#fundamental-concept-基本概念" class="headerlink" title="fundamental concept 基本概念"></a>fundamental concept 基本概念</h2><h4 id="volatile-keyword"><a href="#volatile-keyword" class="headerlink" title="volatile keyword"></a>volatile keyword</h4><p>Most of the times compilers will do optimization to the code to speed up the program. For example in the below code,</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">while</span>( a == <span class="number">10</span>)&#123;</span><br><span class="line">     <span class="comment">// Do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>compiler may think that value of ‘a’ is not getting changed from the program and replace it with ‘while(true)’, which will result in an infinite loop. In actual scenario the value of ‘a’ may be getting updated from outside of the program.<br>Volatile keyword is used to tell compiler that the variable declared using volatile may be used from outside the current scope so that compiler wont apply any optimization. This matters only in case of multi-threaded applications.<br>In the above example if variable ‘a’ was declared using volatile, compiler will not optimize it. In shot, value of the volatile variables will be read from the memory location directly.</p>
+<h4 id="—————-const—————"><a href="#—————-const—————" class="headerlink" title="—————-const—————-"></a>—————-const—————-</h4><ol>
+<li>如果你声明某个 variable 是 const，在声明的那个语句中你就必须给它初始化！因为后面你就没有机会再修改了！</li>
+<li>non-const iterator can be used to access/modify the container.</li>
+<li>const iterator can only be used for access, and cannot be used for modification.</li>
+<li>If the container itself is const, you can only use const iterator to access its elements.</li>
+<li>==begin()== returns const_iterator if the container is const, and returns non-const iterator if the container is not const. (But you can always use ==auto==)</li>
+<li>cbegin(), cend() returns const_iterator.</li>
+</ol>
+<h4 id="—————-three-kinds-of-function-parameters———"><a href="#—————-three-kinds-of-function-parameters———" class="headerlink" title="—————-three kinds of function parameters———-"></a>—————-three kinds of function parameters———-</h4><ol>
+<li>someFunction(vector<double> vec)</double></li>
+<li>someFunction(const vector<double>&amp; vec)</double></li>
+</ol>
+<h4 id="—————-static—————"><a href="#—————-static—————" class="headerlink" title="—————-static—————-"></a>—————-static—————-</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Local variables that are declared to be static </span></span><br><span class="line"><span class="comment">are preserved across invocations of the function.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Thus, we'll construct and initialize the string name</span></span><br><span class="line"><span class="comment">only on the first call to someFunction.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">someFunction</span><span class="params">(balabala)</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">string</span> name = <span class="string">"Zheng Xing"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="—————-reference—————"><a href="#—————-reference—————" class="headerlink" title="—————-reference—————-"></a>—————-reference—————-</h4><ol>
+<li>reference data must be assigned at initialization</li>
+<li>reference data cannot be reassigned</li>
+</ol>
+<h4 id="—————-and-—————"><a href="#—————-and-—————" class="headerlink" title="—————-() and =  —————-"></a>—————-() and =  —————-</h4><ol>
+<li>container<t> c(c2)<ol>
+<li>defines c as a container that is a copy of c2</li>
+</ol>
+</t></li>
+<li>container<t> c = c2<ol>
+<li>same</li>
+</ol>
+</t></li>
+</ol>
+<h4 id="—————-default-value-initialization—————"><a href="#—————-default-value-initialization—————" class="headerlink" title="—————-default/value initialization—————-"></a>—————-default/value initialization—————-</h4><ol>
+<li>local variables of built-in type that are not explicitly initialized are undefined.</li>
+<li>class type says what initializer to use if there is not one specified.</li>
+<li>(Accerated C++, P125) When we index a map with a key that has not yet been seen, the map automatically creates a new element with that key. That element is ==value-initialized==, which, for simple types such as int, is equivalent to setting the value to zero.</li>
+</ol>
+<h4 id="—————-overloading—————"><a href="#—————-overloading—————" class="headerlink" title="—————-overloading—————-"></a>—————-overloading—————-</h4><p>Several functions with the same name.</p>
+<h4 id="—————-lvalue—————"><a href="#—————-lvalue—————" class="headerlink" title="—————-lvalue—————-"></a>—————-lvalue—————-</h4><p>就是一个可以被赋值的东西。denote a nontemporary object.</p>
+<ol>
+<li>variable</li>
+<li>reference</li>
+<li>the result of calling a function that returns a reference.</li>
+</ol>
+<h4 id="—————-iterator—————"><a href="#—————-iterator—————" class="headerlink" title="—————-iterator—————-"></a>—————-iterator—————-</h4><p>==( * iter).name== is the same as ==iter-&gt;name==</p>
+<h2 id="三种定义-Comparison-Function-的方法"><a href="#三种定义-Comparison-Function-的方法" class="headerlink" title="三种定义 Comparison Function 的方法"></a>三种定义 Comparison Function 的方法</h2><h4 id="方法一：Define-operator-lt"><a href="#方法一：Define-operator-lt" class="headerlink" title="方法一：Define operator&lt;()"></a>方法一：Define operator&lt;()</h4><p>在自定义的数据结构里面定义好 &lt; 运算符的意义.</p>
+<p>注意：operator&lt;() 参数只有一个！！！并且 operator 是 const<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> from, to, weight;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// sort the edges in decreasing order</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(Edge other) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> weight &gt; other.weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">如果你不喜欢这种语法，只有一个参数，</span></span><br><span class="line"><span class="comment">却比较两个objects，那么你可以用下面的方式：</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> from, to, weight;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(Edge a, Edge b)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.weight &gt; b.weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">This way it is much clearer that you are </span></span><br><span class="line"><span class="comment">comparing a and b, not *this and other. </span></span><br><span class="line"><span class="comment">Note also that friend function is like static function; </span></span><br><span class="line"><span class="comment">it cannot access member variables.</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="方法二：定义-comparison-function"><a href="#方法二：定义-comparison-function" class="headerlink" title="方法二：定义 comparison function"></a>方法二：定义 comparison function</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comp</span><span class="params">(<span class="built_in">string</span>&amp; str1, <span class="built_in">string</span>&amp; str2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str1.size() &lt; str2.size();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sort(stringVec.begin(), stringVec.end(), comp);</span><br></pre></td></tr></table></figure>
+<h4 id="方法三：定义-operator-，实际就是-functor。但是要注意-map-set-里面传入的是type-而sort-的第三个参数不能传递这个-type，必须传递一个-object"><a href="#方法三：定义-operator-，实际就是-functor。但是要注意-map-set-里面传入的是type-而sort-的第三个参数不能传递这个-type，必须传递一个-object" class="headerlink" title="方法三：定义 operator()()，实际就是 functor。但是要注意, map, set 里面传入的是type, 而sort 的第三个参数不能传递这个 type，必须传递一个 object."></a>方法三：定义 operator()()，实际就是 functor。但是要注意, map, set 里面传入的是type, 而sort 的第三个参数不能传递这个 type，必须传递一个 object.</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="built_in">string</span> str1, <span class="built_in">string</span> str2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> str1.size() &lt; str2.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有了上面的定义，你就可以这样用：</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>, cmp&gt; myset;  <span class="comment">// cmp 是 type</span></span><br><span class="line"><span class="comment">// 或者这样（cmp 也是 type）</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, cmp&gt; mymap;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个错误用法</span></span><br><span class="line">sort(stringArray.begin(), stringArray.end(), cmp);</span><br><span class="line"><span class="comment">// cmp 是type，sort需要 object</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确写法-1</span></span><br><span class="line">sort(stringArray.begin(), stringArray.end(), cmp());</span><br><span class="line"><span class="comment">// 正确写法-2</span></span><br><span class="line">cmp cmpobject;</span><br><span class="line">sort(stringArray.begin(), stringArray.end(), cmpobject);</span><br></pre></td></tr></table></figure>
+<p>注意，虽然 set, map 里面只能使用 functor/type</p>
+<p>实际上他们也可以用 function 的方法，但是容易用错，</p>
+<p>不过这里还是给出来看一下。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">You can use comparison function for STL containers</span></span><br><span class="line"><span class="comment">by passing them as the first argument of the constructor, </span></span><br><span class="line"><span class="comment">and specifying the function type as the additional template argument. </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comp</span><span class="params">(<span class="built_in">string</span>&amp; str1, <span class="built_in">string</span>&amp; str2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str1.size() &lt; str2.size();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>, <span class="keyword">bool</span> (*)(<span class="built_in">string</span>, <span class="built_in">string</span>)&gt; myset(comp);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">lambda function 也是一个 object</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> comp = [](<span class="built_in">string</span> a, <span class="built_in">string</span> b) &#123; <span class="keyword">return</span> a.size() &gt; b.size; &#125;;</span><br><span class="line">priority_queue&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, <span class="keyword">decltype</span>(comp)&gt; mypq(comp);</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法二-vs-方法三"><a href="#方法二-vs-方法三" class="headerlink" title="方法二 vs 方法三"></a>方法二 vs 方法三</h4><ol>
+<li>方法三 compiler 很容易 inline，所以效率高！</li>
+</ol>
+<h4 id="STL-内置的函数对象"><a href="#STL-内置的函数对象" class="headerlink" title="STL 内置的函数对象"></a>STL 内置的函数对象</h4><p>STL提供的函数对象</p>
+<ol>
+<li>用于算术运算的函数对象：<ol>
+<li>一元函数对象(一个参数) ：negate</li>
+<li>二元函数对象(两个参数) ：plus、minus、multiplies、divides、modulus</li>
+</ol>
+</li>
+<li>用于关系运算、逻辑运算的函数对象(要求返回值为bool)<ol>
+<li>一元谓词(一个参数)：logical_not</li>
+<li>二元谓词(两个参数)：equalto、notequalto、greater、less、greaterequal、lessequal、logicaland、logical_or</li>
+</ol>
+</li>
+</ol>
+<h2 id="泛型设计"><a href="#泛型设计" class="headerlink" title="泛型设计"></a>泛型设计</h2><h3 id="泛型设计的基本概念"><a href="#泛型设计的基本概念" class="headerlink" title="泛型设计的基本概念"></a>泛型设计的基本概念</h3><h4 id="目的：为啥需要泛型程序设计"><a href="#目的：为啥需要泛型程序设计" class="headerlink" title="目的：为啥需要泛型程序设计"></a>目的：为啥需要泛型程序设计</h4><ol>
+<li>编写不依赖于具体数据类型的程序</li>
+<li>将算法从具体的数据结构中抽象出来，成为通用的</li>
+<li>C++ 的模板为泛型程序设计奠定了关键的基础</li>
+</ol>
+<h4 id="术语一：概念"><a href="#术语一：概念" class="headerlink" title="术语一：概念"></a>术语一：概念</h4><p>概念是指：用来界定具备一定功能的数据类型。例如：</p>
+<ol>
+<li>将“可以比大小的所有数据类型（有比较运算符）”这一概念记为Comparable</li>
+<li>将“具有公有的复制构造函数并可以用‘=’赋值的数据类型”这一概念记为Assignable</li>
+<li>将“可以比大小、具有公有的复制构造函数并可以用‘=’赋值的所有数据类型”这个概念记作Sortable</li>
+</ol>
+<p>对于两个不同的概念A和B，如果概念A所需求的所有功能也是概念B所需求的功能，那么就说概念B是概念A的子概念。例如：</p>
+<ol>
+<li>Sortable既是Comparable的子概念，也是Assignable的子概念</li>
+</ol>
+<h4 id="术语：模型"><a href="#术语：模型" class="headerlink" title="术语：模型"></a>术语：模型</h4><p>模型（model）：符合一个概念的数据类型称为该概念的模型，例如：</p>
+<ol>
+<li>int型是Comparable概念的模型。</li>
+<li>静态数组类型不是Assignable概念的模型（无法用“=”给整个静态数组赋值）</li>
+</ol>
+<h4 id="用概念做模板参数名"><a href="#用概念做模板参数名" class="headerlink" title="用概念做模板参数名"></a>用概念做模板参数名</h4><p>很多STL的实现代码就是使用概念来命名模板参数的。</p>
+<p>为概念赋予一个名称，并使用该名称作为模板参数名。例如</p>
+<p>表示insertionSort这样一个函数模板的原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Sortable</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">insertionSort</span>(<span class="title">Sortable</span> <span class="title">a</span>[], <span class="title">int</span> <span class="title">n</span>);</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="STL-简介"><a href="#STL-简介" class="headerlink" title="STL 简介"></a>STL 简介</h3><h4 id="STL的基本组件"><a href="#STL的基本组件" class="headerlink" title="STL的基本组件"></a>STL的基本组件</h4><ol>
+<li>容器（container）</li>
+<li>迭代器（iterator）</li>
+<li>函数对象（function object）</li>
+<li>算法（algorithms）</li>
+</ol>
+<h4 id="STL的基本组件间的关系"><a href="#STL的基本组件间的关系" class="headerlink" title="STL的基本组件间的关系"></a>STL的基本组件间的关系</h4><ol>
+<li>Iterators（迭代器）是算法和容器的桥梁。</li>
+<li>将迭代器作为算法的参数、通过迭代器来访问容器而不是把容器直接作为算法的参数。</li>
+<li>将函数对象作为算法的参数而不是将函数所执行的运算作为算法的一部分。</li>
+<li>使用STL中提供的或自定义的迭代器和函数对象，配合STL的算法，可以组合出各种各样的功能。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-iterator-container.png" alt=""></p>
+<h4 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h4><p>transform算法的一种实现：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>, <span class="title">class</span> <span class="title">OutputIterator</span>, <span class="title">class</span> <span class="title">UnaryFunction</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">OutputIterator</span> <span class="title">transform</span>(<span class="title">InputIterator</span> <span class="title">first</span>, <span class="title">InputIterator</span> <span class="title">last</span>, <span class="title">OutputIterator</span> <span class="title">result</span>, <span class="title">UnaryFunction</span> <span class="title">op</span>) &#123;</span></span><br><span class="line">    <span class="keyword">for</span> (;first != last; ++first, ++result)</span><br><span class="line">        *result = op(*first);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>transform算法顺序遍历first和last两个迭代器所指向的元素；</p>
+<p>将每个元素的值作为函数对象op的参数；</p>
+<p>将op的返回值通过迭代器result顺序输出；</p>
+<p>遍历完成后result迭代器指向的是输出的最后一个元素的下一个位置，transform会将该迭代器返回.</p>
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>迭代器是算法和容器的桥梁</p>
+<ol>
+<li>迭代器用作访问容器中的元素</li>
+<li>算法不直接操作容器中的数据，而是通过迭代器间接操作</li>
+</ol>
+<p>算法和容器独立</p>
+<ol>
+<li>增加新的算法，无需影响容器的实现</li>
+<li>增加新的容器，原有的算法也能适用</li>
+</ol>
+<h4 id="顺序容器的特性"><a href="#顺序容器的特性" class="headerlink" title="顺序容器的特性"></a>顺序容器的特性</h4><p>顺序容器包括：</p>
+<ol>
+<li>向量、双端队列、列表、单向链表、数组</li>
+</ol>
+<h5 id="向量（Vector）"><a href="#向量（Vector）" class="headerlink" title="向量（Vector）"></a>向量（Vector）</h5><p>特点</p>
+<ol>
+<li>一个可以扩展的动态数组</li>
+<li>随机访问、在尾部插入或删除元素快</li>
+<li>在中间或头部插入或删除元素慢</li>
+</ol>
+<p>向量的容量</p>
+<ol>
+<li>容量(capacity)：实际分配空间的大小</li>
+<li>s.capacity() ：返回当前容量</li>
+<li>s.reserve(n)：若容量小于n，则对s进行扩展，使其容量至少为n</li>
+</ol>
+<h5 id="双端队列（deque）"><a href="#双端队列（deque）" class="headerlink" title="双端队列（deque）"></a>双端队列（deque）</h5><p>特点</p>
+<ol>
+<li>在两端插入或删除元素快</li>
+<li>在中间插入或删除元素慢</li>
+<li>随机访问较快，但比向量容器慢</li>
+</ol>
+<p>例10-5 奇偶排序<br>先按照从大到小顺序输出奇数，再按照从小到大顺序输出偶数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 头部分省略</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    istream_iterator&lt;<span class="keyword">int</span>&gt; i1(<span class="built_in">cin</span>), i2;  <span class="comment">//建立一对输入流迭代器</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; s1(i1, i2); <span class="comment">//通过输入流迭代器从标准输入流中输入数据</span></span><br><span class="line">    sort(s1.begin(), s1.end()); <span class="comment">//将输入的整数排序</span></span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; s2;</span><br><span class="line">    <span class="comment">//以下循环遍历s1</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator iter = s1.begin(); iter != s1.end(); ++iter) </span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">if</span> (*iter % <span class="number">2</span> == <span class="number">0</span>)    <span class="comment">//偶数放到s2尾部</span></span><br><span class="line">             s2.push_back(*iter);</span><br><span class="line">         <span class="keyword">else</span>       <span class="comment">//奇数放到s2首部</span></span><br><span class="line">             s2.push_front(*iter);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将s2的结果输出</span></span><br><span class="line">    copy(s2.begin(), s2.end(), ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>, <span class="string">" "</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>==心得一：输出 vector 到标准输出我一般都是用 for 循环一个一个喂给 cout，这里却用 iterator 和 copy 函数很简洁得做到了（上段代码倒数第三句）==</p>
+<p>==心得二：这个方法思路很好啊！！==</p>
+<h5 id="列表-list"><a href="#列表-list" class="headerlink" title="列表(list)"></a>列表(list)</h5><p>特点</p>
+<ol>
+<li>在任意位置插入和删除元素都很快</li>
+<li>不支持随机访问</li>
+</ol>
+<p>接合(splice)操作</p>
+<ol>
+<li>==s1.splice(p, s2, q1, q2)：将s2中[q1, q2)移动到s1中p所指向元素之前==</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 头部分省略</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> names1[] = &#123; <span class="string">"Alice"</span>, <span class="string">"Helen"</span>, <span class="string">"Lucy"</span>, <span class="string">"Susan"</span> &#125;;</span><br><span class="line">    <span class="built_in">string</span> names2[] = &#123; <span class="string">"Bob"</span>, <span class="string">"David"</span>, <span class="string">"Levin"</span>, <span class="string">"Mike"</span> &#125;;</span><br><span class="line">    <span class="comment">//用names1数组的内容构造列表s1</span></span><br><span class="line">    <span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; s1(names1, names1 + <span class="number">4</span>); </span><br><span class="line">    <span class="comment">//用names2数组的内容构造列表s2</span></span><br><span class="line">    <span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; s2(names2, names2 + <span class="number">4</span>); </span><br><span class="line"></span><br><span class="line">    <span class="comment">//将s1的第一个元素放到s2的最后</span></span><br><span class="line">    s2.splice(s2.end(), s1, s1.begin());</span><br><span class="line">    <span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator iter1 = s1.begin(); <span class="comment">//iter1指向s1首</span></span><br><span class="line">    advance(iter1, <span class="number">2</span>); <span class="comment">//iter1前进2个元素，它将指向s1第3个元素</span></span><br><span class="line">    <span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator iter2 = s2.begin();  <span class="comment">//iter2指向s2首</span></span><br><span class="line">    ++iter2; <span class="comment">//iter2前进1个元素，它将指向s2第2个元素</span></span><br><span class="line">    <span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt;::iterator iter3 = iter2; <span class="comment">//用iter2初始化iter3</span></span><br><span class="line">    advance(iter3, <span class="number">2</span>); <span class="comment">//iter3前进2个元素，它将指向s2第4个元素</span></span><br><span class="line">    <span class="comment">//将[iter2, iter3)范围内的结点接到s1中iter1指向的结点前</span></span><br><span class="line">    s1.splice(iter1, s2, iter2, iter3); </span><br><span class="line"></span><br><span class="line">    <span class="comment">//分别将s1和s2输出</span></span><br><span class="line">    copy(s1.begin(), s1.end(), ostream_iterator&lt;<span class="built_in">string</span>&gt;(<span class="built_in">cout</span>, <span class="string">" "</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    copy(s2.begin(), s2.end(), ostream_iterator&lt;<span class="built_in">string</span>&gt;(<span class="built_in">cout</span>, <span class="string">" "</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="单向链表（forward-list）"><a href="#单向链表（forward-list）" class="headerlink" title="单向链表（forward_list）"></a>单向链表（forward_list）</h5><ol>
+<li>单向链表每个结点只有指向下个结点的指针，没有简单的方法来获取一个结点的前驱；</li>
+<li>未定义insert、emplace和erase操作，而定义了insertafter、emplaceafter和erase_after操作，其参数与list的insert、emplace和erase相同，但并不是插入或删除迭代器p1所指的元素，而是对p1所指元素之后的结点进行操作；</li>
+<li>不支持size操作。</li>
+</ol>
+<h5 id="数组（array）"><a href="#数组（array）" class="headerlink" title="数组（array）"></a>数组（array）</h5><ol>
+<li>array是对内置数组的封装，提供了更安全，更方便的使用数组的方式</li>
+<li>array的对象的大小是固定的，定义时除了需要指定元素类型，还需要指定容器大小。</li>
+<li>不能动态地改变容器大小</li>
+</ol>
+<h5 id="顺序容器的比较"><a href="#顺序容器的比较" class="headerlink" title="顺序容器的比较"></a>顺序容器的比较</h5><p>STL所提供的顺序容器各有所长也各有所短，我们在编写程序时应当根据我们对容器所需要执行的操作来决定选择哪一种容器。</p>
+<ol>
+<li>如果需要执行大量的随机访问操作，而且当扩展容器时只需要向容器尾部加入新的元素，就应当选择向量容器vector；</li>
+<li>如果需要少量的随机访问操作，需要在容器两端插入或删除元素，则应当选择双端队列容器deque；</li>
+<li>如果不需要对容器进行随机访问，但是需要在中间位置插入或者删除元素，就应当选择列表容器list或forward_list；</li>
+<li>如果需要数组，array相对于内置数组类型而言，是一种更安全、更容易使用的数组类型。</li>
+</ol>
+<h4 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h4><ol>
+<li>容器适配器</li>
+<li>函数适配器</li>
+<li>迭代器适配器</li>
+</ol>
+<h5 id="容器适配器"><a href="#容器适配器" class="headerlink" title="容器适配器"></a>容器适配器</h5><p>STL提供了三个==容器适配器==：</p>
+<ol>
+<li>queue</li>
+<li>priority_queue</li>
+<li>stack</li>
+</ol>
+<p>这些适配器都是包装了vector、list、deque中某个顺序容器的包装器。<br>stack和queue是容器，但是他们==在本质上是适配器，他们本身并没有实现什么结构和算法，而是把deque拿过来，接口改造一下，实现了自己需要的功能==。</p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-deque-class.png" alt=""></p>
+<p>注意：</p>
+<ol>
+<li>适配器没有提供迭代器，也不能同时插入或删除多个元素</li>
+</ol>
+<h5 id="函数适配器"><a href="#函数适配器" class="headerlink" title="函数适配器"></a>函数适配器</h5><h5 id="迭代器适配器"><a href="#迭代器适配器" class="headerlink" title="迭代器适配器"></a>迭代器适配器</h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/01/massive-data-analysis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2772,171 +3179,6 @@ TreeNode* findMin(TreeNode* node){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/07/leetcode-stack-queue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Xing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/07/leetcode-stack-queue/" itemprop="url">leetcode stack queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-07T17:23:44-08:00">
-                2019-12-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/07/leetcode-stack-queue/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/12/07/leetcode-stack-queue/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="面试题总体分析"><a href="#面试题总体分析" class="headerlink" title="面试题总体分析"></a>面试题总体分析</h1><p>TODO</p>
-<h1 id="C-相关语法操作"><a href="#C-相关语法操作" class="headerlink" title="C++ 相关语法操作"></a>C++ 相关语法操作</h1><p>TODO</p>
-<p>用自定义 greater 决定最大堆，最小堆。</p>
-<h1 id="python-相关语法操作"><a href="#python-相关语法操作" class="headerlink" title="python 相关语法操作"></a>python 相关语法操作</h1><p>TODO</p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="用两个队列实现一个栈"><a href="#用两个队列实现一个栈" class="headerlink" title="用两个队列实现一个栈"></a>用两个队列实现一个栈</h2><p>思路：用两个队列来回倒，保证一个队列是空的。<br>用空队列临时存储除队尾外所有元素。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">入栈：维护一个队列是空的。时间复杂度: O(1)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">push(x):</span><br><span class="line">    <span class="keyword">if</span>(!q1.empty()) q1.push(x)</span><br><span class="line">    <span class="keyword">else</span> q2.push(x)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">出栈：用一个队列临时存放元素。时间复杂度:O(n)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">pop():</span><br><span class="line">    <span class="keyword">if</span>(!q1.empty())&#123;</span><br><span class="line">    	<span class="keyword">while</span>(q1.size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">    		q2.push(q1.front());</span><br><span class="line">    		q1.pop();</span><br><span class="line">    	&#125;</span><br><span class="line">    	q1.pop();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    	<span class="comment">// 类似操作</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="用两个堆栈实现一个队列"><a href="#用两个堆栈实现一个队列" class="headerlink" title="用两个堆栈实现一个队列"></a>用两个堆栈实现一个队列</h2><p>思路：使用两个堆栈。s1 负责 push, s2 负责 pop.<br>注意这个跟上一个题目不一样，因为不是每次 pop 都需要重新翻一次数据。<br>如果负责 pop 的 s2 里面还有数据的话，可以直接 pop.<br>这样子最终的 amotized complexity is O(1).<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">push(x): <span class="comment">//O(1)</span></span><br><span class="line">    s1.push(x)</span><br><span class="line"></span><br><span class="line">pop():  <span class="comment">// 均摊O(1) 每个元素出入两个栈各一次。</span></span><br><span class="line">    <span class="keyword">if</span>(s2.empty())&#123;</span><br><span class="line">    	<span class="keyword">while</span>(!s1.empty())&#123;</span><br><span class="line">    		s2.push(s1.top());</span><br><span class="line">    		s1.pop();</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    s2.pop();</span><br></pre></td></tr></table></figure></p>
-<h2 id="支持查找最小值的栈"><a href="#支持查找最小值的栈" class="headerlink" title="支持查找最小值的栈"></a>支持查找最小值的栈</h2><p>题目：一个堆栈除了支持 push, pop 外还要支持一个操作: getMin 得到当前堆栈里所有元素的最小值。</p>
-<p>思路一：用两个堆栈，s1 正常使用，s2 在 getMin 的时候使用。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">方法二：用两个堆栈，s1 维护原来的值，s2 维护最小值，他们元素个数一样多。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">push(x):  <span class="comment">// O(1)</span></span><br><span class="line">    s1.push(x)</span><br><span class="line">    <span class="keyword">if</span>(!s2.empty() &amp;&amp; s2.top() &lt; x) s2.push(s2.top())</span><br><span class="line">    <span class="keyword">else</span> s2.push(x)</span><br><span class="line"></span><br><span class="line">pop():  <span class="comment">// O(1)</span></span><br><span class="line">    s1.pop()</span><br><span class="line">    s2.pop()</span><br><span class="line"></span><br><span class="line">getMin:  <span class="comment">// O(1)</span></span><br><span class="line">    <span class="keyword">return</span> s2.top()</span><br></pre></td></tr></table></figure>
-<h3 id="变型：维护最小值的-queue"><a href="#变型：维护最小值的-queue" class="headerlink" title="变型：维护最小值的 queue"></a>变型：维护最小值的 queue</h3><p>==维护队列单调性！！！==<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">利用两个双端队里，记录最大值的双端队列保持单调递减性，记录最小值的双端队列保持单调递增性。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; minque;</span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; maxque;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	que.push(val);</span><br><span class="line">	<span class="keyword">while</span> ((!minque.empty()) &amp;&amp; (minque.back() &gt; val))</span><br><span class="line">		minque.pop_back();</span><br><span class="line">	minque.push_back(val);</span><br><span class="line">	<span class="keyword">while</span> ((!maxque.empty()) &amp;&amp; (maxque.back() &lt; val))</span><br><span class="line">		maxque.pop_back();</span><br><span class="line">	maxque.push_back(val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> value = que.front();</span><br><span class="line">	que.pop();</span><br><span class="line">	<span class="keyword">if</span> (minque.front() == value)</span><br><span class="line">		minque.pop_front();</span><br><span class="line">	<span class="keyword">if</span> (maxque.front() == value)</span><br><span class="line">		maxque.pop_front();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findmin</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> minque.front();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findmax</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> maxque.front();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="直方图中最大面积矩形-leetcode-84"><a href="#直方图中最大面积矩形-leetcode-84" class="headerlink" title="直方图中最大面积矩形 leetcode 84"></a>直方图中最大面积矩形 leetcode 84</h2><p>Example:<br>Input: [2,1,5,6,2,3]<br>Output: 10<br><img src="https://assets.leetcode.com/uploads/2018/10/12/histogram_area.png" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">思想还是维持一个单调的栈。</span></span><br><span class="line"><span class="comment">这里栈内元素大小是递增的。一旦来了一个小的元素，那么会把栈顶比此元素大的一个一个 pop 出来。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        height.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> n = height.size(), area = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; indexes;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!indexes.empty() &amp;&amp; height[indexes.top()] &gt; height[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> h = height[indexes.top()];   <span class="comment">// 以当前栈顶值为高度的矩形，此时右边界已经确定，就是刚扫描到的 height[i]。</span></span><br><span class="line">                indexes.pop();    <span class="comment">// 而左边界就是栈里下面压着的那一个 index. 因为下面压着的 index 那个高度小于它。</span></span><br><span class="line">                <span class="keyword">int</span> l = indexes.empty() ? <span class="number">-1</span> : indexes.top();  </span><br><span class="line">                area = max(area, h * (i - l - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            indexes.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="sliding-window-maximum"><a href="#sliding-window-maximum" class="headerlink" title="sliding window maximum"></a>sliding window maximum</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">dq 只需要保存 k 个内容就可以，这里是保存 index，</span></span><br><span class="line"><span class="comment">此处关键是 dq 保存所有的 k 个 index 吗？</span></span><br><span class="line"><span class="comment">显然不是，它只会保存有用的信息。</span></span><br><span class="line"><span class="comment">什么才是有用的信息？是那些有可能成为 maximum 的点。</span></span><br><span class="line"><span class="comment">这里的操作和之前 0456 - 132 Pattern 解法中的操作类似。</span></span><br><span class="line"><span class="comment">在考虑 num[i] 的时候，把 num[i] 跟 dequeue 的最后一个值(实际是index对应位置的值)比较</span></span><br><span class="line"><span class="comment">如果小于 nums[i]，那么就 pop_back()，直到遇到比 nums[i] 大的</span></span><br><span class="line"><span class="comment">这个操作保证了 dequeue 中的数值一定是递减数列</span></span><br><span class="line"><span class="comment">此时 de.front() 对应的值就是位置 i(含) 之前 k 个值中最大的值。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; maxSlidingWindow(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; dq;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dq.empty() &amp;&amp; dq.front() == i-k) dq.pop_front();</span><br><span class="line">            <span class="keyword">while</span>(!dq.empty() &amp;&amp; nums[dq.back()] &lt; nums[i]) dq.pop_back();</span><br><span class="line">            dq.push_back(i);</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= k<span class="number">-1</span>) res.push_back(nums[dq.front()]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">注意：</span></span><br><span class="line"><span class="comment">dq 中保存的是 index，所以第8行和第10行用 nums[dq.back()], nums[dq.front()].</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">心得体会</span></span><br><span class="line"><span class="comment">我发现这个用 stack(0456) 或者queue存储 maximum/minimum 的技巧，</span></span><br><span class="line"><span class="comment">对于比较大小或者 max/min 的题目很有效啊。</span></span><br><span class="line"><span class="comment">主要就是 stack/queue 的“两端”是对应的是 current maximum/minimum</span></span><br><span class="line"><span class="comment">可以用O(1)直接找到并作比较。</span></span><br><span class="line"><span class="comment">如果直接在一个范围内找 max 作比较，那就需要 O(n) 去找了。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">答案里分析 time complexity 的时候都提到了 amotized O(n)，</span></span><br><span class="line"><span class="comment">这个是因为 for loop 里面那个 while 的次数是变得，可能为 O(1) ，也可能为 O(n).</span></span><br><span class="line"><span class="comment">换个角度，每个元素最多被添加一次pop一次，因此算法复杂度是 amotized O(n).</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2991,7 +3233,7 @@ TreeNode* findMin(TreeNode* node){
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3002,7 +3244,7 @@ TreeNode* findMin(TreeNode* node){
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -3013,7 +3255,7 @@ TreeNode* findMin(TreeNode* node){
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

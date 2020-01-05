@@ -249,6 +249,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/07/leetcode-stack-queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/07/leetcode-stack-queue/" itemprop="url">leetcode stack queue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-07T17:23:44-08:00">
+                2019-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/07/leetcode-stack-queue/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/12/07/leetcode-stack-queue/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="面试题总体分析"><a href="#面试题总体分析" class="headerlink" title="面试题总体分析"></a>面试题总体分析</h1><p>TODO</p>
+<h1 id="C-相关语法操作"><a href="#C-相关语法操作" class="headerlink" title="C++ 相关语法操作"></a>C++ 相关语法操作</h1><p>TODO</p>
+<p>用自定义 greater 决定最大堆，最小堆。</p>
+<h1 id="python-相关语法操作"><a href="#python-相关语法操作" class="headerlink" title="python 相关语法操作"></a>python 相关语法操作</h1><p>TODO</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="用两个队列实现一个栈"><a href="#用两个队列实现一个栈" class="headerlink" title="用两个队列实现一个栈"></a>用两个队列实现一个栈</h2><p>思路：用两个队列来回倒，保证一个队列是空的。<br>用空队列临时存储除队尾外所有元素。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">入栈：维护一个队列是空的。时间复杂度: O(1)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">push(x):</span><br><span class="line">    <span class="keyword">if</span>(!q1.empty()) q1.push(x)</span><br><span class="line">    <span class="keyword">else</span> q2.push(x)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">出栈：用一个队列临时存放元素。时间复杂度:O(n)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">pop():</span><br><span class="line">    <span class="keyword">if</span>(!q1.empty())&#123;</span><br><span class="line">    	<span class="keyword">while</span>(q1.size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">    		q2.push(q1.front());</span><br><span class="line">    		q1.pop();</span><br><span class="line">    	&#125;</span><br><span class="line">    	q1.pop();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    	<span class="comment">// 类似操作</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="用两个堆栈实现一个队列"><a href="#用两个堆栈实现一个队列" class="headerlink" title="用两个堆栈实现一个队列"></a>用两个堆栈实现一个队列</h2><p>思路：使用两个堆栈。s1 负责 push, s2 负责 pop.<br>注意这个跟上一个题目不一样，因为不是每次 pop 都需要重新翻一次数据。<br>如果负责 pop 的 s2 里面还有数据的话，可以直接 pop.<br>这样子最终的 amotized complexity is O(1).<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">push(x): <span class="comment">//O(1)</span></span><br><span class="line">    s1.push(x)</span><br><span class="line"></span><br><span class="line">pop():  <span class="comment">// 均摊O(1) 每个元素出入两个栈各一次。</span></span><br><span class="line">    <span class="keyword">if</span>(s2.empty())&#123;</span><br><span class="line">    	<span class="keyword">while</span>(!s1.empty())&#123;</span><br><span class="line">    		s2.push(s1.top());</span><br><span class="line">    		s1.pop();</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    s2.pop();</span><br></pre></td></tr></table></figure></p>
+<h2 id="支持查找最小值的栈"><a href="#支持查找最小值的栈" class="headerlink" title="支持查找最小值的栈"></a>支持查找最小值的栈</h2><p>题目：一个堆栈除了支持 push, pop 外还要支持一个操作: getMin 得到当前堆栈里所有元素的最小值。</p>
+<p>思路一：用两个堆栈，s1 正常使用，s2 在 getMin 的时候使用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">方法二：用两个堆栈，s1 维护原来的值，s2 维护最小值，他们元素个数一样多。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">push(x):  <span class="comment">// O(1)</span></span><br><span class="line">    s1.push(x)</span><br><span class="line">    <span class="keyword">if</span>(!s2.empty() &amp;&amp; s2.top() &lt; x) s2.push(s2.top())</span><br><span class="line">    <span class="keyword">else</span> s2.push(x)</span><br><span class="line"></span><br><span class="line">pop():  <span class="comment">// O(1)</span></span><br><span class="line">    s1.pop()</span><br><span class="line">    s2.pop()</span><br><span class="line"></span><br><span class="line">getMin:  <span class="comment">// O(1)</span></span><br><span class="line">    <span class="keyword">return</span> s2.top()</span><br></pre></td></tr></table></figure>
+<h3 id="变型：维护最小值的-queue"><a href="#变型：维护最小值的-queue" class="headerlink" title="变型：维护最小值的 queue"></a>变型：维护最小值的 queue</h3><p>==维护队列单调性！！！==<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">利用两个双端队里，记录最大值的双端队列保持单调递减性，记录最小值的双端队列保持单调递增性。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; minque;</span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; maxque;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	que.push(val);</span><br><span class="line">	<span class="keyword">while</span> ((!minque.empty()) &amp;&amp; (minque.back() &gt; val))</span><br><span class="line">		minque.pop_back();</span><br><span class="line">	minque.push_back(val);</span><br><span class="line">	<span class="keyword">while</span> ((!maxque.empty()) &amp;&amp; (maxque.back() &lt; val))</span><br><span class="line">		maxque.pop_back();</span><br><span class="line">	maxque.push_back(val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> value = que.front();</span><br><span class="line">	que.pop();</span><br><span class="line">	<span class="keyword">if</span> (minque.front() == value)</span><br><span class="line">		minque.pop_front();</span><br><span class="line">	<span class="keyword">if</span> (maxque.front() == value)</span><br><span class="line">		maxque.pop_front();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findmin</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> minque.front();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findmax</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> maxque.front();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="直方图中最大面积矩形-leetcode-84"><a href="#直方图中最大面积矩形-leetcode-84" class="headerlink" title="直方图中最大面积矩形 leetcode 84"></a>直方图中最大面积矩形 leetcode 84</h2><p>Example:<br>Input: [2,1,5,6,2,3]<br>Output: 10<br><img src="https://assets.leetcode.com/uploads/2018/10/12/histogram_area.png" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">思想还是维持一个单调的栈。</span></span><br><span class="line"><span class="comment">这里栈内元素大小是递增的。一旦来了一个小的元素，那么会把栈顶比此元素大的一个一个 pop 出来。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        height.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> n = height.size(), area = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; indexes;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!indexes.empty() &amp;&amp; height[indexes.top()] &gt; height[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> h = height[indexes.top()];   <span class="comment">// 以当前栈顶值为高度的矩形，此时右边界已经确定，就是刚扫描到的 height[i]。</span></span><br><span class="line">                indexes.pop();    <span class="comment">// 而左边界就是栈里下面压着的那一个 index. 因为下面压着的 index 那个高度小于它。</span></span><br><span class="line">                <span class="keyword">int</span> l = indexes.empty() ? <span class="number">-1</span> : indexes.top();  </span><br><span class="line">                area = max(area, h * (i - l - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            indexes.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="sliding-window-maximum"><a href="#sliding-window-maximum" class="headerlink" title="sliding window maximum"></a>sliding window maximum</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">dq 只需要保存 k 个内容就可以，这里是保存 index，</span></span><br><span class="line"><span class="comment">此处关键是 dq 保存所有的 k 个 index 吗？</span></span><br><span class="line"><span class="comment">显然不是，它只会保存有用的信息。</span></span><br><span class="line"><span class="comment">什么才是有用的信息？是那些有可能成为 maximum 的点。</span></span><br><span class="line"><span class="comment">这里的操作和之前 0456 - 132 Pattern 解法中的操作类似。</span></span><br><span class="line"><span class="comment">在考虑 num[i] 的时候，把 num[i] 跟 dequeue 的最后一个值(实际是index对应位置的值)比较</span></span><br><span class="line"><span class="comment">如果小于 nums[i]，那么就 pop_back()，直到遇到比 nums[i] 大的</span></span><br><span class="line"><span class="comment">这个操作保证了 dequeue 中的数值一定是递减数列</span></span><br><span class="line"><span class="comment">此时 de.front() 对应的值就是位置 i(含) 之前 k 个值中最大的值。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; maxSlidingWindow(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; dq;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dq.empty() &amp;&amp; dq.front() == i-k) dq.pop_front();</span><br><span class="line">            <span class="keyword">while</span>(!dq.empty() &amp;&amp; nums[dq.back()] &lt; nums[i]) dq.pop_back();</span><br><span class="line">            dq.push_back(i);</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= k<span class="number">-1</span>) res.push_back(nums[dq.front()]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">注意：</span></span><br><span class="line"><span class="comment">dq 中保存的是 index，所以第8行和第10行用 nums[dq.back()], nums[dq.front()].</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">心得体会</span></span><br><span class="line"><span class="comment">我发现这个用 stack(0456) 或者queue存储 maximum/minimum 的技巧，</span></span><br><span class="line"><span class="comment">对于比较大小或者 max/min 的题目很有效啊。</span></span><br><span class="line"><span class="comment">主要就是 stack/queue 的“两端”是对应的是 current maximum/minimum</span></span><br><span class="line"><span class="comment">可以用O(1)直接找到并作比较。</span></span><br><span class="line"><span class="comment">如果直接在一个范围内找 max 作比较，那就需要 O(n) 去找了。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">答案里分析 time complexity 的时候都提到了 amotized O(n)，</span></span><br><span class="line"><span class="comment">这个是因为 for loop 里面那个 while 的次数是变得，可能为 O(1) ，也可能为 O(n).</span></span><br><span class="line"><span class="comment">换个角度，每个元素最多被添加一次pop一次，因此算法复杂度是 amotized O(n).</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/leetcode-数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2335,187 +2500,6 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/Python网络有关-md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Xing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/31/Python网络有关-md/" itemprop="url">Python网络有关.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-31T21:03:52-07:00">
-                2018-05-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python-网络/" itemprop="url" rel="index">
-                    <span itemprop="name">Python, 网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/31/Python网络有关-md/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/31/Python网络有关-md/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一些基础概念"><a href="#一些基础概念" class="headerlink" title="一些基础概念"></a>一些基础概念</h1><h2 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h2><h2 id="单工，双工，半双工"><a href="#单工，双工，半双工" class="headerlink" title="单工，双工，半双工"></a>单工，双工，半双工</h2><h2 id="TCP-IP协议分层详解"><a href="#TCP-IP协议分层详解" class="headerlink" title="TCP/IP协议分层详解"></a>TCP/IP协议分层详解</h2><h2 id="tcp三次握手四次挥手"><a href="#tcp三次握手四次挥手" class="headerlink" title="tcp三次握手四次挥手"></a>tcp三次握手四次挥手</h2><p>TCP（Transmission Control Protocol，传输控制协议）是 面向连接的协议，也就是说在收发数据之前，必须先和对方建立连接，</p>
-<p>一个TCP连接必须要经过三次“对话”才能建立起来，其中的过程非常复杂，只简单的 描述下这三次对话的简单过程：主机A向主机B发出连接请求数据包：“我想给你发数据，可以吗？”，这是第一次对话；主机B向主机A发送同意连接和要求同步 （同步就是两台主机一个在发送，一个在接收，协调工作）的数据包：“可以，你什么时候发？”，这是第二次对话；主机A再发出一个数据包确认主机B的要求同 步：“我现在就发，你接着吧！”，这是第三次对话。三次“对话”的目的是使数据包的发送和接收同步，经过三次“对话”之后，主机A才向主机B正式发送数 据。</p>
-<p>需要了解的信息：</p>
-<p>ACK ： TCP协议规定，只有ACK=1时有效，也规定连接建立后所有发送的报文的ACK必须为1</p>
-<p>SYN(SYNchronization) ： 在连接建立时用来同步序号。当SYN=1而ACK=0时，表明这是一个连接请求报文。对方若同意建立连接，则应在响应报文中使SYN=1和ACK=1. 因此,  SYN置1就表示这是一个连接请求或连接接受报文。</p>
-<p>FIN （finis）即完，终结的意思， 用来释放一个连接。当 FIN = 1 时，表明此报文段的发送方的数据已经发送完毕，并要求释放连接。</p>
-<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p><img src="https://img-blog.csdn.net/20160413203916860?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
-<p>首先由Client发出请求连接即 SYN=1 ACK=0  (请看头字段的介绍), TCP规定SYN=1时不能携带数据，但要消耗一个序号,因此声明自己的序号是 seq=x</p>
-<p>然后 Server 进行回复确认，即 SYN=1 ACK=1 seq=y, ack=x+1, 再然后 Client 再进行一次确认，但不用SYN 了，这时即为 ACK=1, seq=x+1, ack=y+1.</p>
-<p>然后连接建立.</p>
-<p>为什么要进行三次握手呢（两次确认）。</p>
-<p>建立三次握手主要是因为A发送了再一次的确认，那么A为什么会再确认一次呢，主要是为了防止已失效的连接请求报文段又突然传送给B，从而产生了错误。所谓“已失效的连接请求报文”是这样产生的，正常情况下，A发出连接请求，但是因为连接报文请求丢失而未收到确认，于是A再重传一次连接请求，后来收到了请求，并收到了确认，建立了连接，数据传输完毕后，就释放链接，A共发送了两次连接请求报文段，其中第一个丢失，第二个到达了B，没有“已失效的连接请求报文段”，但是还有异常情况下，A发送的请求报文连接段并没有丢失，而是在某个网络节点滞留较长时间，以致延误到请求释放后的某个时间到达B，本来是一个早已失效的报文段，但是B收到了此失效连接请求报文段后，就误以为A又重新发送的连接请求报文段，并发送确认报文段给A，同意建立连接，如果没有三次握手，那么B发送确认后，连接就建立了，而此时A没有发送建立连接的请求报文段，于是不理会B的确认，也不会给B发送数据，而B却一直等待A发送数据，因此B的许多资源就浪费了，采用三次握手的方式就可以防止这种事情发生，例如刚刚，A不理会B，就不会给B发送确认，B收不到A的确认，就知道A不要求建立连接，就不会白白浪费资源，</p>
-<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><p><img src="https://img-blog.csdn.net/20160413205812456?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
-<p>当客户A 没有东西要发送时就要释放 A 这边的连接，A会发送一个报文（没有数据），其中 FIN 设置为1,  服务器B收到后会给应用程序一个信，这时A那边的连接已经关闭，即A不再发送信息（但仍可接收信息）。  A收到B的确认后进入等待状态，等待B请求释放连接， B数据发送完成后就向A请求连接释放，也是用FIN=1 表示， 并且用 ack = u+1(如图）， A收到后回复一个确认信息，并进入 TIME_WAIT 状态， 等待 2MSL 时间。</p>
-<p><mark>为什么要等待呢</mark></p>
-<p>为了这种情况： B向A发送 FIN = 1 的释放连接请求，但这个报文丢失了， A 没有接到不会发送确认信息，B 超时会重传，这时A在 WAIT_TIME 还能够接收到这个请求，这时再回复一个确认就行了。（A收到 FIN = 1 的请求后 WAIT_TIME会重新记时）</p>
-<p>另外服务器B存在一个保活状态，即如果A突然故障死机了，那B那边的连接资源什么时候能释放呢？  就是保活时间到了后，B会发送探测信息， 以决定是否释放连接.</p>
-<p><mark>为什么连接的时候是三次握手，关闭的时候却是四次握手</mark></p>
-<p>答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
-<h1 id="socket使用"><a href="#socket使用" class="headerlink" title="socket使用"></a>socket使用</h1><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绑定</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收消息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发消息</span></span><br></pre></td></tr></table></figure>
-<h2 id="一些应用场景"><a href="#一些应用场景" class="headerlink" title="一些应用场景"></a>一些应用场景</h2><h3 id="聊天室"><a href="#聊天室" class="headerlink" title="聊天室"></a>聊天室</h3><p>聊天室的要求就是一直监听，有消息就打印到当前窗口<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    udpSocket = socket(AF_INET, SOCK_DGRAM)</span><br><span class="line"></span><br><span class="line">    udpSocket.bind(<span class="string">""</span>, <span class="number">6789</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        recvInfo = udpSocket.recvfrom(<span class="number">1024</span>)</span><br><span class="line">        print(<span class="string">"[%s]: %s"</span> % (str(recvInfo[<span class="number">1</span>]), recvInfo[<span class="number">0</span>].decode(<span class="string">"utf-8"</span>)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
-<h3 id="echo-服务器"><a href="#echo-服务器" class="headerlink" title="echo 服务器"></a>echo 服务器</h3><p>echo 就是你发给它啥，它返回同样的东西给你。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    udpSocket = socket(AF_INET, SOCK_DGRAM)</span><br><span class="line"></span><br><span class="line">    udpSocket.bind(<span class="string">""</span>, <span class="number">6789</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        recvInfo = udpSocket.recvfrom(<span class="number">1024</span>)</span><br><span class="line">        udpSocket.sendto(recvInfo[<span class="number">0</span>], recvInfo[<span class="number">1</span>])</span><br><span class="line">        print(<span class="string">"[%s]: %s"</span> % (str(recvInfo[<span class="number">1</span>]), recvInfo[<span class="number">0</span>].decode(<span class="string">"utf-8"</span>)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
-<h3 id="多线程聊天"><a href="#多线程聊天" class="headerlink" title="多线程聊天"></a>多线程聊天</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 收数据，然后打印</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recvData</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        recvInfo = udpSocket.recvfrom(<span class="number">1024</span>)</span><br><span class="line">        print(<span class="string">"\r&gt;&gt;[%s]:%s"</span> % (str(recvInfo[<span class="number">1</span>]), recvInfo[<span class="number">0</span>]))  <span class="comment"># \r 是从行开头打印，是为了覆盖掉本来的 &lt;&lt; 提示。</span></span><br><span class="line">        print(<span class="string">"\n&lt;&lt;"</span>)    <span class="comment"># 行开头本来有 &lt;&lt;，接收数据后会打印新的内容，导致看不到 &lt;&lt; 提示符了，因此另起一行补上。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测键盘，发数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sendData</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        sendInfo = input(<span class="string">"&lt;&lt;"</span>)</span><br><span class="line">        udpSocket.sendto(sendInfo.encode(<span class="string">"gb2312"</span>), (destIp, destPort))</span><br><span class="line"></span><br><span class="line">udpSocket = <span class="keyword">None</span></span><br><span class="line">destIp = <span class="string">""</span></span><br><span class="line">destPort = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">global</span> udpSocket</span><br><span class="line">    <span class="keyword">global</span> destIp</span><br><span class="line">    <span class="keyword">global</span> destPort</span><br><span class="line"></span><br><span class="line">    destIp = input(<span class="string">"Destination IP: "</span>)</span><br><span class="line">    destPort = input(<span class="string">"Destination port: "</span>)</span><br><span class="line"></span><br><span class="line">    udpSocket = socket(AF_INET, SOCK_DGRAM)</span><br><span class="line">    udpSocket.bind(<span class="string">""</span>, <span class="number">4567</span>)</span><br><span class="line"></span><br><span class="line">    tr = Thread(target=recvData)</span><br><span class="line">    ts = Thread(target=sendData)</span><br><span class="line"></span><br><span class="line">    tr.start()</span><br><span class="line">    ts.start()</span><br><span class="line"></span><br><span class="line">    tr.join()</span><br><span class="line">    ts.join()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<p>注意：</p>
-<ol>
-<li>main() 函数里面的变量也是 main 函数的局部变量，可不是全局变量！</li>
-<li>udpSocket 要放在 main 函数外面作为全局变量，main 函数要声明 udpSocket 为 global，两个收发数据的函数因为没有改变 udpSocket，所以不需要声明为 global.</li>
-<li></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2570,7 +2554,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2581,7 +2565,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2592,7 +2576,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

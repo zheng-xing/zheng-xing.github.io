@@ -485,7 +485,8 @@
       
         
           
-            <h1 id="一些基础概念"><a href="#一些基础概念" class="headerlink" title="一些基础概念"></a>一些基础概念</h1><h2 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h2><h2 id="单工，双工，半双工"><a href="#单工，双工，半双工" class="headerlink" title="单工，双工，半双工"></a>单工，双工，半双工</h2><h2 id="TCP-IP协议分层详解"><a href="#TCP-IP协议分层详解" class="headerlink" title="TCP/IP协议分层详解"></a>TCP/IP协议分层详解</h2><h2 id="tcp三次握手四次挥手"><a href="#tcp三次握手四次挥手" class="headerlink" title="tcp三次握手四次挥手"></a>tcp三次握手四次挥手</h2><p>TCP（Transmission Control Protocol，传输控制协议）是 面向连接的协议，也就是说在收发数据之前，必须先和对方建立连接，</p>
+            <h1 id="一些基础概念"><a href="#一些基础概念" class="headerlink" title="一些基础概念"></a>一些基础概念</h1><h2 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h2><p>todo</p>
+<h2 id="单工，双工，半双工"><a href="#单工，双工，半双工" class="headerlink" title="单工，双工，半双工"></a>单工，双工，半双工</h2><h2 id="TCP-IP协议分层详解"><a href="#TCP-IP协议分层详解" class="headerlink" title="TCP/IP协议分层详解"></a>TCP/IP协议分层详解</h2><h2 id="tcp三次握手四次挥手"><a href="#tcp三次握手四次挥手" class="headerlink" title="tcp三次握手四次挥手"></a>tcp三次握手四次挥手</h2><p>TCP（Transmission Control Protocol，传输控制协议）是 面向连接的协议，也就是说在收发数据之前，必须先和对方建立连接，</p>
 <p>一个TCP连接必须要经过三次“对话”才能建立起来，其中的过程非常复杂，只简单的 描述下这三次对话的简单过程：主机A向主机B发出连接请求数据包：“我想给你发数据，可以吗？”，这是第一次对话；主机B向主机A发送同意连接和要求同步 （同步就是两台主机一个在发送，一个在接收，协调工作）的数据包：“可以，你什么时候发？”，这是第二次对话；主机A再发出一个数据包确认主机B的要求同 步：“我现在就发，你接着吧！”，这是第三次对话。三次“对话”的目的是使数据包的发送和接收同步，经过三次“对话”之后，主机A才向主机B正式发送数 据。</p>
 <p>需要了解的信息：</p>
 <p>ACK ： TCP协议规定，只有ACK=1时有效，也规定连接建立后所有发送的报文的ACK必须为1</p>

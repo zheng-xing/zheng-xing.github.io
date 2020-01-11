@@ -1577,6 +1577,63 @@
 <p>[思路二]<br>我觉得把，用个一维的数组来做 dp 就可以了。</p>
 <p>DP[target] 表示用给定的钱币凑出来 target 的组合数量，那么<br>DP[target] 显然等于 DP[target-1] + DP[target-2] + DP[target-5] + … + DP[target-100]</p>
 <p>就跟走楼梯的方法一模一样啊！！！</p>
+<h2 id="最小编辑距离"><a href="#最小编辑距离" class="headerlink" title="最小编辑距离"></a>最小编辑距离</h2><p>[题目]<br>Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.</p>
+<p>You have the following 3 operations permitted on a word:</p>
+<ol>
+<li>Insert a character</li>
+<li>Delete a character</li>
+<li>Replace a character</li>
+</ol>
+<p>[分析]<br>直接使用 DP 的话因为要考虑删除字符，有点不好理解，这里先转化成一个对齐的问题！</p>
+<table>
+<thead>
+<tr>
+<th>S</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>F</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>D</td>
+<td>B</td>
+<td>-</td>
+<td>F</td>
+<td>G</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>S = “ABCF”, T = “DBFG”</li>
+<li>对应位置相同时候不扣分，不同则扣一分（修改了）</li>
+<li>两个特殊字符”-“ 不会对应</li>
+<li>S 位置 “-“ 代表增加字符</li>
+<li>T 位置 “-“ 代表删掉字符</li>
+<li>目标是使得扣分最少</li>
+</ol>
+<p>这个问题的 DP 思路就很好想到了</p>
+<ol>
+<li>假定 DP[i][j] 表示 S[0…i-1] 和 T[0…j-1] 对齐了</li>
+<li>现在需要看 S[i] == T[j] ?<ol>
+<li>如果相等, 说明 DP[i+1][j+1] = DP[i][j]</li>
+<li>如果不相等，则有三种操作方式<ol>
+<li>S[i] 替换成 T[j], DP[i+1][j+1] = DP[i][j] + 1</li>
+<li>删掉 S[i], DP[i+1][j+1] = DP[i][j+1] + 1</li>
+<li>删掉 T[j], DP[i+1][j+1] = DP[i+1][j] + 1</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>初值<ol>
+<li>DP[0][j] = j, DP[i][0] = i</li>
+</ol>
+</li>
+<li>同样，空间可以优化一下，稍微需要点技巧。</li>
+</ol>
 <h2 id="两次走棋盘"><a href="#两次走棋盘" class="headerlink" title="两次走棋盘"></a>两次走棋盘</h2><p>[题目]</p>
 <ul>
 <li>Maximum points from top left of matrix to bottom right and return back</li>

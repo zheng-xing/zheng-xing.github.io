@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list题目局部极小值 leetcode 162一个给定的不包含相同元素的整数数组，每个局部极小值的定义是一个值比左右相邻的（如果存在）都小的值。求它的一个局部极小值。 分析：">
+<meta name="description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list123456789101112# reverse()# list_a[::-1]    # 二者都可以让列表反转# list_a.sort()    # 排序# 对于字">
 <meta name="keywords" content="array">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode 数组">
 <meta property="og:url" content="http://yoursite.com/2019/12/04/leetcode-数组/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list题目局部极小值 leetcode 162一个给定的不包含相同元素的整数数组，每个局部极小值的定义是一个值比左右相邻的（如果存在）都小的值。求它的一个局部极小值。 分析：">
+<meta property="og:description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list123456789101112# reverse()# list_a[::-1]    # 二者都可以让列表反转# list_a.sort()    # 排序# 对于字">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://discuss.leetcode.com/assets/uploads/files/1510941017203-137.single-number-ii-resized.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png">
-<meta property="og:updated_time" content="2020-01-11T20:19:42.655Z">
+<meta property="og:updated_time" content="2020-01-12T01:35:18.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode 数组">
-<meta name="twitter:description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list题目局部极小值 leetcode 162一个给定的不包含相同元素的整数数组，每个局部极小值的定义是一个值比左右相邻的（如果存在）都小的值。求它的一个局部极小值。 分析：">
+<meta name="twitter:description" content="面试题总体分析查找和排序     二分查找: 貌似都可以使用或者不使用递归！     元素交换     排序，中位数     归并     位运算     前缀和的应用 动态规划 排列组合 c++ vectorpython list123456789101112# reverse()# list_a[::-1]    # 二者都可以让列表反转# list_a.sort()    # 排序# 对于字">
 <meta name="twitter:image" content="https://discuss.leetcode.com/assets/uploads/files/1510941017203-137.single-number-ii-resized.png">
 
 
@@ -365,7 +365,8 @@
     前缀和的应用
 动态规划
 排列组合
-</code></pre><h1 id="c-vector"><a href="#c-vector" class="headerlink" title="c++ vector"></a>c++ vector</h1><h1 id="python-list"><a href="#python-list" class="headerlink" title="python list"></a>python list</h1><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="局部极小值-leetcode-162"><a href="#局部极小值-leetcode-162" class="headerlink" title="局部极小值 leetcode 162"></a>局部极小值 leetcode 162</h2><p>一个给定的不包含相同元素的整数数组，每个局部极小值的定义是一个值比左右相邻的（如果存在）都小的值。求它的一个局部极小值。</p>
+</code></pre><h1 id="c-vector"><a href="#c-vector" class="headerlink" title="c++ vector"></a>c++ vector</h1><h1 id="python-list"><a href="#python-list" class="headerlink" title="python list"></a>python list</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># reverse()</span></span><br><span class="line"><span class="comment"># list_a[::-1]    # 二者都可以让列表反转</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list_a.sort()    # 排序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于字典，字符串等数据结构，必须用 sorted 函数</span></span><br><span class="line"><span class="comment"># sorted(iterable[, cmp[, key[, reverse]]])</span></span><br><span class="line">dict_a = &#123;<span class="string">'a'</span> : <span class="number">2</span>, <span class="string">'b'</span>: <span class="number">1</span>&#125;</span><br><span class="line">sorted(dict_a, key = <span class="keyword">lambda</span> d: d[<span class="number">0</span>])    <span class="comment"># 按照 key 排序，换成 d[1] 就按照 value 排序</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="局部极小值-leetcode-162"><a href="#局部极小值-leetcode-162" class="headerlink" title="局部极小值 leetcode 162"></a>局部极小值 leetcode 162</h2><p>一个给定的不包含相同元素的整数数组，每个局部极小值的定义是一个值比左右相邻的（如果存在）都小的值。求它的一个局部极小值。</p>
 <pre><code>分析：首先要问清楚边界条件如何处理，在这里假定边界条件是比它大的。
 
 这里规定用数组下标 a[1, ..., n]表示那 n 个整数，定义 a[0] = a[n+1] = 无穷大。

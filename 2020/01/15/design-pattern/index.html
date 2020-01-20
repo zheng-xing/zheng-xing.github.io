@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="hahaSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp;amp; getInstance();    setup() &amp;#123;//...&amp;#125;private:    A();    A(const A&amp;amp; rhs);    // ...&amp;#125;;A&amp;amp; A::getInsta">
+<meta name="description" content="详解22种设计模式Singleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp;amp; getInstance();    setup() &amp;#123;//...&amp;#125;private:    A();    A(const A&amp;amp; rhs);    // ...&amp;#125;;A&amp;amp; A::get">
 <meta name="keywords" content="Python,cpp,design pattern">
 <meta property="og:type" content="article">
 <meta property="og:title" content="design-pattern">
 <meta property="og:url" content="http://yoursite.com/2020/01/15/design-pattern/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="hahaSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp;amp; getInstance();    setup() &amp;#123;//...&amp;#125;private:    A();    A(const A&amp;amp; rhs);    // ...&amp;#125;;A&amp;amp; A::getInsta">
+<meta property="og:description" content="详解22种设计模式Singleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp;amp; getInstance();    setup() &amp;#123;//...&amp;#125;private:    A();    A(const A&amp;amp; rhs);    // ...&amp;#125;;A&amp;amp; A::get">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-1.png">
-<meta property="og:updated_time" content="2020-01-20T18:54:37.068Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-2.png">
+<meta property="og:updated_time" content="2020-01-20T20:25:52.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="design-pattern">
-<meta name="twitter:description" content="hahaSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp;amp; getInstance();    setup() &amp;#123;//...&amp;#125;private:    A();    A(const A&amp;amp; rhs);    // ...&amp;#125;;A&amp;amp; A::getInsta">
+<meta name="twitter:description" content="详解22种设计模式Singleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp;amp; getInstance();    setup() &amp;#123;//...&amp;#125;private:    A();    A(const A&amp;amp; rhs);    // ...&amp;#125;;A&amp;amp; A::get">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-1.png">
 
 
@@ -380,7 +380,12 @@
       
 
       
-        <h1 id="haha"><a href="#haha" class="headerlink" title="haha"></a>haha</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">    static  A&amp; getInstance();</span><br><span class="line">    setup() &#123;//...&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    A();</span><br><span class="line">    A(const A&amp; rhs);</span><br><span class="line">    // ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A&amp; A::getInstance()&#123;</span><br><span class="line">	static A a;</span><br><span class="line">	return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// A::getInstance().setup();</span><br></pre></td></tr></table></figure>
+        <h1 id="详解22种设计模式"><a href="#详解22种设计模式" class="headerlink" title="详解22种设计模式"></a>详解22种设计模式</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">    static  A&amp; getInstance();</span><br><span class="line">    setup() &#123;//...&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    A();</span><br><span class="line">    A(const A&amp; rhs);</span><br><span class="line">    // ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A&amp; A::getInstance()&#123;</span><br><span class="line">	static A a;</span><br><span class="line">	return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// A::getInstance().setup();</span><br></pre></td></tr></table></figure>
+<p>解释一下</p>
+<ol>
+<li>注意这里面的 Constructor 都是在 private 区域，因此你不能使用 <code>A a1;</code> 这种方式去生成一个 object;</li>
+<li>你只能用 <code>A a1 = A::getInstance()</code> 这种方式去获得一个 object.</li>
+</ol>
 <h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-1.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-2.png" alt=""></p>
 <p>图的注解</p>
@@ -393,7 +398,7 @@
 </ol>
 <h2 id="observer"><a href="#observer" class="headerlink" title="observer"></a>observer</h2><p>相关的 OOD 概念有： Delegation 委托 + Inheritance 继承</p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-1.png" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-1.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-2.png" alt=""></p>
 <p>图的注解：</p>
 <ol>
 <li>图一是背景介绍，包括两个例子<ol>
@@ -597,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#haha"><span class="nav-number">1.</span> <span class="nav-text">haha</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Singleton"><span class="nav-number">1.1.</span> <span class="nav-text">Singleton</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Method"><span class="nav-number">1.2.</span> <span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#observer"><span class="nav-number">1.3.</span> <span class="nav-text">observer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#详解22种设计模式"><span class="nav-number">1.</span> <span class="nav-text">详解22种设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Singleton"><span class="nav-number">1.1.</span> <span class="nav-text">Singleton</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Method"><span class="nav-number">1.2.</span> <span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#observer"><span class="nav-number">1.3.</span> <span class="nav-text">observer</span></a></li></ol></li></ol></div>
             
 
           </div>

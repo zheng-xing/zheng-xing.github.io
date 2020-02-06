@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://discuss.leetcode.com/assets/uploads/files/1510941017203-137.single-number-ii-resized.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png">
 <meta property="article:published_time" content="2019-12-05T05:39:38.000Z">
-<meta property="article:modified_time" content="2020-02-06T04:30:09.718Z">
+<meta property="article:modified_time" content="2020-02-06T04:32:22.474Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="array">
 <meta name="twitter:card" content="summary">
@@ -892,7 +892,7 @@ left 或者 right pointer 有一个肯定位于目前浏览到的所有 bin 的�
 <p>[初始化]</p>
 <ol>
 <li><code>nums[i] = arr[i]</code></li>
-<li><code>BIT[i] = \sum_{k = i - lowestbit(i) + 1}^{i} arr[k]</code></li>
+<li>\(BIT[i] = \sum_{k = i - lowestbit(i) + 1}^{i} arr[k]\)</li>
 </ol>
 <p>[理解]</p>
 <ol>

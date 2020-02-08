@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/ScreenShot-20200101132310.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/ScreenShot-20200101132320.png">
 <meta property="article:published_time" content="2019-07-26T07:44:58.000Z">
-<meta property="article:modified_time" content="2020-01-12T09:10:22.355Z">
+<meta property="article:modified_time" content="2020-02-08T08:43:33.779Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="bit manipulation">
 <meta name="twitter:card" content="summary">
@@ -461,11 +461,20 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].</code></pre><figure cl
 <p>一周以后，如果第一只老鼠死了，那么有毒药的那瓶液体的编号在最左边 bit 位一定是 1，反之是 0. 同理可以得到 7 个 bit 位上是 1 还是 0.</p>
 <p><mark>[其他思考]</mark></p>
 <ol>
-<li>如果没有时间限制的话，就直接是二分考虑了。先让一只老鼠喝编号 1-50 的那些瓶液体，如果死了，就递归找第二只老鼠喝 1-25 瓶液体，如果没死就找第二只老鼠喝 51-75 那些瓶液体。同样的，也是最多需要 7 只老鼠就可以发现。</li>
-<li>我其实对于上面的解法有点疑惑就是为啥非得用 2 进制来表示数字呢？如果用 3 进制来表示的话，那么对于每一个 bit 位 我们需要找 2 只老鼠，一只老鼠喝最左边 bit 位是 1 的液体，一个老鼠喝 最左边 bit 位是 2 的液体，根据它们两个老鼠是否死亡的信息，可以判断最左边 bit 位上是 0，1，还是 2.<ol>
-<li>好像想清楚了！如果是三进制，那么每一个 bit 位上一个老鼠是否死亡只能排除掉 1/3 的可能。而使用二进制的话则可以排除掉 50% 的可能。因为老鼠是否死亡只有两种可能，因此使用二进制已经是最佳的方案了！！！<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1></li>
+<li><mark>如果没有时间限制的话，那么就可以用我们熟悉的二分思想，就跟用天平找出来一堆球里面重量跟其他不同的那个题似的。</mark><ol>
+<li>先让一只老鼠喝编号 1-50 的那些瓶液体.</li>
+<li>如果死了，就递归找第二只老鼠喝 1-25 瓶液体，如果没死就找第二只老鼠喝 51-75 那些瓶液体。</li>
+<li>同样的，也是最多需要 7 只老鼠就可以发现。</li>
 </ol>
 </li>
+<li>因此，这里因为有了时间上的限制，我们需要对每个 bit 位分别考虑，就可以对所有的 bit 位<mark>并行计算</mark>。没有时间限制就对所有的瓶子串行得二分计算！</li>
+<li>我其实对于上面的解法有点疑惑就是为啥非得用 2 进制来表示数字呢？如果用 3 进制来表示的话，那么对于每一个 bit 位 我们需要找 2 只老鼠，一只老鼠喝最左边 bit 位是 1 的液体，一个老鼠喝 最左边 bit 位是 2 的液体，根据它们两个老鼠是否死亡的信息，可以判断最左边 bit 位上是 0，1，还是 2.<ol>
+<li>好像想清楚了！如果是三进制，那么每一个 bit 位上一个老鼠是否死亡只能排除掉 1/3 的可能。而使用二进制的话则可以排除掉 50% 的可能。因为老鼠是否死亡只有两种可能，因此使用二进制已经是最佳的方案了！！！</li>
+</ol>
+</li>
+<li>另外参考 <a href="https://zheng-xing.github.io/2019/12/04/leetcode-%E6%95%B0%E7%BB%84/" target="_blank" rel="noopener">leetcode-数组</a> 一文中 binary index tree 和 segment tree 的思想！</li>
+</ol>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
 <li><a href="https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently" target="_blank" rel="noopener">https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently</a></li>
 </ol>
 

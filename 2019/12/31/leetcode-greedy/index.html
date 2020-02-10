@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/6a607485gy1gahqf5s50kj207w071wei.jpg">
 <meta property="article:published_time" content="2020-01-01T05:10:37.000Z">
-<meta property="article:modified_time" content="2020-01-04T22:42:26.340Z">
+<meta property="article:modified_time" content="2020-02-10T00:20:31.440Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="greedy">
 <meta name="twitter:card" content="summary">
@@ -378,6 +378,17 @@
 <li><mark>想想生活中，一般都是男追女</mark></li>
 <li><mark>那么男生先从自己最喜欢的女生追起来是很符合逻辑的</mark></li>
 <li><mark>然后女生呢，只要有男生追自己，那么就先答应着！如果后面碰到更好的，就把男友踹了跟新来者谈恋爱</mark></li>
+</ol>
+</li>
+</ol>
+<p>[算法分析]</p>
+<ol>
+<li>贪心法<ol>
+<li>我们希望第 k 个任务的计算占用空间加上前面 k-1 个任务的存储空间占用量之和，越小越好。</li>
+<li>O_1 + O_2 + … + O_j + … + O_{k-1} + R_k &lt;=  O_1 + O_2 + … + O_k + … + O_{k-1} + R_j</li>
+<li>上面公式的右边是假定从左边拿了任务 j 与 最后的任务 k 交换了</li>
+<li>化简上面不等式，得到 O_j + R_k &lt;= O_k + R_j，得到 R_k - O_k &lt;= R_j - O_j</li>
+<li>也就是说，只需要把 {R_i - O_i} 降序排列就可以了！</li>
 </ol>
 </li>
 </ol>

@@ -87,7 +87,7 @@
 <meta property="og:description" content="相关基础知识 图的遍历和搜索 （隐式）图的搜索（连通性） 重点 8皇后   最短路径 单源图 (Dijkstra) 任意两点 (floyd) 有负边   最小生成树 (MST) Prim Krusal   拓扑排序 (Topological Sort)  图的表示和搜索 图的表示 邻接矩阵 NxN 的矩阵，有边是 1，无边是 0   邻接表 为每个点建立一个链表（数组）存放与之连接的点     搜">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-12-29T01:44:02.000Z">
-<meta property="article:modified_time" content="2020-02-10T00:20:23.654Z">
+<meta property="article:modified_time" content="2020-02-13T07:30:42.195Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="graph">
 <meta name="twitter:card" content="summary">
@@ -391,7 +391,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="所有括号匹配的字符串"><a href="#所有括号匹配的字符串" class="headerlink" title="所有括号匹配的字符串"></a>所有括号匹配的字符串</h2><p>[题目]<br>N 对括号能够得到的有效括号序列有哪些？</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="所有括号匹配的字符串-leetcode-0022"><a href="#所有括号匹配的字符串-leetcode-0022" class="headerlink" title="所有括号匹配的字符串  leetcode 0022"></a>所有括号匹配的字符串  leetcode 0022</h2><p>[题目]<br>N 对括号能够得到的有效括号序列有哪些？</p>
 <p>[例子]<br>N = 3, 有效括号串共 5 个，分别为：</p>
 <ol>
 <li>()()()</li>
@@ -400,7 +400,7 @@
 <li>(()())</li>
 <li>((()))</li>
 </ol>
-<p>[问题分析]</p>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>[问题分析]</p>
 <ul>
 <li>任何一个括号序列，都可以写成形式 (A)B<ul>
 <li>A 和 B 都是若干括号对形成的合法串（可以是空串）</li>
@@ -696,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#相关基础知识"><span class="nav-number">1.</span> <span class="nav-text">相关基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的表示和搜索"><span class="nav-number">1.1.</span> <span class="nav-text">图的表示和搜索</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#所有括号匹配的字符串"><span class="nav-number">2.1.</span> <span class="nav-text">所有括号匹配的字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小平方划分"><span class="nav-number">2.2.</span> <span class="nav-text">最小平方划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Palindrome-Partitioning-所有划分"><span class="nav-number">2.3.</span> <span class="nav-text">Palindrome Partitioning 所有划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS-与-DP-的思考"><span class="nav-number">2.3.1.</span> <span class="nav-text">DFS 与 DP 的思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归纳推理的理解"><span class="nav-number">2.3.2.</span> <span class="nav-text">归纳推理的理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小生成树"><span class="nav-number">2.4.</span> <span class="nav-text">最小生成树</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#相关基础知识"><span class="nav-number">1.</span> <span class="nav-text">相关基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的表示和搜索"><span class="nav-number">1.1.</span> <span class="nav-text">图的表示和搜索</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#所有括号匹配的字符串-leetcode-0022"><span class="nav-number">2.1.</span> <span class="nav-text">所有括号匹配的字符串  leetcode 0022</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一"><span class="nav-number">2.1.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二"><span class="nav-number">2.1.2.</span> <span class="nav-text">解法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小平方划分"><span class="nav-number">2.2.</span> <span class="nav-text">最小平方划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Palindrome-Partitioning-所有划分"><span class="nav-number">2.3.</span> <span class="nav-text">Palindrome Partitioning 所有划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS-与-DP-的思考"><span class="nav-number">2.3.1.</span> <span class="nav-text">DFS 与 DP 的思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归纳推理的理解"><span class="nav-number">2.3.2.</span> <span class="nav-text">归纳推理的理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小生成树"><span class="nav-number">2.4.</span> <span class="nav-text">最小生成树</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:description" content="概率本福特定律本福特定律（本福特法则，Frank Benford），又称第一数字定律，是指在实际生活得出的一组数据中，以 1 为首位数字出现的概率约为总数的三成；是直观想象 1&#x2F;9 的三倍。  阶乘，素数数列，斐波那契数列 住宅地址号码 经济数据反欺诈（检验是否符合本定律） 选举投票发欺诈     数字 出现概率    1 30.1%   2 17.6%   3 12.5%   4 9.7%">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-01-01T18:44:36.000Z">
-<meta property="article:modified_time" content="2020-02-10T00:20:11.894Z">
+<meta property="article:modified_time" content="2020-02-27T05:54:39.877Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="math">
 <meta name="twitter:card" content="summary">
@@ -416,6 +416,43 @@
 <ol>
 <li>其实 STL 里面有 std::random_shuffle 可以直接得到结果。</li>
 </ol>
+<h2 id="0650-2-Keys-keyboard"><a href="#0650-2-Keys-keyboard" class="headerlink" title="0650 2 Keys keyboard"></a>0650 2 Keys keyboard</h2><p>[题目]</p>
+<ul>
+<li>屏幕上开始有一个 A, 你的键盘只有 <code>copy all</code> 和 <code>paste</code> 两个功能键</li>
+<li>给定 N, 问你需要操作多少次键盘才可以获得 N 个 A.</li>
+<li>Example<ul>
+<li>N = 3, copy all + paste + paste 需要三次</li>
+<li>N = 4, c + p + p + p 或者 c + p + c + p 需要四次</li>
+</ul>
+</li>
+</ul>
+<p>[思路一：我的思路]</p>
+<ul>
+<li>使用 DP，如果已知 ans[i] 了，那么可以对它进行 copy all + K 个 paste 获得后面的值</li>
+<li>时间复杂度为 O( (1 + 1/2 + 1/3 + … + 1/N) * N ) 复杂度 </li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minSteps</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans[n + <span class="number">1</span>];</span><br><span class="line">    ans[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    ans[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">2</span> * i; j &lt;= n; j = j + i)&#123;</span><br><span class="line">            ans[j] = ans[i] + j / i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[思路二：数学观察]</p>
+<ul>
+<li>如果 n 为质数，那么 n 是多少，就需要多少次。</li>
+<li><mark>如果 n 为合数，那么其需要的次数等于将其分解质因数的操作次数的和！</mark><ul>
+<li>比如，30 = 1 * 3 * 2 * 5。那么我们首先复制 1，进行两次粘贴得到 3. 然后复制 3，进行一次粘贴得到 6；然后复制 6，进行 4 次粘贴得到 30. 总共需要 3 + 2 + 5 = 10 次<ul>
+<li>1 * 3 就代表需要 3 个 1，怎么办呢？复制一次，粘贴两次</li>
+<li>1 * 3 的结果再 * 2, 也就是需要 2 个 3，怎么办？复制一次 3个星，粘贴就好了啊！</li>
+</ul>
+</li>
+<li>注意，由于分解的质因数顺序可以改变，也就意味着我们操作顺序可以不同。比如我们同样可以: 30 = 5 * 2 * 3. 即先复制 1, 进行四次粘贴得到 5; 然后复制 5, 进行一次粘贴得到 10; 然后复制 10，进行两次粘贴得到 30.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minSteps</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(n % i == <span class="number">0</span>)&#123;</span><br><span class="line">            res += i;</span><br><span class="line">            n /= i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="约瑟夫环"><a href="#约瑟夫环" class="headerlink" title="约瑟夫环"></a>约瑟夫环</h2><p>[题目]<br>编号为 1-N 的 N 个士兵围坐在一起形成一个圆圈，从编号为 1 的士兵开始依次报数（1，2，3…这样依次报），数到 m 的 士兵会被杀死出列，之后的士兵再从 1 开始报数。直到最后剩下一士兵，求这个士兵的编号。</p>
+<p>[分析]</p>
+<ol>
+<li>经典的思路是使用环形链表，模拟这个步骤来找到最终结果。但是这个并非最优的解决办法。</li>
+</ol>
 
       
     </div>
@@ -606,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0650-2-Keys-keyboard"><span class="nav-number">1.3.</span> <span class="nav-text">0650 2 Keys keyboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约瑟夫环"><span class="nav-number">1.4.</span> <span class="nav-text">约瑟夫环</span></a></li></ol></li></ol></div>
             
 
           </div>

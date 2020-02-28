@@ -2227,8 +2227,40 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
 <p>[分析]</p>
 <ol>
 <li>经典的思路是使用环形链表，模拟这个步骤来找到最终结果。但是这个并非最优的解决办法。</li>
+<li>我们可以使用递归的思想去做！<ol>
+<li>定义递归函数 f(n, m)，很显然 f(1, m) = 1</li>
+<li>我们需要找到 f(n, m) 和 f(n-1, m) 之间的关系。</li>
+<li>刚开始的编号为: 1, …, m-2, m-1, m, m+1, m+2, …, n, …</li>
+<li>考虑删除前和删除后的编号转换关系<ol>
+<li>删除前 —- 删除后</li>
+<li>… —— …</li>
+<li>m-2  —-  n-2</li>
+<li>m-1  —-  n-1</li>
+<li>m  ——  无（因为编号被删除了）</li>
+<li>m+1  —-  1 (因为下次就从这里报数了)</li>
+<li>m+2  —-  2</li>
+<li>…  —-  …</li>
 </ol>
+</li>
+<li>新的环中只有 n-1 个节点。且删除前编号为 m+1, m+2, m+3 的节点成了删除后编号为 1, 2, 3 的节点</li>
+<li>假设 old 为删除之前的节点编号，new 为删除了一个节点之后的编号，则 old 与 new 之间的关系为:<ol>
+<li>old = (new + m - 1) % n + 1</li>
+<li>注意！有些人可能会疑惑为什么不是 old = (new + m ) % n 呢？主要是因为编号是从 1 开始的，而不是从 0 开始的。如果 new + m == n的话，会导致最后的计算结果为 old = 0。所以 old = (new + m - 1) % n + 1.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">1</span> ? n : (f(n - <span class="number">1</span>, m) + m - <span class="number">1</span>) % n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="0172-n的阶乘后边有多少0"><a href="#0172-n的阶乘后边有多少0" class="headerlink" title="0172 n的阶乘后边有多少0"></a>0172 n的阶乘后边有多少0</h2><p>[题目]<br>给定数字 n, 求 n! 后缀有多少个 0.</p>
+<p>[分析]</p>
+<ol>
+<li>只需要看有多少个 5</li>
+<li>有些数字里面有 2 个，3个，多个 5</li>
+<li>总共有 sum = N / 5 + N / 25 + N / 125 + … 个 5 存在</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">0</span> ? <span class="number">0</span> : n / <span class="number">5</span> + f(n/<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       

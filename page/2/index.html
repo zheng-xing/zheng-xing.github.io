@@ -2686,8 +2686,26 @@ left 或者 right pointer 有一个肯定位于目前浏览到的所有 bin 的�
 <p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga66p8zqirj20kq0cqq9r.jpg" alt="Screen Shot 2019-12-22 at 13.00.57.png"></p>
 <p>具体算法细节请参考：</p>
 <p><a href="http://note.youdao.com/noteshare?id=dda1246716d3e1f321ee1b637ad2b413" target="_blank" rel="noopener">KMP算法</a><br><a href="http://note.youdao.com/noteshare?id=13fe90f9adddde21b0d5f8f7880ebc1f" target="_blank" rel="noopener">史上最清楚的 KMP 算法介绍</a></p>
-<h2 id="Boyer-Moore-算法-了解"><a href="#Boyer-Moore-算法-了解" class="headerlink" title="Boyer Moore 算法 (了解)"></a>Boyer Moore 算法 (了解)</h2><p>1977年由德克萨斯大学的 Robert S. Boyer 教授和 J Strother Moore 教授发明的字符串匹配算法。BM算法也是一种精确字符串匹配算法，它采用从右向左比较的方法，同时应用到了两种启发式规则，即坏字符规则 和好后缀规则 ，来决定向右跳跃的距离。基本思路就是从右往左进行字符匹配，遇到不匹配的字符后从坏字符表和好后缀表找一个最大的右移值，将模式串右移继续匹配。</p>
-<p>效率很高，构思巧妙，拥有在最坏情况下 O(N) 的时间复杂度。实践中比 KMP 算法的实际效能高。</p>
+<h2 id="Robin-Karp-字符串匹配算法"><a href="#Robin-Karp-字符串匹配算法" class="headerlink" title="Robin-Karp 字符串匹配算法"></a>Robin-Karp 字符串匹配算法</h2><ul>
+<li>核心思想是比较两个字符串的哈希值，而不是逐个字母进行比较。</li>
+<li>需要巧妙地设计哈希函数<ul>
+<li>比如使用字符串的和来做哈希值，这样就可以使用增量方法来方便计算。比如主串上右移了一位，那么就可以简单的把移调的字母值减掉，加上右移后cover到的那个字母值加上就行了！</li>
+</ul>
+</li>
+</ul>
+<h2 id="Boyer-Moore-算法-了解"><a href="#Boyer-Moore-算法-了解" class="headerlink" title="Boyer Moore 算法 (了解)"></a>Boyer Moore 算法 (了解)</h2><ol>
+<li>1977年由德克萨斯大学的 Robert S. Boyer 教授和 J Strother Moore 教授发明的字符串匹配算法。</li>
+<li>BM算法也是一种精确字符串匹配算法，它采用从右向左比较的方法，同时应用到了两种启发式规则<ol>
+<li>即 坏字符规则 和 好后缀规则，来决定向右跳跃的距离。</li>
+<li>基本思路就是从右往左进行字符匹配，遇到不匹配的字符后从坏字符表和好后缀表找一个最大的右移值，将模式串右移继续匹配。</li>
+</ol>
+</li>
+<li>效率很高，构思巧妙，拥有在最坏情况下 O(N) 的时间复杂度。实践中比 KMP 算法的实际效能高。</li>
+<li>Ref:<ol>
+<li><a href="https://mp.weixin.qq.com/s/7IZTuLrPSuxvFRqsv5PiXQ" target="_blank" rel="noopener">微信公众号:帅地玩编程</a></li>
+</ol>
+</li>
+</ol>
 <h2 id="Manacher-算法-了解"><a href="#Manacher-算法-了解" class="headerlink" title="Manacher 算法 (了解)"></a>Manacher 算法 (了解)</h2><h3 id="重心扩展算法"><a href="#重心扩展算法" class="headerlink" title="重心扩展算法"></a>重心扩展算法</h3><p>我们知道回文串一定是对称的，所以我们可以每次循环选择一个中心，进行左右扩展，判断左右字符是否相等即可。</p>
 <p><img src="https://ws1.sinaimg.cn/large/6a607485gy1ga9r2kr17xj20ca076mx4.jpg" alt="Palindrom"></p>
 <p>不过要注意，因为字符串可能是奇数长度或者偶数长度，所以我们要考虑的字符串重心有 n+n-1 个。</p>

@@ -956,7 +956,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 <p>Note:</p>
 <ol>
 <li>不仅参数的数量随意！每个参数的 type 也随意！</li>
-<li></li>
+<li>注意有两处出现了 <code>...</code>, 一处位置在 <code>Types</code> 左边，一个的位置在 <code>Types</code> 的右边。</li>
 </ol>
 <h3 id="specialization-模板特化"><a href="#specialization-模板特化" class="headerlink" title="specialization 模板特化"></a>specialization 模板特化</h3><p>有特化就有泛化，而泛化指的就是模板。</p>
 <p>下面的代码就是一个模板，一个泛化的例子：</p>
@@ -2266,6 +2266,30 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
 <li>总共有 sum = N / 5 + N / 25 + N / 125 + … 个 5 存在</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">0</span> ? <span class="number">0</span> : n / <span class="number">5</span> + f(n/<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0319-开关灯泡"><a href="#0319-开关灯泡" class="headerlink" title="0319 开关灯泡"></a>0319 开关灯泡</h2><p>[题目]</p>
+<ol>
+<li>初始时有 n 个灯泡关闭。</li>
+<li>第 1 轮，你打开所有的灯泡。</li>
+<li>第 2 轮，每两个灯泡关闭一次。</li>
+<li>第 3 轮，每三个灯泡切换一次开关（如果关闭则开启，如果开启则关闭）。</li>
+<li>第 i 轮，每 i 个灯泡切换一次开关。对于第 n 轮，你只切换最后一个灯泡的开关。</li>
+<li>找出 n 轮后有多少个亮着的灯泡。</li>
+</ol>
+<p>[例子]</p>
+<ol>
+<li>示例:</li>
+<li>输入: 3</li>
+<li>输出: 1 </li>
+<li>解释: <ol>
+<li>初始时, 灯泡状态 [关闭, 关闭, 关闭].</li>
+<li>第一轮后, 灯泡状态 [开启, 开启, 开启].</li>
+<li>第二轮后, 灯泡状态 [开启, 关闭, 开启].</li>
+<li>第三轮后, 灯泡状态 [开启, 关闭, 关闭]. </li>
+</ol>
+</li>
+</ol>
+
           
         
       

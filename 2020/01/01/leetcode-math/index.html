@@ -87,7 +87,7 @@
 <meta property="og:description" content="概率本福特定律本福特定律（本福特法则，Frank Benford），又称第一数字定律，是指在实际生活得出的一组数据中，以 1 为首位数字出现的概率约为总数的三成；是直观想象 1&#x2F;9 的三倍。  阶乘，素数数列，斐波那契数列 住宅地址号码 经济数据反欺诈（检验是否符合本定律） 选举投票发欺诈     数字 出现概率    1 30.1%   2 17.6%   3 12.5%   4 9.7%">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-01-01T18:44:36.000Z">
-<meta property="article:modified_time" content="2020-02-27T08:20:03.504Z">
+<meta property="article:modified_time" content="2020-03-08T06:34:01.550Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="math">
 <meta name="twitter:card" content="summary">
@@ -486,6 +486,30 @@
 <li>总共有 sum = N / 5 + N / 25 + N / 125 + … 个 5 存在</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">0</span> ? <span class="number">0</span> : n / <span class="number">5</span> + f(n/<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0319-开关灯泡"><a href="#0319-开关灯泡" class="headerlink" title="0319 开关灯泡"></a>0319 开关灯泡</h2><p>[题目]</p>
+<ol>
+<li>初始时有 n 个灯泡关闭。</li>
+<li>第 1 轮，你打开所有的灯泡。</li>
+<li>第 2 轮，每两个灯泡关闭一次。</li>
+<li>第 3 轮，每三个灯泡切换一次开关（如果关闭则开启，如果开启则关闭）。</li>
+<li>第 i 轮，每 i 个灯泡切换一次开关。对于第 n 轮，你只切换最后一个灯泡的开关。</li>
+<li>找出 n 轮后有多少个亮着的灯泡。</li>
+</ol>
+<p>[例子]</p>
+<ol>
+<li>示例:</li>
+<li>输入: 3</li>
+<li>输出: 1 </li>
+<li>解释: <ol>
+<li>初始时, 灯泡状态 [关闭, 关闭, 关闭].</li>
+<li>第一轮后, 灯泡状态 [开启, 开启, 开启].</li>
+<li>第二轮后, 灯泡状态 [开启, 关闭, 开启].</li>
+<li>第三轮后, 灯泡状态 [开启, 关闭, 关闭]. </li>
+</ol>
+</li>
+</ol>
+
       
     </div>
     
@@ -675,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0650-2-Keys-keyboard"><span class="nav-number">1.3.</span> <span class="nav-text">0650 2 Keys keyboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约瑟夫环"><span class="nav-number">1.4.</span> <span class="nav-text">约瑟夫环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0172-n的阶乘后边有多少0"><span class="nav-number">1.5.</span> <span class="nav-text">0172 n的阶乘后边有多少0</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0650-2-Keys-keyboard"><span class="nav-number">1.3.</span> <span class="nav-text">0650 2 Keys keyboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约瑟夫环"><span class="nav-number">1.4.</span> <span class="nav-text">约瑟夫环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0172-n的阶乘后边有多少0"><span class="nav-number">1.5.</span> <span class="nav-text">0172 n的阶乘后边有多少0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0319-开关灯泡"><span class="nav-number">1.6.</span> <span class="nav-text">0319 开关灯泡</span></a></li></ol></li></ol></div>
             
 
           </div>

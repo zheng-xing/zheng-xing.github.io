@@ -87,7 +87,7 @@
 <meta property="og:description" content="概率本福特定律本福特定律（本福特法则，Frank Benford），又称第一数字定律，是指在实际生活得出的一组数据中，以 1 为首位数字出现的概率约为总数的三成；是直观想象 1&#x2F;9 的三倍。  阶乘，素数数列，斐波那契数列 住宅地址号码 经济数据反欺诈（检验是否符合本定律） 选举投票发欺诈     数字 出现概率    1 30.1%   2 17.6%   3 12.5%   4 9.7%">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-01-01T18:44:36.000Z">
-<meta property="article:modified_time" content="2020-03-08T08:37:01.390Z">
+<meta property="article:modified_time" content="2020-03-11T06:18:49.841Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="math">
 <meta name="twitter:card" content="summary">
@@ -539,6 +539,64 @@
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">bulbSwitch</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+
+<h2 id="数组变换"><a href="#数组变换" class="headerlink" title="数组变换"></a>数组变换</h2><p>[题目]</p>
+<ol>
+<li>给你一个整数数组 target 。一开始，你有一个数组 A ，它的所有元素均为 1 ，你可以执行以下操作：<ol>
+<li>令 x 为你数组里所有元素的和</li>
+<li>选择满足 <code>0 &lt;= i &lt; target.size()</code> 的任意下标 i ，并让 A[i] = x 。</li>
+<li>你可以重复该过程任意次</li>
+</ol>
+</li>
+<li>如果能从 A 开始构造出目标数组 target ，请你返回 True ，否则返回 False 。</li>
+</ol>
+<p>[例子一]</p>
+<ol>
+<li>输入: target = [9, 3, 5]</li>
+<li>输出: true</li>
+<li>解释<ol>
+<li>从 [1, 1, 1] 开始</li>
+<li>和为 3， A[1] = 3, 数组变成 [1, 3, 1]</li>
+<li>和为 5， a[2] = 5, 数组变成 [1, 3, 5]</li>
+<li>和为 9， a[0] = 9, 数组变成 [9, 3, 5]</li>
+</ol>
+</li>
+</ol>
+<p>[例子二]</p>
+<ol>
+<li>输入: target = [1, 1, 1, 2]</li>
+<li>输出: false</li>
+</ol>
+<p>[思路]</p>
+<ol>
+<li>正着考虑很麻烦，因为要遍历各种可能的位置去放数组的和，BFS, DFS 这种复杂度都很高</li>
+<li>DP 的话看起来很难找到状态转移方程</li>
+<li>正着考虑不行就反向考虑！<ol>
+<li>注意到数组里最大的那个数字一定是最后一步得到的，因此它是倒数第二步的数组里所有元素的和。</li>
+<li>因此只需要把这个数字减去其他所有的数字，就得到了它倒数第二步的数字！</li>
+<li>以此类推，可以逐渐得到前面所有步骤的数组。</li>
+</ol>
+</li>
+<li>那么这里又存在一个问题，如何动态找出所有元素中的最大值？<ol>
+<li>这个简单，我们可以借助 最大堆 这个数据结构，它可以帮助我们在 logn 的时间维护一个排序好的序列。</li>
+</ol>
+</li>
+<li>有了这些，这道题基本上就可以解决了。以上就是最为基本的解题思路.</li>
+<li>不过！！这道题目会存在一些比较极端的 case，比如 [1, 100000000] ，因此我们要对之前的解法进行优化。我们之前说过，我们需要考虑 sum 还有就是 max，但是当 max 相对于其他元素过于大的时候，我们需要对这一个元素反复做同样的事情很多次，这个过程能否简化呢？这里我们可以用一个取余的方法做到：<ol>
+<li>[2, 100]</li>
+<li>sum = 102, max = 100, other = 2  </li>
+<li>sum = 100, max = 98, other = 2</li>
+<li>sum = 98, max = 96, other = 2</li>
+<li>…</li>
+<li>// 如果 max 与 other 差距过大，每次迭代我们其实都在更新 max</li>
+<li>// 因为 other 没有变，每次 max 减去的都是相同的值</li>
+<li>// 这里，我们可以利用取余的方式来使得 max 一次性更新到刚好比 other 小的值</li>
+<li>// end_max = max % other</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPossible</span><span class="params">(<span class="keyword">int</span>[] target)</span> </span>&#123;</span><br><span class="line">    PriorityQueue&lt;Integer&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;(Collections.reverseOrder());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : target) &#123;</span><br><span class="line">        pq.offer(i);</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (pq.peek() != <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> max = pq.poll();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获得 other</span></span><br><span class="line">        sum -= max;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// other = 1，不管 max 是多少，都可以通过 1 不断迭代而成</span></span><br><span class="line">        <span class="keyword">if</span> (sum == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 由于是反向推，只减不加</span></span><br><span class="line">        <span class="comment">// other 小于 1，说明无法构建</span></span><br><span class="line">        <span class="comment">// other 必须小于 max 来保证 max 的正常迭代递减，不然 max 无法递减到 1</span></span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span> || max &lt;= sum) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 通过取余操作将 max 迭代到比 other 小的地方</span></span><br><span class="line">        max %= sum;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// other + prev_max = prev_sum</span></span><br><span class="line">        sum += max;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// prev_max 放入队列，继续迭代</span></span><br><span class="line">        pq.offer(max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -728,7 +786,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0650-2-Keys-keyboard"><span class="nav-number">1.3.</span> <span class="nav-text">0650 2 Keys keyboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约瑟夫环"><span class="nav-number">1.4.</span> <span class="nav-text">约瑟夫环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0172-n的阶乘后边有多少0"><span class="nav-number">1.5.</span> <span class="nav-text">0172 n的阶乘后边有多少0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0319-开关灯泡"><span class="nav-number">1.6.</span> <span class="nav-text">0319 开关灯泡</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">1.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本福特定律"><span class="nav-number">1.1.</span> <span class="nav-text">本福特定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列"><span class="nav-number">1.2.</span> <span class="nav-text">随机序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0650-2-Keys-keyboard"><span class="nav-number">1.3.</span> <span class="nav-text">0650 2 Keys keyboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约瑟夫环"><span class="nav-number">1.4.</span> <span class="nav-text">约瑟夫环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0172-n的阶乘后边有多少0"><span class="nav-number">1.5.</span> <span class="nav-text">0172 n的阶乘后边有多少0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0319-开关灯泡"><span class="nav-number">1.6.</span> <span class="nav-text">0319 开关灯泡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组变换"><span class="nav-number">1.7.</span> <span class="nav-text">数组变换</span></a></li></ol></li></ol></div>
             
 
           </div>

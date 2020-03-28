@@ -1151,6 +1151,30 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 <ol>
 <li>这个例子是类的递归继承！</li>
 </ol>
+<h3 id="alias-template-template-typedef-C-11"><a href="#alias-template-template-typedef-C-11" class="headerlink" title="alias template (template typedef) C++11"></a>alias template (template typedef) C++11</h3><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-template-alias-templates-1.png" alt=""></p>
+<p>这里要注意的就是 “template + using” 的做法竟然不能用 define 来替代！</p>
+<p>下面两个图：</p>
+<ol>
+<li>左边的是侯老师的一个想法，希望实现一个函数可以接收两个那样的东西，然后完成一系列的测试。</li>
+<li>但是写出来原型代码后，侯老师意识到这个实现是天方夜谭，需要的功能是完全不被支持的！</li>
+<li>右边的写法是，侯老师意识到了传递给函数的一定是一个东西，一个 object, 而不能是一个 type.<ol>
+<li>因此调用函数的方式变成了 <code>test_moveable(list(), MyString())</code>。加上括号就变成了 object 嘛。</li>
+</ol>
+</li>
+<li>注意右边在函数定义的上面有加上了一句话，显示得说明了 Container 和 T 都是模板，但这个时候函数里面的一句话有报错了。</li>
+<li>侯老师接着把函数里面的 <code>Container&lt;T&gt; c</code> 改成 <code>typename Container&lt;T&gt; c</code> 试图强制让编译器认为 Container 是一个模板，但还是有错。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-template-alias-templates-2.png" alt=""><br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-template-alias-templates-3.png" alt=""></p>
+<p>下图注解：</p>
+<ol>
+<li>上面的做法怎么样都搞不定了，侯老师只好改变了函数接收的参数。</li>
+<li>这里有个厉害的操作是他获取 <code>value_type</code> 的方式！</li>
+<li>图中的方式可行，是因为 container 一定有 iterator 一定有 value_type, 那如果没有呢？<ol>
+<li>就需要 <a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#template-template-parameter" target="_blank" rel="noopener">template template parameter</a> 了。</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-template-alias-templates-4.png" alt=""></p>
 <h3 id="specialization-模板特化"><a href="#specialization-模板特化" class="headerlink" title="specialization 模板特化"></a>specialization 模板特化</h3><p>有特化就有泛化，而泛化指的就是模板。</p>
 <p>下面的代码就是一个模板，一个泛化的例子：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Key</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">hash</span> &#123;</span></span><br><span class="line">    <span class="comment">// 此处省略了具体的实现</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -3085,7 +3109,63 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
 </ol>
 </li>
 </ol>
+<h2 id="Interval-Scheduling-区间调度问题"><a href="#Interval-Scheduling-区间调度问题" class="headerlink" title="Interval Scheduling 区间调度问题"></a>Interval Scheduling 区间调度问题</h2><p>[题目]</p>
+<ul>
+<li>给你很多形如 [starg, end] 的闭区间，</li>
+<li>请设计一个算法，算出这些区间中最多有几个互不相交的区间。</li>
+</ul>
+<p>[例子]</p>
+<ul>
+<li>输入 [[1,3], [2,4], [3,6]]</li>
+<li>分析 [[1,3], [3,6]]</li>
+<li>输出 2</li>
+<li>注意！[1,3] 和 [3,6] 边界相同，但是不算相交。</li>
+</ul>
+<p>[分析]</p>
+<ul>
+<li>正确的思路其实很简单，可以分为以下三步：<ul>
+<li>从区间集合 intvs 中选择一个区间 x，这个 x 是在当前所有区间中结束最早的（end 最小）。</li>
+<li>把所有与 x 区间相交的区间从区间集合 intvs 中删除。</li>
+<li>重复步骤 1 和 2，直到 intvs 为空为止。之前选出的那些 x 就是最大不相交子集。</li>
+</ul>
+</li>
+</ul>
+<p>[代码]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">intervalSchedule</span><span class="params">(<span class="keyword">int</span>[][] intvs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (intvs.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 按 end 升序排序</span></span><br><span class="line">    Arrays.sort(intvs, <span class="keyword">new</span> Comparator&lt;<span class="keyword">int</span>[]&gt;() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 至少有一个区间不相交</span></span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 排序后，第一个区间就是 x</span></span><br><span class="line">    <span class="keyword">int</span> x_end = intvs[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] interval : intvs) &#123;</span><br><span class="line">        <span class="keyword">int</span> start = interval[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span> (start &gt;= x_end) &#123;</span><br><span class="line">            <span class="comment">// 找到下一个选择的区间了</span></span><br><span class="line">            count++;</span><br><span class="line">            x_end = interval[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="leetcode-435-无重叠区间"><a href="#leetcode-435-无重叠区间" class="headerlink" title="leetcode 435 无重叠区间"></a>leetcode 435 无重叠区间</h3><p>[题目]</p>
+<ul>
+<li>给定一个区间的集合，找到需要移除区间的最小数量，使得剩余区间互不重叠。</li>
+<li>注意<ul>
+<li>可以认为区间的终点总是大于它的起点</li>
+<li>两个区间的边界相互接触不算重叠。</li>
+</ul>
+</li>
+</ul>
+<p>[分析]</p>
+<ul>
+<li>我们已经会求最多有几个区间不会重叠 了，那么剩下的不就是需要去除的区间吗？</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">eraseOverlapIntervals</span><span class="params">(<span class="keyword">int</span>[][] intervals)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = intervals.length;</span><br><span class="line">    <span class="keyword">return</span> n - intervalSchedule(intervals);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leetcode-452-最少的箭射爆气球"><a href="#leetcode-452-最少的箭射爆气球" class="headerlink" title="leetcode 452 最少的箭射爆气球"></a>leetcode 452 最少的箭射爆气球</h3><p>[题目]</p>
+<ul>
+<li>在二维空间里有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。</li>
+<li>由于它是水平的，所以 y 坐标并不重要。只需要知道开始和结束的 x 坐标就足够了。</li>
+<li>开始坐标总是小于结束坐标。</li>
+<li>平面内最多存在 10^4 个气球。</li>
+<li>一支箭可以沿着 x 轴从不同点完全垂直地射出。</li>
+<li>在坐标 x 处射出一支箭，若有一个气球的直径的开始和结束坐标为 x_start, x_end, 且满足 x_start &lt;= x &lt;= x_end, 则该气球会被引爆</li>
+<li>弓箭可以无限前进</li>
+<li>我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。</li>
+</ul>
+<p>[分析]</p>
+<ul>
+<li>这个问题和区间调度算法一模一样！如果最多有n个不重叠的区间，那么就至少需要n个箭头穿透所有区间：</li>
+<li>只是有一点不一样，在intervalSchedule算法中，如果两个区间的边界触碰，不算重叠；而按照这道题目的描述，箭头如果碰到气球的边界气球也会爆炸，所以说相当于区间的边界触碰也算重叠：</li>
+<li>所以只要将之前的算法稍作修改，就是这道题目的答案</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMinArrowShots</span><span class="params">(<span class="keyword">int</span>[][] intvs)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] interval : intvs) &#123;</span><br><span class="line">        <span class="keyword">int</span> start = interval[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">// 把 &gt;= 改成 &gt; 就行了</span></span><br><span class="line">        <span class="keyword">if</span> (start &gt; x_end) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            x_end = interval[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       

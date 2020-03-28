@@ -3657,8 +3657,24 @@ Exclusive-or is commonly abbreviated XOR.</code></pre><ol>
 <h2 id="Is-power-of-2"><a href="#Is-power-of-2" class="headerlink" title="Is power of 2"></a>Is power of 2</h2><p>[思路]</p>
 <ol>
 <li>常规的操作是不断着把这个数除以 2，然后判断是否有余数，直到 n 被整除成 1.</li>
-<li></li>
+<li>而实际上可以把 n 和 n-1 做<font color='red'>与</font>操作，如果结果为 0，那么 n 是 2 的幂次方。</li>
 </ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPow2</span><span class="params">(n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &amp; (n<span class="number">-1</span>)) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="leetcode-232"><a href="#leetcode-232" class="headerlink" title="leetcode 232"></a>leetcode 232</h2><p>[题目]</p>
+<ul>
+<li>给定一个非负整数 num. 对于 0 &lt;= i &lt;= num 范围内的每个数字 i, 计算其二进制数中 1 的数目并将它们作为数组返回。</li>
+<li>输入 5</li>
+<li>输出 [0, 1, 1, 2, 1, 2]</li>
+</ul>
+<p>[思路]</p>
+<ul>
+<li>常规解法就是遍历 0 &lt;= i &lt;= num，对每一个数字求多少个 bit 位为 1</li>
+<li>巧妙解法是使用动态规划，见下面的代码</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">countBits</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(num+<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= num; i++)&#123;</span><br><span class="line">        res[i] = res[i &amp; (i<span class="number">-1</span>)] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码的关键就是通过 <code>i &amp; (i-1)</code> 来去掉 i 的最高位那个 1.</p>
 <h2 id="Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same"><a href="#Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same" class="headerlink" title="Is power of four (actually map-checking, iterative and recursive methods can do the same)"></a>Is power of four (actually map-checking, iterative and recursive methods can do the same)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPowerOfFour</span><span class="params">(<span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !(n&amp;(n<span class="number">-1</span>)) &amp;&amp; (n&amp;<span class="number">0x55555555</span>);</span><br><span class="line">    <span class="comment">//check the 1-bit location;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="tricks"><a href="#tricks" class="headerlink" title="^ tricks"></a>^ tricks</h2><ol>

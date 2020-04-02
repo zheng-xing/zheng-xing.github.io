@@ -172,7 +172,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-iterator-container.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-deque-class.png">
 <meta property="article:published_time" content="2020-01-05T01:28:42.000Z">
-<meta property="article:modified_time" content="2020-03-31T00:43:21.003Z">
+<meta property="article:modified_time" content="2020-03-31T03:31:17.814Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
@@ -1308,11 +1308,15 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
 <p>注意，虽然 set, map 里面只能使用 functor/type</p>
 <p>实际上他们也可以用 function 的方法，但是容易用错，</p>
 <p>不过这里还是给出来看一下。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">You can use comparison function for STL containers</span></span><br><span class="line"><span class="comment">by passing them as the first argument of the constructor, </span></span><br><span class="line"><span class="comment">and specifying the function type as the additional template argument. </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comp</span><span class="params">(<span class="built_in">string</span>&amp; str1, <span class="built_in">string</span>&amp; str2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str1.<span class="built_in">size</span>() &lt; str2.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set&lt;string, bool (*)(string, string)&gt; myset(comp);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">lambda function 也是一个 object, 使用 decltype 可以获得 type</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> comp = [](<span class="built_in">string</span> a, <span class="built_in">string</span> b) &#123; <span class="keyword">return</span> a.<span class="built_in">size</span>() &gt; b.<span class="built_in">size</span>; &#125;;</span><br><span class="line">priority_queue&lt;string, vector&lt;int&gt;, decltype(comp)&gt; mypq(comp);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>comp</code> 比较函数的 type 我们知道是 <code>bool (*)(string, string)</code> 类型！</li>
+<li>lambda 函数的类型我们不知道！所以这里用了 <code>auto</code> 和 <code>decltype</code> 关键字来巧妙地传递 lambda function 的 type.<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">You can use comparison function for STL containers</span></span><br><span class="line"><span class="comment">by passing them as the first argument of the constructor, </span></span><br><span class="line"><span class="comment">and specifying the function type as the additional template argument. </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comp</span><span class="params">(<span class="built_in">string</span>&amp; str1, <span class="built_in">string</span>&amp; str2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str1.<span class="built_in">size</span>() &lt; str2.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set&lt;string, bool (*)(string, string)&gt; myset(comp);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">lambda function 也是一个 object, 使用 decltype 可以获得 type</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> comp = [](<span class="built_in">string</span> a, <span class="built_in">string</span> b) &#123; <span class="keyword">return</span> a.<span class="built_in">size</span>() &gt; b.<span class="built_in">size</span>; &#125;;</span><br><span class="line">priority_queue&lt;string, vector&lt;int&gt;, decltype(comp)&gt; mypq(comp);</span><br></pre></td></tr></table></figure>
 
+</li>
+</ol>
 <p>最后的用法可以参考 <code>decltype</code>.</p>
 <h3 id="二-vs-三"><a href="#二-vs-三" class="headerlink" title="二 vs 三"></a>二 vs 三</h3><ol>
-<li>方法三 compiler 很容易 inline，所以效率高！</li>
+<li>方法三 compiler 很容易 inline，所以效率高！lambda 函数默认是 inline 的。</li>
 </ol>
 <h3 id="STL-内置的函数对象"><a href="#STL-内置的函数对象" class="headerlink" title="STL 内置的函数对象"></a>STL 内置的函数对象</h3><p>STL提供的函数对象</p>
 <ol>
@@ -1586,7 +1590,7 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1608,7 +1612,7 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

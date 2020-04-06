@@ -377,6 +377,22 @@
 </ol>
 </li>
 </ol>
+<p>Note:</p>
+<ol>
+<li>下图可以看出来 STL 的整体设计思想跟 OOP 还是有区别的<ol>
+<li>OOP 里面我们希望把 data 和 methods 封装到一个类里面去</li>
+<li>而 STL 里面数据是放在 container 里面，算法呢，在 algorithms 模块里面，两者通过迭代器 iterator 连接。<br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-intro-six-components-1.png" alt=""></li>
+</ol>
+</li>
+</ol>
+<p>Note:</p>
+<ol>
+<li>一个小例子包含STL六大组件，真绝！</li>
+<li>bind2nd 在 c++11 后不推荐用了，新版本建议这么用<ol>
+<li><code>std::bind(std::less&lt;&gt;(), std::placeholders::_1, 20)</code></li>
+</ol>
+</li>
+</ol>
 
           
         

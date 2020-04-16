@@ -249,6 +249,734 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/leetcode-greedy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/31/leetcode-greedy/" itemprop="url">leetcode-greedy</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-31T21:10:37-08:00">
+                2019-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/31/leetcode-greedy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/12/31/leetcode-greedy/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="稳定匹配问题"><a href="#稳定匹配问题" class="headerlink" title="稳定匹配问题"></a>稳定匹配问题</h2><p>[题目]<br>假如你是一个媒人，有若干个单身男子登门求助，还有同样多的单身女子也前来征婚。如果你已经知道这些女孩在每个男人心目中的排名，以及男孩们在每个女孩心中的排名(1)，你应该怎样为他们牵线配对呢？</p>
+<p>这个匹配要稳定：<br>如果男 1 号和女 1 号各自有各自的对象，但男 1 号觉得，比起自己现在的对象，女 1 号更好一些；女 1 号也发现，在自己心目中，男 1 号的排名比现男友更靠前一些。这样一来，这两人就可能会发生外遇，最后扔下各自现在的对象，一起私奔了——因为这个结果对他们两人都更好一些。在一种男女配对的方案中，如果出现了这种情况，我们就说婚姻搭配是不稳定的。</p>
+<p>[思路]</p>
+<ol>
+<li>1962 年，美国数学家 David Gale 和 Lloyd Shapley 发明了一种寻找稳定婚姻的策略。不管男女各有多少人，不管他们各自的偏好如何，应用这种策略后总能得到一个稳定的婚姻搭配。换句话说，他们证明了稳定的婚姻搭配总是存在的。有趣的是，这种策略反映了现实生活中的很多真实情况。</li>
+<li>在这种策略中，男人将一轮一轮地去追求他中意的女子，女子可以选择接受或者拒绝她的追求者。第一轮，每个男人都选择自己名单上排在首位的女人，并向她表白。此时，一个女孩儿可能面对的情况有三种：没有人跟她表白，只有一个人跟她表白，有不止一个人跟她表白。在第一种情况下，这个女孩儿什么都不用做，只需要继续等待；在第二种情况下，接受那个人的表白，答应暂时和他做男女朋友；在第三种情况下，从所有追求者中选择自己最中意的那一位，答应和他暂时做男女朋友，并拒绝其他所有的追求者。</li>
+<li>第一轮结束后，有些男人已经有女朋友了，有些男人仍然是单身。在第二轮追女行动中，每个单身男都从所有还没拒绝过他的女孩中选出自己最中意的那一个，并向她表白，不管她现在是否是单身。和第一轮一样，女孩儿们需要从表白者中选择最中意的一位，拒绝其他追求者。注意，如果这个女孩儿已经有男朋友了，当她遇到了更好的追求者时，她必须拒绝掉现在的男友，投向新的追求者的怀抱。这样，一些单身男人将会得到女友，那些已经有了女友的人也可能会被甩掉，重新变成光棍。在以后的每一轮中，单身的男人继续追求列表中的下一个女孩儿，女孩儿则从包括现男友在内的所有追求者中选择最好的一个，并对其他人说不。这样一轮一轮地进行下去，直到某个时候所有人都不再单身，下一轮将不会有任何新的表白发生，整个过程自动结束。此时的婚姻搭配就一定是稳定的了。</li>
+</ol>
+<p><img src="https://ws1.sinaimg.cn/large/6a607485gy1gahqf5s50kj207w071wei.jpg" alt="StableMatching"></p>
+<p>[思考和应用]</p>
+<ol>
+<li>[历史应用] 历史上，这样的“配对游戏”还真有过实际应用，并且更有意思的是，这个算法的应用居然比算法本身的提出还早 10 年。早在 1952 年，美国就开始用这种办法给医学院的学生安排工作，这被称之为“全国住院医师配对项目”。配对的基本流程就是，各医院从尚未拒绝这一职位的医学院学生中选出最佳人选并发送聘用通知，当学生收到来自各医院的聘用通知后，系统会根据他所填写的意愿表自动将其分配到意愿最高的职位，并拒绝掉其它的职位。如此反复，直到每个学生都分配到了工作。当然，那时人们并不知道这样的流程可以保证工作分配的稳定性，只是凭直觉认为这是很合理的。直到 10 年之后， Gale 和 Shapley 才系统地研究了这个流程，提出了稳定婚姻问题，并证明了这个算法的正确性。</li>
+<li>[男女公平吗]<ol>
+<li>对男生是 optimal 的，对女生是 pesimal 的。</li>
+<li>如果换一下顺序，让女生去追男的，那么结果对女生就是 optimal，对男生就是 pesimal 的。</li>
+<li>注意！！！有一些简单的例子你换个顺序做会发现结果一样，这并不名说明上面的 optimal-pesimal 结论有错误，而是因为这个简单的例子只有一种可能的 stable matching. 所以两种方法都会得到这唯一的结果。</li>
+<li>只有当有多个 stable solution 存在的时候（每一个solution 里面男 A 都有一个配偶），你会发现，如果是男追女，那么男A 最后的配偶一定是这些 solution 里面的配偶中男A 最喜欢的那个！而女人的配偶一定是这些solution 里面最差的那个。</li>
+</ol>
+</li>
+<li><mark>[现实联系]</mark><ol>
+<li><mark>想想生活中，一般都是男追女</mark></li>
+<li><mark>那么男生先从自己最喜欢的女生追起来是很符合逻辑的</mark></li>
+<li><mark>然后女生呢，只要有男生追自己，那么就先答应着！如果后面碰到更好的，就把男友踹了跟新来者谈恋爱</mark></li>
+</ol>
+</li>
+</ol>
+<p>[算法分析]</p>
+<ol>
+<li>贪心法<ol>
+<li>我们希望第 k 个任务的计算占用空间加上前面 k-1 个任务的存储空间占用量之和，越小越好。</li>
+<li>O_1 + O_2 + … + O_j + … + O_{k-1} + R_k &lt;=  O_1 + O_2 + … + O_k + … + O_{k-1} + R_j</li>
+<li>上面公式的右边是假定从左边拿了任务 j 与 最后的任务 k 交换了</li>
+<li>化简上面不等式，得到 O_j + R_k &lt;= O_k + R_j，得到 R_k - O_k &lt;= R_j - O_j</li>
+<li>也就是说，只需要把 {R_i - O_i} 降序排列就可以了！</li>
+</ol>
+</li>
+</ol>
+<h2 id="Interval-Scheduling-区间调度问题"><a href="#Interval-Scheduling-区间调度问题" class="headerlink" title="Interval Scheduling 区间调度问题"></a>Interval Scheduling 区间调度问题</h2><p>[题目]</p>
+<ul>
+<li>给你很多形如 [starg, end] 的闭区间，</li>
+<li>请设计一个算法，算出这些区间中最多有几个互不相交的区间。</li>
+</ul>
+<p>[例子]</p>
+<ul>
+<li>输入 [[1,3], [2,4], [3,6]]</li>
+<li>分析 [[1,3], [3,6]]</li>
+<li>输出 2</li>
+<li>注意！[1,3] 和 [3,6] 边界相同，但是不算相交。</li>
+</ul>
+<p>[分析]</p>
+<ul>
+<li>正确的思路其实很简单，可以分为以下三步：<ul>
+<li>从区间集合 intvs 中选择一个区间 x，这个 x 是在当前所有区间中结束最早的（end 最小）。</li>
+<li>把所有与 x 区间相交的区间从区间集合 intvs 中删除。</li>
+<li>重复步骤 1 和 2，直到 intvs 为空为止。之前选出的那些 x 就是最大不相交子集。</li>
+</ul>
+</li>
+</ul>
+<p>[代码]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">intervalSchedule</span><span class="params">(<span class="keyword">int</span>[][] intvs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (intvs.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 按 end 升序排序</span></span><br><span class="line">    Arrays.sort(intvs, <span class="keyword">new</span> Comparator&lt;<span class="keyword">int</span>[]&gt;() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 至少有一个区间不相交</span></span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 排序后，第一个区间就是 x</span></span><br><span class="line">    <span class="keyword">int</span> x_end = intvs[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] interval : intvs) &#123;</span><br><span class="line">        <span class="keyword">int</span> start = interval[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span> (start &gt;= x_end) &#123;</span><br><span class="line">            <span class="comment">// 找到下一个选择的区间了</span></span><br><span class="line">            count++;</span><br><span class="line">            x_end = interval[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leetcode-435-无重叠区间"><a href="#leetcode-435-无重叠区间" class="headerlink" title="leetcode 435 无重叠区间"></a>leetcode 435 无重叠区间</h3><p>[题目]</p>
+<ul>
+<li>给定一个区间的集合，找到需要移除区间的最小数量，使得剩余区间互不重叠。</li>
+<li>注意<ul>
+<li>可以认为区间的终点总是大于它的起点</li>
+<li>两个区间的边界相互接触不算重叠。</li>
+</ul>
+</li>
+</ul>
+<p>[分析]</p>
+<ul>
+<li>我们已经会求最多有几个区间不会重叠 了，那么剩下的不就是需要去除的区间吗？</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">eraseOverlapIntervals</span><span class="params">(<span class="keyword">int</span>[][] intervals)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = intervals.length;</span><br><span class="line">    <span class="keyword">return</span> n - intervalSchedule(intervals);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leetcode-452-最少的箭射爆气球"><a href="#leetcode-452-最少的箭射爆气球" class="headerlink" title="leetcode 452 最少的箭射爆气球"></a>leetcode 452 最少的箭射爆气球</h3><p>[题目]</p>
+<ul>
+<li>在二维空间里有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。</li>
+<li>由于它是水平的，所以 y 坐标并不重要。只需要知道开始和结束的 x 坐标就足够了。</li>
+<li>开始坐标总是小于结束坐标。</li>
+<li>平面内最多存在 10^4 个气球。</li>
+<li>一支箭可以沿着 x 轴从不同点完全垂直地射出。</li>
+<li>在坐标 x 处射出一支箭，若有一个气球的直径的开始和结束坐标为 x_start, x_end, 且满足 x_start &lt;= x &lt;= x_end, 则该气球会被引爆</li>
+<li>弓箭可以无限前进</li>
+<li>我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。</li>
+</ul>
+<p>[分析]</p>
+<ul>
+<li>这个问题和区间调度算法一模一样！如果最多有n个不重叠的区间，那么就至少需要n个箭头穿透所有区间：</li>
+<li>只是有一点不一样，在intervalSchedule算法中，如果两个区间的边界触碰，不算重叠；而按照这道题目的描述，箭头如果碰到气球的边界气球也会爆炸，所以说相当于区间的边界触碰也算重叠：</li>
+<li>所以只要将之前的算法稍作修改，就是这道题目的答案</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMinArrowShots</span><span class="params">(<span class="keyword">int</span>[][] intvs)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] interval : intvs) &#123;</span><br><span class="line">        <span class="keyword">int</span> start = interval[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">// 把 &gt;= 改成 &gt; 就行了</span></span><br><span class="line">        <span class="keyword">if</span> (start &gt; x_end) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            x_end = interval[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/28/leetcode-graph/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/28/leetcode-graph/" itemprop="url">leetcode-graph</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-28T17:44:02-08:00">
+                2019-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/28/leetcode-graph/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/12/28/leetcode-graph/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="相关基础知识"><a href="#相关基础知识" class="headerlink" title="相关基础知识"></a>相关基础知识</h1><ul>
+<li>图的遍历和搜索</li>
+<li>（隐式）图的搜索（连通性）<ul>
+<li>重点</li>
+<li>8皇后</li>
+</ul>
+</li>
+<li>最短路径<ul>
+<li>单源图 (Dijkstra)</li>
+<li>任意两点 (floyd)</li>
+<li>有负边</li>
+</ul>
+</li>
+<li>最小生成树 (MST)<ul>
+<li>Prim</li>
+<li>Krusal</li>
+</ul>
+</li>
+<li>拓扑排序 (Topological Sort)</li>
+</ul>
+<h2 id="图的表示和搜索"><a href="#图的表示和搜索" class="headerlink" title="图的表示和搜索"></a>图的表示和搜索</h2><ul>
+<li>图的表示<ul>
+<li>邻接矩阵<ul>
+<li>NxN 的矩阵，有边是 1，无边是 0</li>
+</ul>
+</li>
+<li>邻接表<ul>
+<li>为每个点建立一个链表（数组）存放与之连接的点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜索<ul>
+<li>BFS</li>
+<li>DFS</li>
+</ul>
+</li>
+</ul>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="所有括号匹配的字符串-leetcode-0022"><a href="#所有括号匹配的字符串-leetcode-0022" class="headerlink" title="所有括号匹配的字符串  leetcode 0022"></a>所有括号匹配的字符串  leetcode 0022</h2><p>[题目]<br>N 对括号能够得到的有效括号序列有哪些？</p>
+<p>[例子]<br>N = 3, 有效括号串共 5 个，分别为：</p>
+<ol>
+<li>()()()</li>
+<li>()(())</li>
+<li>(())()</li>
+<li>(()())</li>
+<li>((()))</li>
+</ol>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>[分析]</p>
+<ul>
+<li>关键的思路是：当前位置左括号不少于右括号</li>
+<li>图是什么？<ul>
+<li>节点：目前位置左括号和右括号数 (x, y) (x &gt;= y)</li>
+<li>边: 从 (x,y) 到 (x+1, y) 和 (x, y+1)</li>
+<li>当 x == y 时，没有到 (x, y+1) 这条边</li>
+</ul>
+</li>
+<li>解是什么？<ul>
+<li>从 (0,0) 出发到 (n,n) 的全部路径</li>
+</ul>
+</li>
+<li>DFS 方法<ul>
+<li>记录什么？<ul>
+<li>左右括号的个数</li>
+<li>当前的部分解</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>BFS 方法<ul>
+<li>记录什么？<ul>
+<li>方法一 当前的“部分解” —- 浪费空间</li>
+<li>方法二 每个节点记录能到达它之前的节点集合 —- 麻烦，最后要还原路径</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>先看一下 DFS 如何实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@param x: number of left parenthesis</span></span><br><span class="line"><span class="comment">@param y: number of right parenthesis</span></span><br><span class="line"><span class="comment">@param now: current solution</span></span><br><span class="line"><span class="comment">@param answer: return object</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="built_in">string</span> now, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; answer)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 注意在递归调用时，我们始终保证 x &gt;= y 并且 x &lt;= n</span></span><br><span class="line">    <span class="keyword">if</span> (y == n) &#123;    <span class="comment">// 此时 x 一定也等于 n</span></span><br><span class="line">        answer.push_back(now);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; n) &#123;    <span class="comment">// 从 (x, y) 到 (x + 1, y) 的路径</span></span><br><span class="line">        dfs(n, x + <span class="number">1</span>, y, now + <span class="string">"("</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; y) &#123;    <span class="comment">// 从 (x, y) 到 (x, y + 1) 的路径</span></span><br><span class="line">        dfs(n, x, y + <span class="number">1</span>, now + <span class="string">")"</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">generateParenthesis</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; answer;</span><br><span class="line">    dfs(n, <span class="number">0</span>, <span class="number">0</span>, <span class="string">""</span>, answer);</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再来看看 BFS 的第一种方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@param x: number of left parenthesis</span></span><br><span class="line"><span class="comment">@param y: number of right parenthesis</span></span><br><span class="line"><span class="comment">@param now: current solution</span></span><br><span class="line"><span class="comment">@param answer: return object</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="built_in">string</span> now;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; answer)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>)&#123;</span><br><span class="line">        answer.push_back(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    node temp;</span><br><span class="line">    temp.x = temp.y = <span class="number">0</span>;</span><br><span class="line">    temp.now = <span class="string">""</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;node&gt; q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(q.push(temp); !q.empty(); q.pop())&#123;</span><br><span class="line">        temp = q.front();</span><br><span class="line">        node other;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(temp.x &lt; n)&#123;    <span class="comment">// 从 (x, y) 到 (x + 1, y) 的路径</span></span><br><span class="line">            other.x = temp.x + <span class="number">1</span>;</span><br><span class="line">            other.y = temp.y;</span><br><span class="line">            other.now = temp.now + <span class="string">"("</span>;</span><br><span class="line">            q.push(other);       <span class="comment">// 这里因为是加的左括号，因此一定不可能是最后的一个解，可以直接放到 q</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(temp.x &gt; temp.y) &#123;    <span class="comment">// 从 (x, y) 到 (x, y+1) 的路径</span></span><br><span class="line">            other.x = temp.x;</span><br><span class="line">            other.y = temp.y + <span class="number">1</span>;</span><br><span class="line">            other.now = temp.now + <span class="string">")"</span>;</span><br><span class="line">            <span class="keyword">if</span> (other.y == n)&#123;</span><br><span class="line">                answer.push_back(other.now);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                q.push(other);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">generateParenthesis</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; answer;</span><br><span class="line">    bfs(n, answer);</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>[问题分析]</p>
+<ul>
+<li>任何一个括号序列，都可以写成形式 (A)B<ul>
+<li>A 和 B 都是若干括号对形成的合法串（可以是空串）</li>
+<li>若 N=0, 括号序列为空</li>
+<li>若 N=1, 括号序列只能是 () 这一种。</li>
+</ul>
+</li>
+<li>算法描述: i 属于 [0, N-1]<ul>
+<li>计算 i 对括号的可行序列 A</li>
+<li>计算 N-i-1 对括号的可行序列 B</li>
+<li>组合得到 (A)B</li>
+<li>注：加上额外一对括号 (), 总括号数量是 N 对</li>
+</ul>
+</li>
+</ul>
+<p><mark>注意下面算法有直接修改数组最后一个元素! 使用了返回引用的方法！！！</mark></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">AllParentheses</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> &#123;<span class="string">""</span>&#125;;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> &#123;<span class="string">"()"</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; prefix, suffix, result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        prefix = AllParentheses(i);</span><br><span class="line">        suffix = AllParentheses(n-i<span class="number">-1</span>);</span><br><span class="line">        Unit(result, prefix, suffix);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Unit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; result, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; prefix, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; suffix)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ip = prefix.<span class="built_in">begin</span>(); ip != prefix.<span class="built_in">end</span>(); ip++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> is = suffix.<span class="built_in">begin</span>(); is != suffix.<span class="built_in">end</span>(); is++)&#123;</span><br><span class="line">            result.push_back(<span class="string">""</span>);</span><br><span class="line">            <span class="built_in">string</span>&amp; r = result.back();    <span class="comment">// 这里返回的是引用！技巧啊！！</span></span><br><span class="line">            r += <span class="string">"("</span>;</span><br><span class="line">            r += *ip;</span><br><span class="line">            r += <span class="string">")"</span>;</span><br><span class="line">            r += *is;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[思考]</p>
+<ul>
+<li>可以通过增加缓存的方式，对已经计算得到的字串直接获取，以空间换时间，降低时间复杂度。</li>
+<li>如果只是计算可行括号串的数目，如何计算？<ul>
+<li>事实上，数组 A[i] 表示长度为 i 的括号串的可行数目，即著名的 Catalan 数！</li>
+</ul>
+</li>
+<li>Calalan 数（从 0 开始数）<ul>
+<li>1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, …</li>
+</ul>
+</li>
+</ul>
+<h2 id="最小平方划分"><a href="#最小平方划分" class="headerlink" title="最小平方划分"></a>最小平方划分</h2><p>[题目]<br>一个正整数可以由若干个正整数的平方和表示，求整数 201314 最小的平方划分数目。</p>
+<p>[我的本来思路]<br>用DP的方法！</p>
+<p>假设已知 1, …, n-1 的最小划分保存在数组 split[i] 中。求数 n 最小划分。</p>
+<p>只需要遍历 1, …, n/2，然后看哪一个 split[i] + split[n-i] 最小，即是 n 的最小划分。</p>
+<p>[优化的思路]<br>我的思路时间复杂度是 O(n^2), 因为对于每一个 n, 我都要考虑到 n/2 种情况。</p>
+<p>事实上，这个题目可以优化到 O(n sqrt(n)) 的时间复杂度。具体做法就是考虑 n = a + K^2。<br>也就是说，只需要考虑 1 … K 这么多数字，其中 K = sqrt(n).<br>若 split[n - k^2] + 1 &lt; x (x 是当前的 n 的最小划分数目), 则将 x 更新为 split[n - k^2] + 1</p>
+<p><mark>[如何求平方根]</mark><br>可以使用牛顿法。<br>牛顿法就是求一个方程的解的方法。</p>
+<p>[题外话]<br>四平方和定理</p>
+<ul>
+<li>每个正整数均可表示为最多4个整数的平方和。</li>
+<li>证明<ul>
+<li>首先欧拉发现：如果正整数 m 和 n 能表示成 4 个整数的平方和，则其乘积 mn 也能表示成 4 个整数的平方和。</li>
+<li>而由于每个正整数要么是质数，要么是合数，而合数都可以表达成质数的乘积形式。</li>
+<li>因此只需要证明每个质数可以表示成四个整数的平方和即可！</li>
+<li>拉格朗日和欧拉分别在 1770 和 1773 年做出证明。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Palindrome-Partitioning-所有划分"><a href="#Palindrome-Partitioning-所有划分" class="headerlink" title="Palindrome Partitioning 所有划分"></a>Palindrome Partitioning 所有划分</h2><p>[题目]<br>给定一个字符串 str, 将 str 划分成若干子串，使得每一个子串都是回文串。计算 str 的所有可能的划分。</p>
+<p>note: 因为单个字符一定是回文串，所以一定有解！</p>
+<p>[思路一]</p>
+<ul>
+<li>若当前计算得到了 str[0 … i-1] 的所有划分，可否添加 str[i … j], 得到更大的划分呢？<ul>
+<li>显然，若 str[i…j] 是回文串，则可以添加。</li>
+</ul>
+</li>
+<li>剪枝: 在每一步都可以判断中间结果是否为合法结果<ul>
+<li>回溯 + 剪枝：如果某一次发现划分不合法，立刻对该分支限界</li>
+</ul>
+</li>
+</ul>
+<p>[思路一的代码]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FindSolution</span><span class="params">(<span class="built_in">string</span>&amp; str, <span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; res, <span class="keyword">int</span> start, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; oneSolution, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt;&amp; isPalindrome)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start &gt;= n)&#123;</span><br><span class="line">        res.push_back(oneSolution);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(isPalindrome[start][i])&#123;</span><br><span class="line">            oneSolution.push_back(str.substr(start, i - start + <span class="number">1</span>));</span><br><span class="line">            FindSolution(str, n, res, i + <span class="number">1</span>, oneSolution, isPalindrome);</span><br><span class="line">            oneSolution.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用二维 DP 来构建 isPalindrome 矩阵</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ConstructIsPalindromeMatrix</span><span class="params">(<span class="built_in">string</span> str, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt;&amp; isPalindrome)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">int</span> n = str.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; str.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        p[i][i] = True;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        isPalindrome[i][i+<span class="number">1</span>] = (str[i] == str[i+<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(j = i + <span class="number">2</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>((str[i] == str[j]) &amp;&amp; isPalindrome[i+<span class="number">1</span>][j<span class="number">-1</span>])&#123;</span><br><span class="line">                isPalindrome[i][j] = True;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">PalindromePartitioning</span><span class="params">(<span class="built_in">string</span> str)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = str.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; <span class="title">isPalindrome</span><span class="params">(n, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(n))</span></span>;</span><br><span class="line">    ConstructIsPalindromeMatrix(str, isPalindrome);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;str&gt; oneSolution;    <span class="comment">// 记录一个解！！！</span></span><br><span class="line">    FindSolution(str, n, res, start, oneSolution, isPalindrome);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>[思路二：动态规划]</p>
+<ul>
+<li>如果已知 str[0 … i-1] 的所有回文划分结果 res(i)</li>
+<li>如何求 str[0 … i] 的所有划分呢？<ul>
+<li>如果子串 str[j … i] 是回文串，则将该字串和 res(j) 共同添加到 res(i+1) 中。</li>
+</ul>
+</li>
+<li>算法<ul>
+<li>将集合 res 置空</li>
+<li>遍历 j(0 &lt;= j &lt; i), 若 str[j … i] 是回文串，则将 {str[j…i], res(j)} 添加到 res(i+1) 中</li>
+<li>i 从 0 到 n，一次调用上面两步骤，最终返回 res(n) 即为所求。</li>
+</ul>
+</li>
+</ul>
+<p>[思路二的代码]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">res = &#123;</span></span><br><span class="line"><span class="comment">    &#123;&#123;&#125;&#125;,</span></span><br><span class="line"><span class="comment">    &#123;&#123;"a"&#125;&#125;,</span></span><br><span class="line"><span class="comment">    &#123;&#123;"a","a"&#125;, &#123;"aa"&#125;&#125;,</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ConstructIsPalindromeMatrix</span><span class="params">(<span class="built_in">string</span> str, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt;&amp; isPalindrome)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">int</span> n = str.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; str.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        p[i][i] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        isPalindrome[i][i+<span class="number">1</span>] = (str[i] == str[i+<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(j = i + <span class="number">2</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>((str[i] == str[j]) &amp;&amp; isPalindrome[i+<span class="number">1</span>][j<span class="number">-1</span>])&#123;</span><br><span class="line">                isPalindrome[i][j] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">PalindromePartitioning</span><span class="params">(<span class="built_in">string</span> str)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = str.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&gt; res;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; <span class="title">isPalindrome</span><span class="params">(n, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(n))</span></span>;</span><br><span class="line">    ConstructIsPalindromeMatrix(str, isPalindrome);</span><br><span class="line">    </span><br><span class="line">    res.push_back(&#123;&#123;&#125;&#125;);</span><br><span class="line">    res.push_back(&#123;&#123;str.substr(<span class="number">0</span>,<span class="number">1</span>)&#125;&#125;);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; temp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i<span class="number">-1</span>; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(isPalindrome[j][i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> it: res[j])&#123;    <span class="comment">// "it" is a vector of strings</span></span><br><span class="line">                    it.push_back(str.substr(j, i-j));</span><br><span class="line">                &#125;</span><br><span class="line">                temp.push_back(it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(temp);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> res[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DFS-与-DP-的思考"><a href="#DFS-与-DP-的思考" class="headerlink" title="DFS 与 DP 的思考"></a>DFS 与 DP 的思考</h3><ol>
+<li>DFS 的过程，是计算完成了 str[0…i] 的切分，然后递归调用，继续计算 str[i+1, i+2, … n-1] 的过程；</li>
+<li>而 DP 中，假定得到了 str[0 … i-1] 的所有可能切分方案，如何扩展得到 str[0…i] 的切分</li>
+<li>从本质上说，二者是等价的：最终都是搜索一颗隐式树<ol>
+<li>DFS 显然是深度优先搜索，DP 有点类似于层序遍历的思想。</li>
+</ol>
+</li>
+</ol>
+<h3 id="归纳推理的理解"><a href="#归纳推理的理解" class="headerlink" title="归纳推理的理解"></a>归纳推理的理解</h3><ol>
+<li>第一数学归纳法，类似于马尔科夫模型，有状态 i 推理得到状态 i+1</li>
+<li>第二数学归纳法，则是有状态 0 到 i 一起推理得到状态 i+1.</li>
+</ol>
+<h2 id="Word-break-leetcode-0139"><a href="#Word-break-leetcode-0139" class="headerlink" title="Word break leetcode 0139"></a>Word break leetcode 0139</h2><p>[题目]<br>Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.</p>
+<p>Note:</p>
+<ol>
+<li>The same word in the dictionary may be reused multiple times in the segmentation.</li>
+<li>You may assume the dictionary does not contain duplicate words.</li>
+</ol>
+<p>[我的思路]</p>
+<ol>
+<li>用 DP 来记录各个长度的从头开始的子串是否满足条件。</li>
+<li>如果 DP[i] 为 true, 则遍历字典中所有字符串 temp<ol>
+<li>如果目标字符串 <code>s.substr(i, temp.size()) == temp</code> </li>
+<li>那么可以更新 DP[i + temp.size()] 也为真</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">res</span><span class="params">(s.<span class="built_in">size</span>()+<span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        res[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="comment">//cout &lt;&lt; i &lt;&lt; endl;</span></span><br><span class="line">            <span class="keyword">if</span>(res[i])&#123;                    <span class="comment">// 截止到前i个字符，都是可以的</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="built_in">string</span> ss: wordDict)&#123;</span><br><span class="line">                    <span class="comment">// 注意这里的技巧，如果 res[i + ss.size()] 已经为真就不必要取子串判断了</span></span><br><span class="line">                    <span class="keyword">if</span>(i + ss.<span class="built_in">size</span>() &lt;= s.<span class="built_in">size</span>() &amp;&amp; (res[i + ss.<span class="built_in">size</span>()] || (ss.compare(s.substr(i, ss.<span class="built_in">size</span>())) == <span class="number">0</span>))) &#123;</span><br><span class="line">                        <span class="comment">//cout &lt;&lt; ss &lt;&lt; " " &lt;&lt; s.substr(i, ss.size()) &lt;&lt; endl;</span></span><br><span class="line">                        res[i + ss.<span class="built_in">size</span>()] = <span class="literal">true</span>;</span><br><span class="line">                        <span class="keyword">if</span>(i+ss.<span class="built_in">size</span>() == s.<span class="built_in">size</span>())</span><br><span class="line">                            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res[s.<span class="built_in">size</span>()];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Word-break-2-leetcode-0140"><a href="#Word-break-2-leetcode-0140" class="headerlink" title="Word break 2 leetcode 0140"></a>Word break 2 leetcode 0140</h2><h2 id="几个-backtracking-题目"><a href="#几个-backtracking-题目" class="headerlink" title="几个 backtracking 题目"></a>几个 backtracking 题目</h2><h3 id="Combination-Sum-leetcode-0039"><a href="#Combination-Sum-leetcode-0039" class="headerlink" title="Combination Sum leetcode 0039"></a>Combination Sum leetcode 0039</h3><p>[题目]</p>
+<ol>
+<li>Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.</li>
+<li>The same repeated number may be chosen from candidates unlimited number of times.</li>
+<li>Note:<ol>
+<li>All numbers (including target) will be positive integers.</li>
+<li>The solution set must not contain duplicate combinations.</li>
+</ol>
+</li>
+<li>Example 1:<ol>
+<li>Input: candidates = [2,3,6,7], target = 7,</li>
+<li>A solution set is: [ [7], [2,2,3] ]</li>
+</ol>
+</li>
+<li>Example 2:<ol>
+<li>Input: candidates = [2,3,5], target = 8,</li>
+<li>A solution set is: [ [2,2,2,2], [2,3,3], [3,5] ]</li>
+</ol>
+</li>
+</ol>
+<p>[分析]</p>
+<ul>
+<li>先排序<ul>
+<li>可以降低搜索次数，因为是从小到大搜，一旦有一个元素已经超过剩下的数值了，后面的元素也就不用看了</li>
+</ul>
+</li>
+<li>如何才能使得数字重复利用<ul>
+<li>当前从 i 位置开始搜索的，</li>
+<li>把 candidates[i] 放到 combination 里面后</li>
+<li>递归调用时候还是传递 begin = i，这样子还可以把 candidates[i] 接着放进去</li>
+</ul>
+</li>
+<li>如何避免产生重复的 combinations<ul>
+<li>从第 begin 个位置往下递归的调用不能进入小于 begin 的位置</li>
+<li>即加入当前加入 3 了，那么剩下的结果你不要又从头开始看加个 1， 加个2， 加个 3；你只能看加个 3，加个 4，etc</li>
+<li>否则你有一个递归是先加入 2，再加入的 3；而另外可能有一个递归是先加入了 3，再加入的 2.</li>
+</ul>
+</li>
+</ul>
+<p><mark>这个代码非常简洁优美！</mark> 来自<a href="https://leetcode.com/problems/combination-sum/discuss/16496/Accepted-16ms-c%2B%2B-solution-use-backtracking-easy-understand." target="_blank" rel="noopener">这里</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="title">combinationSum</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::sort(candidates.<span class="built_in">begin</span>(), candidates.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; res;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; combination;</span><br><span class="line">        combinationSum(candidates, target, res, combination, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">combinationSum</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;res, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;combination, <span class="keyword">int</span> <span class="built_in">begin</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!target) &#123;</span><br><span class="line">            res.push_back(combination);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">begin</span>; i != candidates.<span class="built_in">size</span>() &amp;&amp; target &gt;= candidates[i]; ++i) &#123;   <span class="comment">// target &gt;= candidates[i] 相当于剪枝了！</span></span><br><span class="line">            combination.push_back(candidates[i]);</span><br><span class="line">            combinationSum(candidates, target - candidates[i], res, combination, i);    <span class="comment">// 把 i 当做 begin, 既保证元素可以重复，</span></span><br><span class="line">            combination.pop_back();                                                     <span class="comment">// 又保证结果中不会出现重复的 combination</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Combination-Sum-II-leetcode-0040"><a href="#Combination-Sum-II-leetcode-0040" class="headerlink" title="Combination Sum II leetcode 0040"></a>Combination Sum II leetcode 0040</h3><p>[题目]</p>
+<ul>
+<li>参考上面 Combination Sum 的题目</li>
+<li>这里的区别在于<font color="red">candidates元素只能用一次</font></li>
+</ul>
+<p>[思路]</p>
+<ul>
+<li>代码跟上面的 leetcode 0039 很类似</li>
+<li>要注意的是如何保证 candidates 元素只能用一次</li>
+<li>不能简单地这么做：递归调用时候传递 <code>begin</code> 为 <code>i+1</code> (上一题是 <code>begin = i</code>)<ul>
+<li>这么做会导致重复</li>
+<li>假设搜到某个步骤时候 target 变成 5 了</li>
+<li>而此时 candidates 里面有 4 个 5</li>
+<li>那么上面的做法会使得结果里面有 4 个一样的 combinations</li>
+</ul>
+</li>
+<li>正确的方法是：<ul>
+<li>加一个判断语句, 参见代码，真是优美！</li>
+<li><code>if(i == begin || candidates[i] != candidates[i-1]) {...}</code></li>
+<li><code>i == begin</code> 保证了只会连续得看，不会跳着看</li>
+<li>即如果有 k 个 5，那么递归的时候只会考虑第一个 5 ，剩下的 5 就都跳过了</li>
+<li>注意这里并没有说相同的 5 只考虑一个</li>
+<li>因为 k 个 5 的时候考虑了第一个 5，此时递归下去后，下一次函数调用看到了 k-1 个连续的 5，它只会考虑第一个 5</li>
+<li><mark>这样子就保证了如果某个 combination 里面有 m 个 5，那么它一定来自于 candidates 中连续的 k 个 5 中最左边 m 个！！！</mark></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="title">combinationSum2</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::sort(candidates.<span class="built_in">begin</span>(), candidates.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; res;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; combination;</span><br><span class="line">        combinationSum2(candidates, target, res, combination, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">combinationSum2</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;res, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;combination, <span class="keyword">int</span> <span class="built_in">begin</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!target) &#123;</span><br><span class="line">            res.push_back(combination);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="built_in">begin</span>; i != candidates.<span class="built_in">size</span>() &amp;&amp; target &gt;= candidates[i]; ++i)</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="built_in">begin</span> || candidates[i] != candidates[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                combination.push_back(candidates[i]);</span><br><span class="line">                combinationSum2(candidates, target - candidates[i], res, combination, i + <span class="number">1</span>);</span><br><span class="line">                combination.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Combination-Sum-III-leetcode-0216"><a href="#Combination-Sum-III-leetcode-0216" class="headerlink" title="Combination Sum III leetcode 0216"></a>Combination Sum III leetcode 0216</h3><p>[题目]</p>
+<ul>
+<li>Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.</li>
+<li>Note:<ul>
+<li>All numbers will be positive integers.</li>
+<li>The solution set must not contain duplicate combinations.</li>
+</ul>
+</li>
+<li>Example 1:<ul>
+<li>Input: k = 3, n = 7</li>
+<li>Output: [[1,2,4]]</li>
+</ul>
+</li>
+<li>Example 2:<ul>
+<li>Input: k = 3, n = 9</li>
+<li>Output: [[1,2,6], [1,3,5], [2,3,4]]</li>
+</ul>
+</li>
+</ul>
+<p>[思路]</p>
+<ul>
+<li>这一题比前两题都简单我觉得，因为你搜索的数字是 1-9，它们没有重复元素啊！！！</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; combination, <span class="keyword">int</span> <span class="built_in">begin</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(target == <span class="number">0</span>)&#123;</span><br><span class="line">                ans.push_back(combination);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="built_in">begin</span>; i &lt;= <span class="number">9</span> &amp;&amp; i &lt;= target; i++)&#123;</span><br><span class="line">            combination.push_back(i);</span><br><span class="line">            helper(k<span class="number">-1</span>, target - i, ans, combination, i+<span class="number">1</span>);</span><br><span class="line">            combination.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">combinationSum3</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; combination;</span><br><span class="line">        helper(k, n, ans, combination, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="subsets-leetcode-0078"><a href="#subsets-leetcode-0078" class="headerlink" title="subsets leetcode 0078"></a>subsets leetcode 0078</h3><p>[题目]</p>
+<ul>
+<li>Given a set of distinct integers, nums, return all possible subsets (the power set).</li>
+<li>Note: The solution set must not contain duplicate subsets.</li>
+<li>Example:<ul>
+<li>Input: nums = [1,2,3]</li>
+<li>Output: [ [3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], [] ]</li>
+</ul>
+</li>
+</ul>
+<p>[解法一：DFS 代码]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; temp, <span class="keyword">int</span> <span class="built_in">begin</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">begin</span> == nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            ans.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(nums, ans, temp, <span class="built_in">begin</span>+<span class="number">1</span>);    <span class="comment">// 不放当前字母，递归看下一个位置</span></span><br><span class="line">            </span><br><span class="line">        temp.push_back(nums[<span class="built_in">begin</span>]);</span><br><span class="line">        dfs(nums, ans, temp, <span class="built_in">begin</span>+<span class="number">1</span>);    <span class="comment">// 放当前字母，然后递归看下一个位置。</span></span><br><span class="line">        temp.pop_back();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">subsets</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        sort(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">        dfs(nums, ans, temp, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>另一种 dfs 实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;res;    <span class="comment">// 在这里声明也可以，不过不太好我觉得</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;ans;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">subsets1</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> res;</span><br><span class="line">        sort(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        dfs(<span class="number">0</span>, ans, nums);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;ans, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums)</span></span>&#123;</span><br><span class="line">        res.push_back(ans);                            <span class="comment">// 开头第一句这个 很精髓！！！</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = k; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            ans.push_back(nums[i]);</span><br><span class="line">            dfs(i + <span class="number">1</span>, ans, nums);</span><br><span class="line">            ans.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[解法二: BFS]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">方法二：</span></span><br><span class="line"><span class="comment">组合|非递归实现</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">1. 最外层循环逐一从 nums 数组中取出每个元素 num</span></span><br><span class="line"><span class="comment">2. 内层循环从原来的结果集中取出每个中间结果集，并向每个中间结果集中添加该 num 元素</span></span><br><span class="line"><span class="comment">3. 往每个中间结果集中加入 num</span></span><br><span class="line"><span class="comment">4. 将新的中间结果集加入结果集中</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">邢政：这个非递归的我没有想出来最开始，主要还是我是从排列组合的角度去思考，先考虑空集合，</span></span><br><span class="line"><span class="comment">接着考虑只有一个元素的集合，再下来只有两个元素的subsets，这样子很不好弄。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">而如下的算法非常巧妙，外层 for 循环一共执行 n 次 (n 是有多少个数字)，</span></span><br><span class="line"><span class="comment">内层for 循环是每次去看 result 里面已经有多少个集合了，然后每个集合取出来添加一个相同的当前数字，</span></span><br><span class="line"><span class="comment">形成的新集合放到 result 里面！！</span></span><br><span class="line"><span class="comment">非常巧妙！ 以 1，2，3 为例：</span></span><br><span class="line"><span class="comment">循环之前：res = &#123;&#123;&#125;&#125;</span></span><br><span class="line"><span class="comment">第一次循环，取出空集合，加入数字“1”并放回result中，res = &#123;&#123;&#125; &#123;1&#125;&#125;</span></span><br><span class="line"><span class="comment">第二次循环，取出集合 &#123;&#125; 和 &#123;1&#125;，分别加入数字“2”，新的两个集合放到 result中， res = &#123;&#123;&#125; &#123;1&#125; &#123;2&#125; &#123;1,2&#125;&#125;</span></span><br><span class="line"><span class="comment">第三次循环，取出result中的四个集合，加入数字“3”，新的4个集合放回result中，res= &#123;&#123;&#125; &#123;1&#125; &#123;2&#125; &#123;1,2&#125; &#123;3&#125; &#123;1,3&#125; &#123;2,3&#125; &#123;1,2,3&#125;&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">subsets2</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty())</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        res.push_back(ans);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> ss = res.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; ss; j++)&#123;</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp = res[j];</span><br><span class="line">                temp.push_back(nums[i]);</span><br><span class="line">                res.push_back(temp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>[解法三: 集合论]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">解法三：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">利用我们的集合论的知识，我们知道对于一个集合来说，若其元素个数为 n ，则其子集的个数为 2^n 。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">对于其中元素来说，就是在当前子集和不在当前子集两种状态。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">对于任意一个子集，我们用一个长度为 n 的01串来表示在不在的状态。其中1表示在，0表示不在。比如：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">+---+---+---+---+---+---+</span></span><br><span class="line"><span class="comment">| 6 | 5 | 4 | 3 | 2 | 1 |    第i个元素</span></span><br><span class="line"><span class="comment">+---+---+---+---+---+---+</span></span><br><span class="line"><span class="comment">| 1 | 0 | 0 | 1 | 0 | 1 |    是否在集合</span></span><br><span class="line"><span class="comment">+---+---+---+---+---+---+</span></span><br><span class="line"><span class="comment">该01串也可以表示成二进制数(100101)。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">对于一个集合来说，其子集若都采用这样的01串来表示，恰好覆盖了从 0 ~ 2^n-1。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">因此我们同样可以利用这个性质，枚举从0到2^n-1，然后依次还原这个子集。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">具体实现请参考下面的代码。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">subsets</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt; <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ret;</span><br><span class="line">        <span class="keyword">int</span> limit = (<span class="number">1</span> &lt;&lt; nums.<span class="built_in">size</span>()) - <span class="number">1</span>; <span class="comment">// 2^n-1</span></span><br><span class="line">        sort(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());     <span class="comment">// 排序，保证子集的是由小到大</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= limit; ++i) &#123;  <span class="comment">// 枚举 0 ~ 2^n-1</span></span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tp;</span><br><span class="line">            <span class="keyword">int</span> p = i, now = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (p) &#123;</span><br><span class="line">                <span class="comment">// 若该位为1，则表示该位需要存入子集</span></span><br><span class="line">                <span class="keyword">if</span> (p &amp; <span class="number">1</span> == <span class="number">1</span>) tp.push_back( nums[now] );</span><br><span class="line">                p &gt;&gt;= <span class="number">1</span>, ++now;</span><br><span class="line">            &#125;</span><br><span class="line">            ret.push_back(tp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="subsets-II-leetcode"><a href="#subsets-II-leetcode" class="headerlink" title="subsets II leetcode"></a>subsets II leetcode</h3><p>[题目]</p>
+<p>[解法 DFS 代码]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; temp, <span class="keyword">int</span> <span class="built_in">begin</span>)</span></span>&#123;</span><br><span class="line">        ans.push_back(temp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="built_in">begin</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;            </span><br><span class="line">            <span class="keyword">if</span>(i == <span class="built_in">begin</span> || nums[i] != nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                temp.push_back(nums[i]);</span><br><span class="line">                dfs(nums, ans, temp, i+<span class="number">1</span>);    <span class="comment">// 放当前字母</span></span><br><span class="line">                temp.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">subsetsWithDup</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        sort(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">        dfs(nums, ans, temp, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><p>最小生成树要求从一个带权无相连通图中选择 n-1 条边并使这个图仍然联通（即得到了一棵生成树），同时还要求树的权重最小。<br>解决这个问题有两个很著名的算法：Prim 和 Kruskal。它们都是<mark>贪心算法</mark>。</p>
+<ol>
+<li>Prim 算法<ol>
+<li>从某个（任意一个）结点出发，选择与该结点邻接的权重最小的边；随着结点的不断加入，每次都选择这些结点发出的边中<mark>权值最小</mark>的：重复 n-1 次。</li>
+</ol>
+</li>
+<li>Kruskal 算法<ol>
+<li>将边按照权值递增排序，每次选择权值最小并且不构成环的边，重复 n-1 次。</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/leecode-O-n-time-complexity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2126,8 +2854,7 @@ TreeNode* findMin(TreeNode* node){
 <p>Note:<br>You may assume all elements in the array are non-negative integers and fit in the 32-bit signed integer range.<br>Try to solve it in linear time/space.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">最大值x, 最小值y，如果 x==y 答案是0.</span></span><br><span class="line"><span class="comment">把数放进 n+1 个桶。</span></span><br><span class="line"><span class="comment">    每个桶大小是 d = (x-y)/(n+1) 浮点数</span></span><br><span class="line"><span class="comment">    每个桶区间是 [y + i*d, y + (i+1) * d) (i=0, 1, 2, ..., n)</span></span><br><span class="line"><span class="comment">        注意是左闭右开的区间，最后一个桶是双闭区间。</span></span><br><span class="line"><span class="comment">        最小的数在 0 号桶里，最大的数在 n 号桶里。</span></span><br><span class="line"><span class="comment">        第一个桶非空，最后一个桶非空。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    【鸽笼原理】中间有空桶，空桶左右两侧肯定有元素。</span></span><br><span class="line"><span class="comment">    最大间隙出现在一个非空桶的最大值和下一个非空桶的最小值之间。</span></span><br><span class="line"><span class="comment">    如何判断数 r 出现在哪个桶里</span></span><br><span class="line"><span class="comment">        (r-y)*(n+1)/(x-y) （整数运算，注意 r==x 时候，答案取 n）</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">code is from: https://leetcode.com/problems/maximum-gap/discuss/50644/Pigeon-hole-principle</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maximumGap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> maxE = *max_element(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> minE = *min_element(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">double</span> len = <span class="keyword">double</span>(maxE-minE)/<span class="keyword">double</span>(n<span class="number">-1</span>);</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxA</span><span class="params">(n,INT_MIN)</span></span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">minA</span><span class="params">(n,INT_MAX)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> index = (nums[i]-minE)/len;</span><br><span class="line">        maxA[index] = <span class="built_in">max</span>(maxA[index],nums[i]);</span><br><span class="line">        minA[index] = <span class="built_in">min</span>(minA[index],nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> gap = <span class="number">0</span>, prev = maxA[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(minA[i]==INT_MAX) <span class="keyword">continue</span>;</span><br><span class="line">        gap = <span class="built_in">max</span>(gap,minA[i]-prev);</span><br><span class="line">        prev = maxA[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> gap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-<h2 id="出现一次的数"><a href="#出现一次的数" class="headerlink" title="出现一次的数"></a>出现一次的数</h2><h2 id="出现-3-次的数-leetcode-137"><a href="#出现-3-次的数-leetcode-137" class="headerlink" title="出现 3 次的数 leetcode 137"></a>出现 3 次的数 leetcode 137</h2><p>Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that single one.</p>
+<h2 id="Top-K-问题的两种解法"><a href="#Top-K-问题的两种解法" class="headerlink" title="Top K 问题的两种解法"></a>Top K 问题的两种解法</h2><h2 id="出现一次的数"><a href="#出现一次的数" class="headerlink" title="出现一次的数"></a>出现一次的数</h2><h2 id="出现-3-次的数-leetcode-137"><a href="#出现-3-次的数-leetcode-137" class="headerlink" title="出现 3 次的数 leetcode 137"></a>出现 3 次的数 leetcode 137</h2><p>Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that single one.</p>
 <p>Note:</p>
 <p>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
 <p>Example 1:</p>
@@ -3968,460 +4695,6 @@ left 或者 right pointer 有一个肯定位于目前浏览到的所有 bin 的�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Xing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/02/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T16:40:40-07:00">
-                2019-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/08/02/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/08/02/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Deal-with-formula"><a href="#Deal-with-formula" class="headerlink" title="Deal with formula"></a>Deal with formula</h3><ol>
-<li>For centered formulae, use \\[ and \\] </li>
-<li>For inline formular, use \\( and \\).</li>
-</ol>
-<p>For example, \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\] gives: </p>
-<p>\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \]</p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h3 id="Some-useful-sites"><a href="#Some-useful-sites" class="headerlink" title="Some useful sites"></a>Some useful sites</h3><ol start="0">
-<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="noopener">Start Instruction 1</a></li>
-<li><a href="https://linghucong.js.org/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="noopener">Start Instruction 2</a></li>
-<li><a href="http://www.jianshu.com/p/5973c05d7100" target="_blank" rel="noopener">Additional Functionalities</a></li>
-<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="noopener">Additional Functionalities 2</a></li>
-<li><a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" rel="noopener">Theme Yelee</a></li>
-<li><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">Theme next</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/bit-manipulation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Xing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/26/bit-manipulation/" itemprop="url">bit_manipulation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-26T00:44:58-07:00">
-                2019-07-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/26/bit-manipulation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/07/26/bit-manipulation/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="WIKI"><a href="#WIKI" class="headerlink" title="WIKI"></a>WIKI</h2><p>Bit manipulation is the act of algorithmically manipulating bits or other pieces of data shorter than a word. Computer programming tasks that require bit manipulation include low-level device control, error detection and correction algorithms, data compression, encryption algorithms, and optimization. For most other tasks, modern programming languages allow the programmer to work directly with abstractions instead of bits that represent those abstractions. Source code that does bit manipulation makes use of the bitwise operations: AND, OR, XOR, NOT, and bit shifts.</p>
-<p>Bit manipulation, in some cases, can obviate or reduce the need to loop over a data structure and can give many-fold speed ups, as bit manipulations are processed in parallel, but the code can become more difficult to write and maintain.</p>
-<h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><p>At the heart of bit manipulation are the bit-wise operators &amp; (and), | (or), ~ (not) and ^ (exclusive-or, xor) and shift operators a &lt;&lt; b and a &gt;&gt; b.</p>
-<pre><code>There is no boolean operator counterpart to bitwise exclusive-or, but there is a simple explanation. 
-The exclusive-or operation takes two inputs and returns a 1 if either one or the other of the inputs is a 1, but not if both are. 
-That is, if both inputs are 1 or both inputs are 0, it returns 0. 
-Bitwise exclusive-or, with the operator of a caret, ^, performs the exclusive-or operation on each pair of bits. 
-Exclusive-or is commonly abbreviated XOR.</code></pre><ol>
-<li>Set union A | B</li>
-<li>Set intersection A &amp; B</li>
-<li>Set subtraction A &amp; ~B</li>
-<li>Set negation ALL_BITS ^ A or ~A</li>
-<li>Set bit A |= 1 &lt;&lt; bit</li>
-<li>Clear bit A &amp;= ~(1 &lt;&lt; bit)</li>
-<li>Test bit (A &amp; 1 &lt;&lt; bit) != 0</li>
-<li>Extract last bit A&amp;-A or A&amp;~(A-1) or x^(x&amp;(x-1))</li>
-<li>Remove last bit A&amp;(A-1)</li>
-<li>Get all 1-bits ~0</li>
-</ol>
-<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><h2 id="Count-the-number-of-ones-in-the-binary-representation-of-the-given-number"><a href="#Count-the-number-of-ones-in-the-binary-representation-of-the-given-number" class="headerlink" title="Count the number of ones in the binary representation of the given number"></a>Count the number of ones in the binary representation of the given number</h2><p>[解法一思路]</p>
-<ul>
-<li>就是利用 <code>n &amp; (n-1)</code> 可以消除最右边的 <code>1</code> 这个技巧</li>
-<li>时间复杂度等于 <code>1</code> 的个数，算 O(k) 吧<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">count_one</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n)</span><br><span class="line">    &#123;</span><br><span class="line">        n = n&amp;(n<span class="number">-1</span>);</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><mark>一个牛逼的分治思路</mark><br>说它牛逼，倒不是说它优化了多少时间，对于本题来说并没有优化很多，毕竟一般的 int 也就 32 个 bit。<br>但是它的思想确实让我很惊喜！没想到二分的思路还可以这么用！</p>
-<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/ScreenShot-20200101132310.png" alt="ScreenShot-20200101132310.png"></p>
-<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/ScreenShot-20200101132320.png" alt="ScreenShot-20200101132320.png"></p>
-<p>我来解释一下思路！</p>
-<ol>
-<li>如果原始数字是一个 4 位的二进制数，假设是 1110.</li>
-<li>那么我们先用 0101 与它做与操作，得到从右边数第一和第三个位置上的数字是 1 的数量，结果是 0100，表示右数第一个位置上有 0 个 1，右数第三个位置上有 1 个 1.</li>
-<li>然后用 1010 与它做与操作，得到从右边数第二和第四个位置上数字是 1 的数量，结果是 1010, 表示右数第二个位置上有 1 个 1，右数第四个位置上有 1 个 1. 把这个 1010 向右 shift 一个位子，得到 0101，然后与上面的 0100 相加，得到 1001. </li>
-<li>对 1001 的解释<ol>
-<li>前面一半 “10” 代表原始数字的 4 个 bit 中前面两个含有 2 个 1， 后面一半 “01” 表示后面两个 bit 位置上含有 1 个 1.</li>
-</ol>
-</li>
-<li>继续递归，我们需要把 “10” 和 “01” 相加得到 4 个 bit 中一共有多少个 1.</li>
-</ol>
-<p>[代码二]</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">HammingWeight</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    n = (n &amp; <span class="number">0x55555555</span>) + ((n &amp; <span class="number">0xaaaaaaaa</span>) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x33333333</span>) + ((n &amp; <span class="number">0xcccccccc</span>) &gt;&gt; <span class="number">2</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x0f0f0f0f</span>) + ((n &amp; <span class="number">0xf0f0f0f0</span>) &gt;&gt; <span class="number">4</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x00ff00ff</span>) + ((n &amp; <span class="number">0xff00ff00</span>) &gt;&gt; <span class="number">8</span>);</span><br><span class="line">    n = (n &amp; <span class="number">0x0000ffff</span>) + ((n &amp; <span class="number">0xffff0000</span>) &gt;&gt; <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">return</span> n;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Is-power-of-2"><a href="#Is-power-of-2" class="headerlink" title="Is power of 2"></a>Is power of 2</h2><p>[思路]</p>
-<ol>
-<li>常规的操作是不断着把这个数除以 2，然后判断是否有余数，直到 n 被整除成 1.</li>
-<li>而实际上可以把 n 和 n-1 做<font color='red'>与</font>操作，如果结果为 0，那么 n 是 2 的幂次方。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPow2</span><span class="params">(n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &amp; (n<span class="number">-1</span>)) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="leetcode-232"><a href="#leetcode-232" class="headerlink" title="leetcode 232"></a>leetcode 232</h2><p>[题目]</p>
-<ul>
-<li>给定一个非负整数 num. 对于 0 &lt;= i &lt;= num 范围内的每个数字 i, 计算其二进制数中 1 的数目并将它们作为数组返回。</li>
-<li>输入 5</li>
-<li>输出 [0, 1, 1, 2, 1, 2]</li>
-</ul>
-<p>[思路]</p>
-<ul>
-<li>常规解法就是遍历 0 &lt;= i &lt;= num，对每一个数字求多少个 bit 位为 1</li>
-<li>巧妙解法是使用动态规划，见下面的代码</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">countBits</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(num+<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= num; i++)&#123;</span><br><span class="line">        res[i] = res[i &amp; (i<span class="number">-1</span>)] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码的关键就是通过 <code>i &amp; (i-1)</code> 来去掉 i 的最高位那个 1.</p>
-<h2 id="Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same"><a href="#Is-power-of-four-actually-map-checking-iterative-and-recursive-methods-can-do-the-same" class="headerlink" title="Is power of four (actually map-checking, iterative and recursive methods can do the same)"></a>Is power of four (actually map-checking, iterative and recursive methods can do the same)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPowerOfFour</span><span class="params">(<span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !(n&amp;(n<span class="number">-1</span>)) &amp;&amp; (n&amp;<span class="number">0x55555555</span>);</span><br><span class="line">    <span class="comment">//check the 1-bit location;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="tricks"><a href="#tricks" class="headerlink" title="^ tricks"></a>^ tricks</h2><ol>
-<li>Use ==^== to remove even exactly same numbers and save the odd, or save the distinct bits and remove the same.</li>
-<li>Use ==^== and ==&amp;== to add two integers</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b==<span class="number">0</span>? a:getSum(a^b, (a&amp;b)&lt;&lt;<span class="number">1</span>); <span class="comment">//be careful about the terminating condition;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者不用递归</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">aplusb</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (b!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> carry = a &amp; b;</span><br><span class="line">            a = a^b; </span><br><span class="line">            b = carry &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>Given an array containing n distinct numbers taken from 0, 1, 2, …, n, find the one that is missing from the array. For example, Given nums = [0, 1, 3] return 2. (Of course, you can do this by math.)</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        ret ^= i;</span><br><span class="line">        ret ^= nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret^=nums.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="tricks-1"><a href="#tricks-1" class="headerlink" title="| tricks"></a>| tricks</h2><p>Keep as many 1-bits as possible</p>
-<p>Find the largest power of 2 (most significant bit in binary form), which is less than or equal to the given number N.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">largest_power</span><span class="params">(<span class="keyword">long</span> N)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//changing all right side bits to 1.</span></span><br><span class="line">    N = N | (N&gt;&gt;<span class="number">1</span>);</span><br><span class="line">    N = N | (N&gt;&gt;<span class="number">2</span>);</span><br><span class="line">    N = N | (N&gt;&gt;<span class="number">4</span>);</span><br><span class="line">    N = N | (N&gt;&gt;<span class="number">8</span>);</span><br><span class="line">    N = N | (N&gt;&gt;<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">return</span> (N+<span class="number">1</span>)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="amp-tricks"><a href="#amp-tricks" class="headerlink" title="&amp; tricks"></a>&amp; tricks</h2><p>Just selecting certain bits</p>
-<p>Reversing the bits in integer</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = ((x &amp; <span class="number">0xaaaaaaaa</span>) &gt;&gt; <span class="number">1</span>) | ((x &amp; <span class="number">0x55555555</span>) &lt;&lt; <span class="number">1</span>);</span><br><span class="line">x = ((x &amp; <span class="number">0xcccccccc</span>) &gt;&gt; <span class="number">2</span>) | ((x &amp; <span class="number">0x33333333</span>) &lt;&lt; <span class="number">2</span>);</span><br><span class="line">x = ((x &amp; <span class="number">0xf0f0f0f0</span>) &gt;&gt; <span class="number">4</span>) | ((x &amp; <span class="number">0x0f0f0f0f</span>) &lt;&lt; <span class="number">4</span>);</span><br><span class="line">x = ((x &amp; <span class="number">0xff00ff00</span>) &gt;&gt; <span class="number">8</span>) | ((x &amp; <span class="number">0x00ff00ff</span>) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">x = ((x &amp; <span class="number">0xffff0000</span>) &gt;&gt; <span class="number">16</span>) | ((x &amp; <span class="number">0x0000ffff</span>) &lt;&lt; <span class="number">16</span>);</span><br></pre></td></tr></table></figure>
-
-<p>Given a range [m, n] where 0 &lt;= m &lt;= n &lt;= 2147483647, return the bitwise AND of all numbers in this range, inclusive. For example, given the range [5, 7], you should return 4.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rangeBitwiseAnd</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(m != n)</span><br><span class="line">    &#123;</span><br><span class="line">        m &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        a++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m&lt;&lt;a; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="DNA-Application"><a href="#DNA-Application" class="headerlink" title="DNA Application"></a>DNA Application</h2><p>All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: “ACGAATTCCG”. When studying DNA, it is sometimes useful to identify repeated sequences within the DNA. Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.</p>
-<pre><code>For example,
-Given s = &quot;AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT&quot;,
-Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">findRepeatedDnaSequences</span><span class="params">(<span class="built_in">string</span> s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sLen = s.length();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v;</span><br><span class="line">        <span class="keyword">if</span>(sLen &lt; <span class="number">11</span>) <span class="keyword">return</span> v;</span><br><span class="line">        <span class="keyword">char</span> keyMap[<span class="number">1</span>&lt;&lt;<span class="number">21</span>]&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> hashKey = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; ++i) hashKey = (hashKey&lt;&lt;<span class="number">2</span>) | (s[i]-<span class="string">'A'</span>+<span class="number">1</span>)%<span class="number">5</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">9</span>; i &lt; sLen; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(keyMap[hashKey = ((hashKey&lt;&lt;<span class="number">2</span>)|(s[i]-<span class="string">'A'</span>+<span class="number">1</span>)%<span class="number">5</span>)&amp;<span class="number">0xfffff</span>]++ == <span class="number">1</span>)</span><br><span class="line">                v.push_back(s.substr(i<span class="number">-9</span>, <span class="number">10</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>But the above solution can be invalid when repeated sequence appears too many times, in which case we should use ==unordered_map&lt;int, int&gt; keyMap== to replace ==char keyMap[1&lt;&lt;21]{0}== here.</p>
-<p>Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times. (bit-counting as a usual way, but here we actually also can adopt sorting and Moore Voting Algorithm)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="keyword">sizeof</span>(<span class="keyword">int</span>)*<span class="number">8</span>, <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>, mask = <span class="number">1</span>, ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="built_in">size</span>; ++j)</span><br><span class="line">            <span class="keyword">if</span>(mask &amp; nums[j]) count++;</span><br><span class="line">        <span class="keyword">if</span>(count &gt; <span class="built_in">size</span>/<span class="number">2</span>) ret |= mask;</span><br><span class="line">        mask &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Given an array of integers, every element appears three times except for one. Find that single one. (Still this type can be solved by bit-counting easily.) But we are going to solve it by ==digital logic design==</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//inspired by logical circuit design and boolean algebra;</span></span><br><span class="line"><span class="comment">//counter - unit of 3;</span></span><br><span class="line"><span class="comment">//current   incoming  next</span></span><br><span class="line"><span class="comment">//a b            c    a b</span></span><br><span class="line"><span class="comment">//0 0            0    0 0</span></span><br><span class="line"><span class="comment">//0 1            0    0 1</span></span><br><span class="line"><span class="comment">//1 0            0    1 0</span></span><br><span class="line"><span class="comment">//0 0            1    0 1</span></span><br><span class="line"><span class="comment">//0 1            1    1 0</span></span><br><span class="line"><span class="comment">//1 0            1    0 0</span></span><br><span class="line"><span class="comment">//a = a&amp;~b&amp;~c + ~a&amp;b&amp;c;</span></span><br><span class="line"><span class="comment">//b = ~a&amp;b&amp;~c + ~a&amp;~b&amp;c;</span></span><br><span class="line"><span class="comment">//return a|b since the single number can appear once or twice;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">0</span>, a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        t = (a&amp;~b&amp;~nums[i]) | (~a&amp;b&amp;nums[i]);</span><br><span class="line">        b = (~a&amp;b&amp;~nums[i]) | (~a&amp;~b&amp;nums[i]);</span><br><span class="line">        a = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a | b;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>atttention</p>
-<ol>
-<li>result after shifting left(or right) too much is undefined</li>
-<li>right shifting operations on negative values are undefined</li>
-<li>right operand in shifting should be non-negative, otherwise the result is undefined</li>
-<li>The &amp; and | operators have lower precedence than comparison operators</li>
-</ol>
-<h2 id="SETS"><a href="#SETS" class="headerlink" title="SETS"></a>SETS</h2><p>All the subsets</p>
-<p>A big advantage of bit manipulation is that it is trivial to iterate over all the subsets of an N-element set: every N-bit value represents some subset. Even better, ==if A is a subset of B then the number representing A is less than that representing B==, which is convenient for some dynamic programming solutions.</p>
-<p>It is also possible to iterate over all the subsets of a particular subset (represented by a bit pattern), provided that you don’t mind visiting them in reverse order (if this is problematic, put them in a list as they’re generated, then walk the list backwards). The trick is similar to that for finding the lowest bit in a number. If we subtract 1 from a subset, then the lowest set element is cleared, and every lower element is set. However, we only want to set those lower elements that are in the superset. So the iteration step is just ==i = (i - 1) &amp; superset==.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">subsets</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; vv;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>(); </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span> == <span class="number">0</span>) <span class="keyword">return</span> vv;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">1</span> &lt;&lt; <span class="built_in">size</span>;</span><br><span class="line">    vv.resize(num);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="built_in">size</span>; ++j)</span><br><span class="line">            <span class="keyword">if</span>((<span class="number">1</span>&lt;&lt;j) &amp; i) vv[i].push_back(nums[j]);   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> vv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Actually there are two more methods to handle this using recursion and iteration respectively.</p>
-<h2 id="BITSET"><a href="#BITSET" class="headerlink" title="BITSET"></a>BITSET</h2><p>A bitset stores bits (elements with only two possible values: 0 or 1, true or false, …).<br>The class emulates an array of bool elements, but optimized for space allocation: generally, each element occupies only one bit (which, on most systems, is eight times less than the smallest elemental type: char).</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bitset::count</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;       // std::cout</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;         // std::string</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bitset&gt;         // std::bitset</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;8&gt; <span class="title">foo</span> <span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"10110011"</span>))</span></span>;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; foo &lt;&lt; <span class="string">" has "</span>;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; foo.count() &lt;&lt; <span class="string">" ones and "</span>;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; (foo.<span class="built_in">size</span>()-foo.count()) &lt;&lt; <span class="string">" zeros.\n"</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="bitwise-AND-of-Numbers-Range-leetcode-0201"><a href="#bitwise-AND-of-Numbers-Range-leetcode-0201" class="headerlink" title="bitwise AND of Numbers Range leetcode 0201"></a>bitwise AND of Numbers Range leetcode 0201</h2><p>题目描述:<br>Given a range [m, n] where 0 &lt;= m &lt;= n &lt;= 2147483647, return the bitwise AND of all numbers in this range, inclusive.<br>For example, given the range [5, 7], you should return 4.</p>
-<p>分析：<br>这一题实际上就是在找 两个 integer 二进制写法的公共 prefix</p>
-<p>The hardest part of this problem is to find the regular pattern.<br>For example, for number 26 to 30<br>Their binary form are:<br>1 1 0 1 0<br>1 1 0 1 1<br>1 1 1 0 0　　<br>1 1 1 0 1　　<br>1 1 1 1 0<br>Because we are trying to find bitwise AND, so if any bit there are at least one 0 and one 1, it always 0. In this case, it is 11000.<br>So we are go to cut all these bit that they are different. In this case we cut the right 3 bit.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rangeBitwiseAnd</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(m != n)&#123;</span><br><span class="line">            m &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (m &lt;&lt; i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="数字出现三次"><a href="#数字出现三次" class="headerlink" title="数字出现三次"></a>数字出现三次</h2><p>参考文章 “leetcode 数组” 里面的例题 “出现 3 次的数 leetcode 137”</p>
-<h3 id="引申题-老鼠喝药"><a href="#引申题-老鼠喝药" class="headerlink" title="引申题 老鼠喝药"></a>引申题 老鼠喝药</h3><p>[题目]<br>有 100 瓶液体，编号 1 到 100，其中有 99 瓶水和 1 瓶毒药。<br>如果老鼠喝了毒药，那么会在一周后死亡。请问你最少用几只老鼠可以最快的检测出哪一瓶是毒药？</p>
-<p>[思路]<br>这一引申题的思路跟上面的一个按位置计算的解法非常相似。这里也是按照 bit 位来看的。</p>
-<p>我们把这编号 1 到 100 一共 100 个数字用二进制写出来，每个数字都写成长度为 7 位的二进制数 (2^7 = 128 &gt; 100)，左边补零如果不够七位。</p>
-<p>现在我们让七只老鼠，第一只老鼠去喝最左边的 bit 位上是 1 的那些瓶的液体，第二只老鼠喝左数第二 bit 位上是 1 的那些瓶子的液体，以此类推。</p>
-<p>一周以后，如果第一只老鼠死了，那么有毒药的那瓶液体的编号在最左边 bit 位一定是 1，反之是 0. 同理可以得到 7 个 bit 位上是 1 还是 0.</p>
-<p><mark>[其他思考]</mark></p>
-<ol>
-<li><mark>如果没有时间限制的话，那么就可以用我们熟悉的二分思想，就跟用天平找出来一堆球里面重量跟其他不同的那个题似的。</mark><ol>
-<li>先让一只老鼠喝编号 1-50 的那些瓶液体.</li>
-<li>如果死了，就递归找第二只老鼠喝 1-25 瓶液体，如果没死就找第二只老鼠喝 51-75 那些瓶液体。</li>
-<li>同样的，也是最多需要 7 只老鼠就可以发现。</li>
-</ol>
-</li>
-<li>因此，这里因为有了时间上的限制，我们需要对每个 bit 位分别考虑，就可以对所有的 bit 位<mark>并行计算</mark>。没有时间限制就对所有的瓶子串行得二分计算！</li>
-<li>我其实对于上面的解法有点疑惑就是为啥非得用 2 进制来表示数字呢？如果用 3 进制来表示的话，那么对于每一个 bit 位 我们需要找 2 只老鼠，一只老鼠喝最左边 bit 位是 1 的液体，一个老鼠喝 最左边 bit 位是 2 的液体，根据它们两个老鼠是否死亡的信息，可以判断最左边 bit 位上是 0，1，还是 2.<ol>
-<li>好像想清楚了！如果是三进制，那么每一个 bit 位上一个老鼠是否死亡只能排除掉 1/3 的可能。而使用二进制的话则可以排除掉 50% 的可能。因为老鼠是否死亡只有两种可能，因此使用二进制已经是最佳的方案了！！！</li>
-</ol>
-</li>
-<li>另外参考 <a href="https://zheng-xing.github.io/2019/12/04/leetcode-%E6%95%B0%E7%BB%84/" target="_blank" rel="noopener">leetcode-数组</a> 一文中 binary index tree 和 segment tree 的思想！</li>
-</ol>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently" target="_blank" rel="noopener">https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4476,7 +4749,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].</code></pre><figure cl
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -4487,7 +4760,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].</code></pre><figure cl
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -4498,7 +4771,7 @@ Return: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;].</code></pre><figure cl
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

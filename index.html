@@ -813,6 +813,36 @@
 </ol>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-allocator-10.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-allocator-11.png" alt=""></p>
+<h1 id="深度探索各种容器"><a href="#深度探索各种容器" class="headerlink" title="深度探索各种容器"></a>深度探索各种容器</h1><h2 id="深度探索-list"><a href="#深度探索-list" class="headerlink" title="深度探索 list"></a>深度探索 list</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-1.png" alt=""></p>
+<p>图注：</p>
+<ol>
+<li>STL 的底层实现里面会用到很多的 typedef，自己要习惯！</li>
+<li>底层实现：双向链表 和 环状链表！！！</li>
+<li>并且为了实现前闭后开的功能，加了一个 dummy tail node！<br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-2.png" alt=""></li>
+</ol>
+<p>图注：</p>
+<ol>
+<li><mark>每一个 container 都有自己的 iterator 类</mark></li>
+<li>iterator 类里面一定要有至少五个 typedef</li>
+<li><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-3.png" alt=""></li>
+</ol>
+<p>图注：</p>
+<ol>
+<li>这里图中用数字 1 标识的地方老师讲的有点问题，我觉得之所以 <code>*this</code> 没有用到 <code>operator*()</code>，是因为这里的 <code>this</code> 是 iterator 的指针，而不是一个 iterator 本身。</li>
+<li>重载的函数 <code>operator*()</code> 只有在使用 <code>*iter</code> 的时候，也就是 <code>*</code> 要作用在 iterator 本身，而不是 iterator 的指针。<br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-4.png" alt=""></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-5.png" alt=""></p>
+<p>图注：</p>
+<ol>
+<li>Glue 两个版本下，list 实现的对比</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-6.png" alt=""></p>
+<p>图注：</p>
+<ol>
+<li>新版本里面多了很多个继承。这里 <code>_List_impl</code> 类还要继承自 allocator 类挺奇怪！</li>
+<li>这里还有个要注意的地方是，新版本的 sizeof(list) 是 8，因为其类本身没有数据，大小等于父类 <code>_List_base</code> 大小；而父类含有的 <code>_List_impl</code> 有一个 <code>_list_node_base</code>，其中含有两个指针，所以大小是 8.</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-list-7.png" alt=""></p>
 
           
         

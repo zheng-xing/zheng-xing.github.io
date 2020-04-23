@@ -3173,6 +3173,23 @@ left 或者 right pointer 有一个肯定位于目前浏览到的所有 bin 的�
 
 
 <h2 id="数组中连续一段和，绝对值最小"><a href="#数组中连续一段和，绝对值最小" class="headerlink" title="数组中连续一段和，绝对值最小"></a>数组中连续一段和，绝对值最小</h2><p>思路：先计算前缀和，然后排序。整体复杂度就是排序的复杂度 O(nlogn).</p>
+<h2 id="subarray-sum-equals-k-leetcode-0560"><a href="#subarray-sum-equals-k-leetcode-0560" class="headerlink" title="subarray sum equals k leetcode 0560"></a>subarray sum equals k leetcode 0560</h2><p>[题目]</p>
+<ol>
+<li>Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.</li>
+</ol>
+<p>[错误分析]</p>
+<ol>
+<li>先过一遍数组，把所有前缀和都放到 hash map 里面，记录出现的次数</li>
+<li>然后对所有的 key, 看 map 中是否存在 (key + k) 或者 (key - k), 若存在就把那个对应的次数加到 res 中。</li>
+<li>！！！这个思路是错的。因为不能对所有的 key 都考虑 +- k. 我们必须拿较长的前缀和 减去 较短的前缀和才行。</li>
+</ol>
+<p>[正确思路]</p>
+<ol>
+<li>必须一边求前缀和更新 map，一边更新 res</li>
+</ol>
+<p>[正确代码]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">subarraySum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>, cumsum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mymap;</span><br><span class="line">        mymap[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            cumsum += nums[i];</span><br><span class="line">            <span class="keyword">if</span>(mymap.<span class="built_in">find</span>(cumsum - k) != mymap.<span class="built_in">end</span>())&#123;</span><br><span class="line">                res += mymap[cumsum-k];</span><br><span class="line">            &#125;</span><br><span class="line">            mymap[cumsum]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <h2 id="最大子数组和-leetcode-53"><a href="#最大子数组和-leetcode-53" class="headerlink" title="最大子数组和 leetcode 53"></a>最大子数组和 leetcode 53</h2><p>[题目]<br>一个整数数组，一个非空的子数组（连续一段数），使得它的和最大。</p>
 <p>[思路一]<br>暴利枚举。枚举子数组的起点 i，终点 j，计算 [i…j] 的和，时间复杂度为 O(N^3)。</p>
 <p>[思路二]<br>聪明枚举。对于每一个起点 i，让 j 从 i+1 开始枚举，一遍枚举一边求和，时间复杂度为 O(N^2)。</p>

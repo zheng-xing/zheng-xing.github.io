@@ -3286,6 +3286,32 @@ left 或者 right pointer 有一个肯定位于目前浏览到的所有 bin 的�
 <li>时间复杂度跟 DP 一样，都是 O(n).</li>
 <li>空间优化：也可以一边求 preSum 一边做第二步，这样子就不需要保存 preSum 这个数组了。</li>
 </ol>
+<h2 id="最大子数组和-环形数组-lc-0918"><a href="#最大子数组和-环形数组-lc-0918" class="headerlink" title="最大子数组和 环形数组 lc-0918"></a>最大子数组和 环形数组 lc-0918</h2><p>[题目]</p>
+<ul>
+<li>Given a circular array C of integers represented by A, find the maximum possible sum of a non-empty subarray of C.</li>
+</ul>
+<p>[Example 2]</p>
+<ol>
+<li>Input: [5,-3,5]</li>
+<li>Output: 10</li>
+<li>Explanation: Subarray [5,5] has maximum sum 5 + 5 = 10</li>
+</ol>
+<p>[Example 3]</p>
+<ol>
+<li>Input: [3,-1,2,-1]</li>
+<li>Output: 4</li>
+<li>Explanation: Subarray [2,-1,3] has maximum sum 2 + (-1) + 3 = 4</li>
+</ol>
+<p>[思路]</p>
+<ul>
+<li>最主要的就是注意到，如果最大值是尾巴连到头部的一个 subarray 的话</li>
+<li>那就相当于从中间挖了一块 minimum subarray</li>
+<li>参加下图</li>
+</ul>
+<p><img src="https://assets.leetcode.com/users/motorix/image_1538888300.png" alt=""></p>
+<p>[代码]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxSubarraySumCircular</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> total = <span class="number">0</span>, maxSum = <span class="number">-30000</span>, curMax = <span class="number">0</span>, minSum = <span class="number">30000</span>, curMin = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> a : A) &#123;</span><br><span class="line">        curMax = <span class="built_in">max</span>(curMax + a, a);</span><br><span class="line">        maxSum = <span class="built_in">max</span>(maxSum, curMax);</span><br><span class="line">        curMin = <span class="built_in">min</span>(curMin + a, a);</span><br><span class="line">        minSum = <span class="built_in">min</span>(minSum, curMin);</span><br><span class="line">        total += a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxSum &gt; <span class="number">0</span> ? <span class="built_in">max</span>(maxSum, total - minSum) : maxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Cantor-数组"><a href="#Cantor-数组" class="headerlink" title="Cantor 数组"></a>Cantor 数组</h2><p>[题目]</p>
 <p>[思路]</p>
 <ul>

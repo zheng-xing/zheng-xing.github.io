@@ -861,6 +861,21 @@
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-array-1.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-array-2.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-forward-list-1.png" alt=""></p>
+<h2 id="深度探索-deque-queue-stack"><a href="#深度探索-deque-queue-stack" class="headerlink" title="深度探索 deque, queue, stack"></a>深度探索 deque, queue, stack</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-1.png" alt=""></p>
+<p>上图注：</p>
+<ol>
+<li>deque 在内存里是分段连续的！连续是假象，分段是事实。</li>
+<li>图中间偏下位置有一个 vector，里面放的是指针，指向各个缓冲区，它是核心！</li>
+<li>如何扩充：<ol>
+<li>如果最后一个缓冲区用完了，那么就新开辟一个缓冲区，并且在那个 vector 里加上指针指向新开辟的缓冲区。</li>
+</ol>
+</li>
+<li>蓝色部分是每一个缓冲区都有一个自己的蓝色区域<ol>
+<li>蓝色部分有四个元素，first 和 last 分别指向缓冲区的头和尾</li>
+<li>node 指向控制中心，也就是上面说的放有指针的 vector</li>
+</ol>
+</li>
+</ol>
 
           
         

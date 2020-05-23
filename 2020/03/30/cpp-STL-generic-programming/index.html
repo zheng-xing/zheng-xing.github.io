@@ -139,8 +139,24 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-array-2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-forward-list-1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-10.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-11.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-12.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-5.png">
 <meta property="article:published_time" content="2020-03-31T05:16:25.000Z">
-<meta property="article:modified_time" content="2020-05-22T04:03:10.638Z">
+<meta property="article:modified_time" content="2020-05-23T23:14:26.458Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="cpp, STL">
 <meta name="twitter:card" content="summary">
@@ -611,6 +627,8 @@
 <li>图中间偏下位置有一个 vector，里面放的是指针，指向各个缓冲区，它是核心！</li>
 <li>如何扩充：<ol>
 <li>如果最后一个缓冲区用完了，那么就新开辟一个缓冲区，并且在那个 vector 里加上指针指向新开辟的缓冲区。</li>
+<li>同理，如果是往头部插入数据，则也会重新开辟缓冲区，并且在那个 vector 的左边加上指针指向新开辟的缓冲区。</li>
+<li><mark>所以这个 vector 应该是把目前的有效指针放在中间位置，这样子两边会有空来放新的指针。</mark></li>
 </ol>
 </li>
 <li>蓝色部分是每一个缓冲区都有一个自己的蓝色区域<ol>
@@ -619,6 +637,62 @@
 </ol>
 </li>
 </ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-2.png" alt=""></p>
+<p>上图注：</p>
+<ol>
+<li><code>map_pointer</code> 是 <code>T**</code> 类型，因为它指向的是一个 vector of 指针啊！</li>
+<li>一个 deque 对象本身是 40 个 byte。<ol>
+<li>两个 iterator 各自占用 16.</li>
+<li>一个指针是 4</li>
+<li>一个整形是 4</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-3.png" alt=""></p>
+<p>上图注：</p>
+<ol>
+<li>deque 的迭代器大小是 16，因为里面有 4 个指针！（在 32 位电脑上）</li>
+<li>注意里面有五个东西必须定义！（作为 STL 迭代器大家族的成员！）</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-4.png" alt=""><br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-5.png" alt=""></p>
+<p>上两个图注：</p>
+<ol>
+<li>哈哈哈</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-6.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-7.png" alt=""></p>
+<p>上图注：</p>
+<ol>
+<li>这里计算两个 iterator 的距离很符合直观啊！<ol>
+<li>先算出来中间间隔了几个完整的 buffer，这里是 <code>node - x.node - 1</code>，需要额外减去 1 哦！</li>
+<li>尾巴部分的剩余元素是 <code>cur - first</code></li>
+<li>头部的剩余元素是 <code>last - cur</code></li>
+</ol>
+</li>
+<li></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-8.png" alt=""></p>
+<p>上图注：</p>
+<ol>
+<li>一个很好地编程大家风范就是：用后加加（postfix ++）去调用前加加（prefix ++）</li>
+<li></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-9.png" alt=""><br><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-10.png" alt=""></p>
+<p>上两图注：</p>
+<ol>
+<li>这里就是如何一次把 iterator 移动好几个位置的代码了。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-11.png" alt=""></p>
+<p>上图注：</p>
+<ol>
+<li>这里是 G4.9 版本的代码。类似的，侯捷大神觉得：</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-deque-12.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-1.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-2.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-3.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-4.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-queue-stack-5.png" alt=""></p>
 
       
     </div>

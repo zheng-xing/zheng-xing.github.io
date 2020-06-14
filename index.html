@@ -3627,19 +3627,35 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
       
         
           
-            <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="找零钱"><a href="#找零钱" class="headerlink" title="找零钱"></a>找零钱</h2><p>[题目]<br>给定不超过 100 万元的现金总额，兑换成数量不限的 100, 50, 20, 10, 5, 2, 1 的组合，共有多少种组合呢？</p>
+            <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="找零钱-coin-change-2-lc0518"><a href="#找零钱-coin-change-2-lc0518" class="headerlink" title="找零钱 coin change 2 lc0518"></a>找零钱 coin change 2 lc0518</h2><p>[题目]<br>给定不超过 100 万元的现金总额，兑换成数量不限的 100, 50, 20, 10, 5, 2, 1 的组合，共有多少种组合呢？</p>
 <p>[思路一]<br>这个是视频里讲得思路</p>
 <ul>
-<li>定义 dp[i][j]: 使用面额小于等于 i 的钱币，凑成 j 元钱，宫有多少种组合方法</li>
+<li>定义 dp[i][j]: 使用面额小于等于 i 的钱币，凑成 j 元钱，共有多少种组合方法。</li>
 <li>dp[100][500] = dp[50][500] + dp[100][400]</li>
 <li>dp[i][j] = dp[i_small][j] + dp[i][j-1]<ul>
 <li>不考虑下界溢出的情况</li>
 </ul>
 </li>
 </ul>
-<p>[思路二]<br>我觉得把，用个一维的数组来做 dp 就可以了。</p>
-<p>DP[target] 表示用给定的钱币凑出来 target 的组合数量，那么<br>DP[target] 显然等于 DP[target-1] + DP[target-2] + DP[target-5] + … + DP[target-100]</p>
-<p>就跟走楼梯的方法一模一样啊！！！</p>
+<p>[思路二！错误！！！]</p>
+<ul>
+<li>我觉得把，用个一维的数组来做 dp 就可以了。<ul>
+<li>DP[target] 表示用给定的钱币凑出来 target 的组合数量，那么</li>
+<li>DP[target] 显然等于 DP[target-1] + DP[target-2] + DP[target-5] + … + DP[target-100]</li>
+</ul>
+</li>
+<li>就跟走楼梯的方法一模一样啊！！！</li>
+<li><mark>我擦！！！这个方法是错误的！！！因为会出现同样的组合，但是因为加入的顺序不同而重复计算了！！！</mark><ul>
+<li>比如用 {1, 2} 来组合成 3元。</li>
+<li>按照这里的计算方法 dp[1] = 1, dp[2] = 2, dp[3] = 1 + 2 = 3</li>
+<li>但是事实上，组合成 3 只有 {1, 1, 1} 和 {1, 2} 两种方式，上面的算法里面把 {2, 1} 也算进来了。</li>
+</ul>
+</li>
+</ul>
+<p>[思路三]</p>
+<ul>
+<li>这个是类似于</li>
+</ul>
 <h2 id="最小编辑距离"><a href="#最小编辑距离" class="headerlink" title="最小编辑距离"></a>最小编辑距离</h2><p>[题目]<br>Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.</p>
 <p>You have the following 3 operations permitted on a word:</p>
 <ol>

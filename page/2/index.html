@@ -4264,6 +4264,42 @@ left 或者 right pointer 有一个肯定位于目前浏览到的所有 bin 的�
 
 <p><mark>非递归算法</mark><br>参考 leetcode O(n) time complexity 一文中介绍的 next permutation 题目</p>
 <p>[思路]<br>将给定的字符串 S 首先升序排序，然后依次调用 std::next_permutation 直到返回 false, 即完成了非递归的全排列算法。</p>
+<h2 id="Permutation-Sequence-lc0060"><a href="#Permutation-Sequence-lc0060" class="headerlink" title="Permutation Sequence lc0060"></a>Permutation Sequence lc0060</h2><p>[题目]</p>
+<ol>
+<li>The set [1,2,3,…,n] contains a total of n! unique permutations.</li>
+<li>By listing and labeling all of the permutations in order, we get the following sequence for n = 3:<ol>
+<li>“123”</li>
+<li>“132”</li>
+<li>“213”</li>
+<li>“231”</li>
+<li>“312”</li>
+<li>“321”</li>
+</ol>
+</li>
+<li>Given n and k, return the kth permutation sequence.</li>
+<li>Note:<ol>
+<li>Given n will be between 1 and 9 inclusive.</li>
+<li>Given k will be between 1 and n! inclusive.</li>
+</ol>
+</li>
+<li>Example 1:<ol>
+<li>Input: n = 3, k = 3</li>
+<li>Output: “213”</li>
+</ol>
+</li>
+<li>Example 2:<ol>
+<li>Input: n = 4, k = 9</li>
+<li>Output: “2314”</li>
+</ol>
+</li>
+</ol>
+<p>[分析二]</p>
+<ol>
+<li>这个思路是第二次看的时候想出来的，是递归的思路，逐渐找到当前字串的首字母</li>
+</ol>
+<p>[代码二]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            res += (i + <span class="string">'0'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> helper(res, k);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">helper</span><span class="params">(<span class="built_in">string</span> res, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="comment">//cout &lt;&lt; res &lt;&lt; " " &lt;&lt; k &lt;&lt; endl;</span></span><br><span class="line">        sort(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());    <span class="comment">// 这里注意一定要 sort, 使剩下的子串顺序正确！否则会出现比如 "123"，把 '3' 挪到第一位后变成 "321" 的错误（应该是 "312"）。</span></span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">1</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="keyword">int</span> fac = calFactorial(res.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> temp = (k - <span class="number">1</span>) / fac;        <span class="comment">// 看看应该把第几个位置上的数字放到最左边！！！</span></span><br><span class="line">        <span class="comment">//cout &lt;&lt; fac &lt;&lt; " " &lt;&lt; temp &lt;&lt; endl;</span></span><br><span class="line">        swap(res[<span class="number">0</span>],res[temp]);</span><br><span class="line">        <span class="keyword">return</span> res[<span class="number">0</span>] + helper(res.substr(<span class="number">1</span>), k - temp * fac);    <span class="comment">// 递归！！！</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calFactorial</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)&#123;</span><br><span class="line">            ans *= i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <h2 id="0040-Wildcard-Matching"><a href="#0040-Wildcard-Matching" class="headerlink" title="0040 Wildcard Matching"></a>0040 Wildcard Matching</h2><p>[题目]</p>
 <ul>
 <li>判断字符串 s 是否与含有通配符 <code>?</code> 和 <code>*</code> 的串 p 匹配。<ul>

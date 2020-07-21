@@ -705,6 +705,82 @@
 </li>
 </ol>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-intro-six-components-2.png" alt=""></p>
+<h2 id="编译时多态和运行时多态"><a href="#编译时多态和运行时多态" class="headerlink" title="编译时多态和运行时多态"></a>编译时多态和运行时多态</h2><p>今天的C++已经是个多重泛型编程语言(multiparadigm programming lauguage)，一个同时支持过程形式(procedural)、面向对象形式(object-oriented)、函数形式(functional)、泛型形式(generic)、元编程形式(metaprogramming)的语言。 这些能力和弹性使C++成为一个无可匹敌的工具，但也可能引发使用者的某些迷惑，比如多态。在这几种编程泛型中，面向对象编程、泛型编程以及很新的元编程形式都支持多态的概念，但又有所不同。 C++支持多种形式的多态，从表现的形式来看，有虚函数、模板、重载等，从绑定时间来看，可以分成静态多态和动态多态，也称为编译期多态和运行期多态。</p>
+<h3 id="运行期多态-动态多态"><a href="#运行期多态-动态多态" class="headerlink" title="运行期多态/动态多态"></a>运行期多态/动态多态</h3><p>动态多态的设计思想：对于相关的对象类型，确定它们之间的一个共同功能集，然后在基类中，把这些共同的功能声明为多个公共的虚函数接口。各个子类重写这些虚函数，以完成具体的功能。客户端的代码（操作函数）通过指向基类的引用或指针来操作这些对象，对虚函数的调用会自动绑定到实际提供的子类对象上去。</p>
+<p>从上面的定义也可以看出，由于有了虚函数，因此动态多态是在运行时完成的，也可以叫做运行期多态，这造就了动态多态机制在处理异质对象集合时的强大威力（当然，也有了一点点性能损失）。</p>
+<p>具体也可以参考<a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">这里</a>.</p>
+<p>参考代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> DynamicPoly</span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Geometry</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span><span class="keyword">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Line</span> :</span> <span class="keyword">public</span> Geometry</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span><span class="keyword">const</span></span>&#123;    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Line Draw()\n"</span>;    &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> :</span> <span class="keyword">public</span> Geometry</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span><span class="keyword">const</span></span>&#123;    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Circle Draw()\n"</span>;    &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> :</span> <span class="keyword">public</span> Geometry</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span><span class="keyword">const</span></span>&#123;    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Rectangle Draw()\n"</span>;    &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DrawGeometry</span><span class="params">(<span class="keyword">const</span> Geometry *geo)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        geo-&gt;Draw();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//动态多态最吸引人之处在于处理异质对象集合的能力</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DrawGeometry</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;DynamicPoly::Geometry*&gt; vecGeo)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">size_t</span> <span class="built_in">size</span> = vecGeo.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i)</span><br><span class="line">            vecGeo[i]-&gt;Draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_dynamic_polymorphism</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DynamicPoly::Line <span class="built_in">line</span>;</span><br><span class="line">    DynamicPoly::Circle <span class="built_in">circle</span>;</span><br><span class="line">    DynamicPoly::Rectangle <span class="built_in">rect</span>;</span><br><span class="line">    DynamicPoly::DrawGeometry(&amp;<span class="built_in">circle</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;DynamicPoly::Geometry*&gt; vec;</span><br><span class="line">    vec.push_back(&amp;<span class="built_in">line</span>);</span><br><span class="line">    vec.push_back(&amp;<span class="built_in">circle</span>);</span><br><span class="line">    vec.push_back(&amp;<span class="built_in">rect</span>);</span><br><span class="line">    DynamicPoly::DrawGeometry(vec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>动态多态本质上就是面向对象设计中的继承、多态的概念。动态多态中的接口是显式接口（虚函数），比如，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">(Widget&amp; w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( w.<span class="built_in">size</span>() &gt; <span class="number">0</span> &amp;&amp; w != someNastyWidget)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">Widget <span class="title">temp</span><span class="params">(w)</span></span>;</span><br><span class="line">        temp.normalize();</span><br><span class="line">        temp.swap(w);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于上面的代码，这要求：</p>
+<ol>
+<li>由于w的类型被声明为Widget，所以w必须支持Widget接口，且通常可以在源码中找出这些接口（比如Widget.h），因此这些接口也就是显示接口；</li>
+<li>Widget可能只是一个基类，他有子类，也就是说Widget的接口有可能是虚函数（比如上面的normalize），此时对接口的调用就表现出了运行时多态；</li>
+</ol>
+<h3 id="什么是编译期多态-静态多态"><a href="#什么是编译期多态-静态多态" class="headerlink" title="什么是编译期多态/静态多态"></a>什么是编译期多态/静态多态</h3><p>静态多态的设计思想：对于相关的对象类型，直接实现它们各自的定义，不需要共有基类，甚至可以没有任何关系。只需要各个具体类的实现中要求相同的接口声明，这里的接口称之为隐式接口。客户端把操作这些对象的函数定义为模板，当需要操作什么类型的对象时，直接对模板指定该类型实参即可（或通过实参演绎获得）。</p>
+<p>相对于面向对象编程中，以显式接口和运行期多态（虚函数）实现动态多态，在模板编程及泛型编程中，是以隐式接口和编译器多态来实现静态多态。</p>
+<p>看代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> StaticPoly</span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Line</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span><span class="keyword">const</span></span>&#123;    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Line Draw()\n"</span>;    &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Circle</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Draw</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* name=<span class="literal">NULL</span>)</span><span class="keyword">const</span></span>&#123;    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Circle Draw()\n"</span>;    &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Draw</span><span class="params">(<span class="keyword">int</span> i = <span class="number">0</span>)</span><span class="keyword">const</span></span>&#123;    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Rectangle Draw()\n"</span>;    &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Geometry&gt;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DrawGeometry</span><span class="params">(<span class="keyword">const</span> Geometry&amp; geo)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        geo.Draw();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Geometry&gt;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DrawGeometry</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Geometry&gt; vecGeo)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">size_t</span> <span class="built_in">size</span> = vecGeo.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i)</span><br><span class="line">            vecGeo[i].Draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_static_polymorphism</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    StaticPoly::Line <span class="built_in">line</span>;</span><br><span class="line">    StaticPoly::Circle <span class="built_in">circle</span>;</span><br><span class="line">    StaticPoly::Rectangle <span class="built_in">rect</span>;</span><br><span class="line">    StaticPoly::DrawGeometry(<span class="built_in">circle</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;StaticPoly::Line&gt; vecLines;</span><br><span class="line">    StaticPoly::Line line2;</span><br><span class="line">    StaticPoly::Line line3;</span><br><span class="line">    vecLines.push_back(<span class="built_in">line</span>);</span><br><span class="line">    vecLines.push_back(line2);</span><br><span class="line">    vecLines.push_back(line3);</span><br><span class="line">    <span class="comment">//vecLines.push_back(&amp;circle); //编译错误，已不再能够处理异质对象</span></span><br><span class="line">    <span class="comment">//vecLines.push_back(&amp;rect);    //编译错误，已不再能够处理异质对象</span></span><br><span class="line">    StaticPoly::DrawGeometry(vecLines);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;StaticPoly::Circle&gt; vecCircles;</span><br><span class="line">    vecCircles.push_back(<span class="built_in">circle</span>);</span><br><span class="line">    StaticPoly::DrawGeometry(<span class="built_in">circle</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>静态多态本质上就是模板的具现化。静态多态中的接口调用也叫做隐式接口，相对于显示接口由函数的签名式（也就是函数名称、参数类型、返回类型）构成，隐式接口通常由有效表达式组成， 比如，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Widget,<span class="keyword">typename</span> Other&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">(Widget&amp; w, <span class="keyword">const</span> Other&amp; someNasty)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( w.<span class="built_in">size</span>() &gt; <span class="number">0</span> &amp;&amp; w != someNasty) <span class="comment">//someNastyT可能是是T类型的某一实例，也可能不是</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">Widget <span class="title">temp</span><span class="params">(w)</span></span>;</span><br><span class="line">        temp.normalize();</span><br><span class="line">        temp.swap(w);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<mark>
+这看似要求：
+1. 类型T需要支持size、normalize、swap函数，copy构造函数，可以进行不等比较
+2. 类型T是在编译期模板进行具现化时才表现出调用不同的函数，此时对接口的调用就表现出了编译期时多态。
+
+<p>但是，</p>
+<ol>
+<li>size函数并不需要返回一个整型值以和10比较，甚至都不需要返回一个数值类型，唯一的约束是它返回一个类型为X的对象，且X对象和int类型（数值10的类型）可以调用一个operator &gt;，这个operator&gt;也不一定非要一个X类型的参数不可，它可以通过隐式转换能将X类型转为Y类型对象，而只需要Y类型可以和int类型比较即可(好绕口，请看，这也侧面印证了模板编程编译错误很难解决)。</li>
+<li>同样类型T并不需要支持operator!=，而只需要T可以转为X类型对象，someNastyT可以转为Y类型对象，而X和Y可以进行不等比较即可。</mark>
+
+</li>
+</ol>
+<h3 id="优缺点以及对比"><a href="#优缺点以及对比" class="headerlink" title="优缺点以及对比"></a>优缺点以及对比</h3><ol>
+<li>静态多态<ol>
+<li>优点：<ol>
+<li>由于静多态是在编译期完成的，因此效率较高，编译器也可以进行优化；</li>
+<li>有很强的适配性和松耦合性，比如可以通过偏特化、全特化来处理特殊类型；</li>
+<li>最重要一点是静态多态通过模板编程为C++带来了泛型设计的概念，比如强大的STL库。</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>由于是模板来实现静态多态，因此模板的不足也就是静多态的劣势，比如调试困难、编译耗时、代码膨胀、编译器支持的兼容性</li>
+<li>不能够处理异质对象集合</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>动态多态<ol>
+<li>优点：<ol>
+<li>OO设计，对是客观世界的直觉认识；</li>
+<li>实现与接口分离，可复用</li>
+<li>处理同一继承体系下异质对象集合的强大威力</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>运行期绑定，导致一定程度的运行时开销；</li>
+<li>编译器无法对虚函数进行优化</li>
+<li>笨重的类继承体系，对接口的修改影响整个类层次；</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>不同点：<ol>
+<li>本质不同，静态多态在编译期决定，由模板具现完成，而动态多态在运行期决定，由继承、虚函数实现；</li>
+<li>动态多态中接口是显式的，以函数签名为中心，多态通过虚函数在运行期实现，静态多台中接口是隐式的，以有效表达式为中心，多态通过模板具现在编译期完成</li>
+</ol>
+</li>
+<li>相同点：<ol>
+<li>都能够实现多态性，静态多态/编译期多态、动态多态/运行期多态；</li>
+<li>都能够使接口和实现相分离，一个是模板定义接口，类型参数定义实现，一个是基类虚函数定义接口，继承类负责实现；</li>
+</ol>
+</li>
+</ol>
 <h1 id="Container-分类和测试"><a href="#Container-分类和测试" class="headerlink" title="Container 分类和测试"></a>Container 分类和测试</h1><h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-001.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-002.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-003.png" alt=""></p>
@@ -959,7 +1035,7 @@
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-set-multiset-3.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-set-multiset-4.png" alt=""></p>
 <h2 id="深度探索-map-multimap"><a href="#深度探索-map-multimap" class="headerlink" title="深度探索 map, multimap"></a>深度探索 map, multimap</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-map-multimap-1.png" alt=""></p>
-<p>测试代码参见<a href="https://zheng-xing.github.io/2020/03/30/cpp-STL-generic-programming/#multimap" target="_blank" rel="noopener">这里</a>.</p>
+<p>测试代码参见<a href="https://zheng-xing.github.io/2020/03/31/cpp-STL-generic-programming/#multimap" target="_blank" rel="noopener">这里</a>.</p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-map-multimap-2.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-map-multimap-3.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-container-in-depth-map-multimap-4.png" alt=""></p>
@@ -987,9 +1063,10 @@
 <h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="迭代器的分类"><a href="#迭代器的分类" class="headerlink" title="迭代器的分类"></a>迭代器的分类</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-algorithm-in-depth-iterator-categories-1.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-algorithm-in-depth-iterator-categories-2.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-algorithm-in-depth-iterator-categories-3.png" alt=""></p>
+<p>Note: 这个图中函数 display_category 里面的 typename 应该写错了，正确的用法应该是 typedef.</p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-algorithm-in-depth-iterator-categories-4.png" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-stl-algorithm-in-depth-iterator-categories-5.png" alt=""></p>
-
+<h2 id="迭代器分类对算法影响"><a href="#迭代器分类对算法影响" class="headerlink" title="迭代器分类对算法影响"></a>迭代器分类对算法影响</h2>
           
         
       
@@ -1209,7 +1286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/design-pattern/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/15/design-pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zheng Xing">
@@ -1228,7 +1305,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/16/design-pattern/" itemprop="url">design-pattern</a></h1>
+                <a class="post-title-link" href="/2020/01/15/design-pattern/" itemprop="url">design-pattern</a></h1>
         
 
         <div class="post-meta">
@@ -1240,8 +1317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-16T13:09:00+08:00">
-                2020-01-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T21:09:00+08:00">
+                2020-01-15
               </time>
             
 
@@ -1303,9 +1380,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/16/design-pattern/#comments" itemprop="discussionUrl">
+                <a href="/2020/01/15/design-pattern/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/01/16/design-pattern/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/01/15/design-pattern/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1339,7 +1416,7 @@
 
 <p>解释一下</p>
 <ol>
-<li>注意这里面的 Constructor 都是在 private 区域(参考<a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#Can-constructor-be-private" target="_blank" rel="noopener">private constructor</a>)，因此你不能使用 <code>A a1;</code> 这种方式去生成一个 object;</li>
+<li>注意这里面的 Constructor 都是在 private 区域(参考<a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#Can-constructor-be-private" target="_blank" rel="noopener">private constructor</a>)，因此你不能使用 <code>A a1;</code> 这种方式去生成一个 object;</li>
 <li>你只能用 <code>A a1 = A::getInstance()</code> 这种方式去获得一个 object.</li>
 </ol>
 <h2 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h2><h3 id="原型模式的作用"><a href="#原型模式的作用" class="headerlink" title="原型模式的作用"></a>原型模式的作用</h3><ol>
@@ -1414,7 +1491,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
 <p>原型模式作为创建型模式中最特殊的一个模式，具体的创建过程，是由对象本身提供，这样我们在很多的场景下可以很方便的快速的构建新的对象。但是，原型模式的最大缺点是继承原型的子类都要实现Clone操作，这个是很困难的。例如，当所考虑的类已经存在时就难以新增Clone操作。当内部包括一些不支持拷贝或者有循环引用的对象时，实现克隆可能也会很困难。说以说，每一种设计模式都有它的优点和缺点，在设计的时候，我们需要进行权衡各方面的因素，扬长避短。</p>
 <h1 id="Structural-Patterns"><a href="#Structural-Patterns" class="headerlink" title="Structural Patterns"></a>Structural Patterns</h1><h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-composite.png" alt=""></p>
-<h2 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h2><h2 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h2><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><h1 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h1><h2 id="Chain-of-responsibility"><a href="#Chain-of-responsibility" class="headerlink" title="Chain of responsibility"></a>Chain of responsibility</h2><h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>在文章 <a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">cpp-summary</a> 里面介绍虚函数，虚函数表，和虚表指针的时候，那里提到了虚函数的一个常见用法。</p>
+<h2 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h2><h2 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h2><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><h1 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h1><h2 id="Chain-of-responsibility"><a href="#Chain-of-responsibility" class="headerlink" title="Chain of responsibility"></a>Chain of responsibility</h2><h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>在文章 <a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">cpp-summary</a> 里面介绍虚函数，虚函数表，和虚表指针的时候，那里提到了虚函数的一个常见用法。</p>
 <p>就是可以用基类的指针数组去统一管理所有的子类对象。</p>
 <p>此处介绍虚函数的另一个常见用法。</p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-1.png" alt=""></p>
@@ -1647,7 +1724,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/cpp-summary/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/04/cpp-summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zheng Xing">
@@ -1666,7 +1743,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/05/cpp-summary/" itemprop="url">cpp-summary</a></h1>
+                <a class="post-title-link" href="/2020/01/04/cpp-summary/" itemprop="url">cpp-summary</a></h1>
         
 
         <div class="post-meta">
@@ -1678,8 +1755,8 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-05T09:28:42+08:00">
-                2020-01-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-04T17:28:42+08:00">
+                2020-01-04
               </time>
             
 
@@ -1719,9 +1796,9 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/05/cpp-summary/#comments" itemprop="discussionUrl">
+                <a href="/2020/01/04/cpp-summary/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/01/05/cpp-summary/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/01/04/cpp-summary/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2013,7 +2090,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 <li>上面的做法怎么样都搞不定了，侯老师只好改变了函数接收的参数。</li>
 <li>这里有个厉害的操作是他获取 <code>value_type</code> 的方式！</li>
 <li>图中的方式可行，是因为 container 一定有 iterator 一定有 value_type, 那如果没有呢？<ol>
-<li>就需要 <a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#template-template-parameter" target="_blank" rel="noopener">template template parameter</a> 了。</li>
+<li>就需要 <a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#template-template-parameter" target="_blank" rel="noopener">template template parameter</a> 了。</li>
 </ol>
 </li>
 <li>但是只用 template template parameter 好像不行</li>
@@ -2061,7 +2138,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 
 <p>以上代码的输出是</p>
 <pre><code>constructor of A
-constructor of B</code></pre><h4 id="Singleton-design-pattern"><a href="#Singleton-design-pattern" class="headerlink" title="Singleton design pattern"></a>Singleton design pattern</h4><p>这一个例子可以参考博客文章 <a href="https://zheng-xing.github.io/2020/01/15/design-pattern/" target="_blank" rel="noopener">design pattern</a>.</p>
+constructor of B</code></pre><h4 id="Singleton-design-pattern"><a href="#Singleton-design-pattern" class="headerlink" title="Singleton design pattern"></a>Singleton design pattern</h4><p>这一个例子可以参考博客文章 <a href="https://zheng-xing.github.io/2020/01/16/design-pattern/" target="_blank" rel="noopener">design pattern</a>.</p>
 <h4 id="Named-Constructor-Idiom"><a href="#Named-Constructor-Idiom" class="headerlink" title="Named Constructor Idiom"></a>Named Constructor Idiom</h4><p>如果有多个 Constructor 的时候容易出错，万一某两个的参数列表都一样咋整？</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CPP program to demonstrate </span></span><br><span class="line"><span class="comment">// ambiguous nature of constructor </span></span><br><span class="line"><span class="comment">// with same no of parameters of same type </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt; </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>  </span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">    <span class="keyword">public</span>: </span><br><span class="line">      </span><br><span class="line">    <span class="comment">// Rectangular coordinates </span></span><br><span class="line">    Point(<span class="keyword">float</span> x, <span class="keyword">float</span> y);      </span><br><span class="line">      </span><br><span class="line">    <span class="comment">// Polar coordinates (radius and angle) </span></span><br><span class="line">    Point(<span class="keyword">float</span> r, <span class="keyword">float</span> a);      </span><br><span class="line">      </span><br><span class="line">    <span class="comment">// error: ‘Point::Point(float, float)’ cannot </span></span><br><span class="line">    <span class="comment">// be overloaded </span></span><br><span class="line">&#125;; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="comment">// Ambiguous: Which constructor to be called ? </span></span><br><span class="line">    Point p = Point(<span class="number">5.7</span>, <span class="number">1.2</span>);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -2376,7 +2453,7 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
 <h4 id="用-C-能实现吗"><a href="#用-C-能实现吗" class="headerlink" title="用 C 能实现吗?"></a>用 C 能实现吗?</h4><p>如果我们不使用这一套体系，用 C 一般怎么实现用一个指针的列表去访问各个子类的函数呢？</p>
 <p>通常情况下我们必须针对每个指针，通过一系列的 if else 语句先去判断是哪一类对象的函数，然后再去调用相应的函数。</p>
 <p>但是这样子不好的是，如果后来又新加了一个类别，那么我们就必须去重新改动 if else 那一部分的代码，多添加一个 else 语句去支持新增加的类别。</p>
-<h4 id="虚函数另一用法-template-method"><a href="#虚函数另一用法-template-method" class="headerlink" title="虚函数另一用法: template method"></a>虚函数另一用法: template method</h4><p>这里的 template method 是一种设计模式，具体可以参考<a href="https://zheng-xing.github.io/2020/01/15/design-pattern/#Template-Method" target="_blank" rel="noopener">here</a>.</p>
+<h4 id="虚函数另一用法-template-method"><a href="#虚函数另一用法-template-method" class="headerlink" title="虚函数另一用法: template method"></a>虚函数另一用法: template method</h4><p>这里的 template method 是一种设计模式，具体可以参考<a href="https://zheng-xing.github.io/2020/01/16/design-pattern/#Template-Method" target="_blank" rel="noopener">here</a>.</p>
 <h3 id="构造函数可以是虚函数吗？"><a href="#构造函数可以是虚函数吗？" class="headerlink" title="构造函数可以是虚函数吗？"></a>构造函数可以是虚函数吗？</h3><h4 id="C-不可以"><a href="#C-不可以" class="headerlink" title="C++ 不可以"></a>C++ 不可以</h4><p>简答回答是不可以！C++ 的作者在他<a href="http://www.stroustrup.com/bs_faq2.html#virtual-ctor" target="_blank" rel="noopener">个人主页</a>已经回答了，原样复制过来</p>
 <p>A virtual call is a mechanism to get work done given partial information. In particular, “virtual” allows us to call a function knowing only an interfaces and not the exact type of the object. <mark>To create an object you need complete information. In particular, you need to know the exact type of what you want to create. Consequently, a “call to a constructor” cannot be virtual.</mark></p>
 <p>意思就是，虚拟函数调用只需要知道部分信息，即只需要知道函数接口，而不需要对象的具体类型。但是构建一个对象，却必须知道具体的类型信息。<br>如果你调用一个虚拟构造函数，编译器怎么知道你想构建继承树上的哪种类型呢？所以这在逻辑上是一个悖论。</p>

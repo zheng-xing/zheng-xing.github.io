@@ -82,7 +82,7 @@
 <meta name="description" content="Creational PatternsFactory MethodAbstract FactoryBuilderSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp; getInstance();    setup() &amp;#123;&#x2F;&#x2F;...&amp;#125;private:    A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="design-pattern">
-<meta property="og:url" content="http://yoursite.com/2020/01/16/design-pattern/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/15/design-pattern/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Creational PatternsFactory MethodAbstract FactoryBuilderSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp; getInstance();    setup() &amp;#123;&#x2F;&#x2F;...&amp;#125;private:    A">
 <meta property="og:locale" content="en_US">
@@ -92,8 +92,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-2.png">
-<meta property="article:published_time" content="2020-01-16T05:09:00.000Z">
-<meta property="article:modified_time" content="2020-02-10T00:20:04.648Z">
+<meta property="article:published_time" content="2020-01-15T13:09:00.000Z">
+<meta property="article:modified_time" content="2020-07-19T15:35:44.227Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="cpp">
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/01/16/design-pattern/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/01/15/design-pattern/"/>
 
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/design-pattern/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/15/design-pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zheng Xing">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-16T13:09:00+08:00">
-                2020-01-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T21:09:00+08:00">
+                2020-01-15
               </time>
             
 
@@ -354,9 +354,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/16/design-pattern/#comments" itemprop="discussionUrl">
+                <a href="/2020/01/15/design-pattern/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/01/16/design-pattern/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/01/15/design-pattern/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -388,7 +388,7 @@
 
 <p>解释一下</p>
 <ol>
-<li>注意这里面的 Constructor 都是在 private 区域(参考<a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#Can-constructor-be-private" target="_blank" rel="noopener">private constructor</a>)，因此你不能使用 <code>A a1;</code> 这种方式去生成一个 object;</li>
+<li>注意这里面的 Constructor 都是在 private 区域(参考<a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#Can-constructor-be-private" target="_blank" rel="noopener">private constructor</a>)，因此你不能使用 <code>A a1;</code> 这种方式去生成一个 object;</li>
 <li>你只能用 <code>A a1 = A::getInstance()</code> 这种方式去获得一个 object.</li>
 </ol>
 <h2 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h2><h3 id="原型模式的作用"><a href="#原型模式的作用" class="headerlink" title="原型模式的作用"></a>原型模式的作用</h3><ol>
@@ -463,7 +463,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
 <p>原型模式作为创建型模式中最特殊的一个模式，具体的创建过程，是由对象本身提供，这样我们在很多的场景下可以很方便的快速的构建新的对象。但是，原型模式的最大缺点是继承原型的子类都要实现Clone操作，这个是很困难的。例如，当所考虑的类已经存在时就难以新增Clone操作。当内部包括一些不支持拷贝或者有循环引用的对象时，实现克隆可能也会很困难。说以说，每一种设计模式都有它的优点和缺点，在设计的时候，我们需要进行权衡各方面的因素，扬长避短。</p>
 <h1 id="Structural-Patterns"><a href="#Structural-Patterns" class="headerlink" title="Structural Patterns"></a>Structural Patterns</h1><h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-composite.png" alt=""></p>
-<h2 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h2><h2 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h2><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><h1 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h1><h2 id="Chain-of-responsibility"><a href="#Chain-of-responsibility" class="headerlink" title="Chain of responsibility"></a>Chain of responsibility</h2><h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>在文章 <a href="https://zheng-xing.github.io/2020/01/04/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">cpp-summary</a> 里面介绍虚函数，虚函数表，和虚表指针的时候，那里提到了虚函数的一个常见用法。</p>
+<h2 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h2><h2 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h2><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><h1 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h1><h2 id="Chain-of-responsibility"><a href="#Chain-of-responsibility" class="headerlink" title="Chain of responsibility"></a>Chain of responsibility</h2><h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>在文章 <a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">cpp-summary</a> 里面介绍虚函数，虚函数表，和虚表指针的时候，那里提到了虚函数的一个常见用法。</p>
 <p>就是可以用基类的指针数组去统一管理所有的子类对象。</p>
 <p>此处介绍虚函数的另一个常见用法。</p>
 <p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-template-method-1.png" alt=""></p>
@@ -856,8 +856,8 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/01/16/design-pattern/';
-          this.page.identifier = '2020/01/16/design-pattern/';
+          this.page.url = 'http://yoursite.com/2020/01/15/design-pattern/';
+          this.page.identifier = '2020/01/15/design-pattern/';
           this.page.title = 'design-pattern';
         };
         var d = document, s = d.createElement('script');

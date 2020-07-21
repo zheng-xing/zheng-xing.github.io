@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/28/Advance-Python-Topics/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/Advance-Python-Topics/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zheng Xing">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/28/Advance-Python-Topics/" itemprop="url">Advance Python Topics</a></h1>
+                <a class="post-title-link" href="/2018/03/27/Advance-Python-Topics/" itemprop="url">Advance Python Topics</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-28T11:56:04+08:00">
-                2018-03-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-27T20:56:04+08:00">
+                2018-03-27
               </time>
             
 
@@ -503,9 +503,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/28/Advance-Python-Topics/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/27/Advance-Python-Topics/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/28/Advance-Python-Topics/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/27/Advance-Python-Topics/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -537,6 +537,18 @@
           
             <p>Note: 这篇文章主要是对下面这本书(《Powerful Python》2nd edition, Aaron Maxwell)的总结。</p>
 <h2 id="基础的知识"><a href="#基础的知识" class="headerlink" title="基础的知识"></a>基础的知识</h2><h3 id="最短代码做-leetcode"><a href="#最短代码做-leetcode" class="headerlink" title="最短代码做 leetcode"></a>最短代码做 leetcode</h3><p>参见<a href="https://github.com/cy69855522/Shortest-LeetCode-Python-Solutions" target="_blank" rel="noopener">这里</a></p>
+<h3 id="list-np-array-pytorch-tensor"><a href="#list-np-array-pytorch-tensor" class="headerlink" title="list-np-array-pytorch-tensor"></a>list-np-array-pytorch-tensor</h3><p>很经典的面试题，它们的区别如下：</p>
+<ol>
+<li>Numbers in Python are objects. <ol>
+<li>Whereas a floating-point number might require only, for instance, 32 bits to be represented on a computer, Python will convert it into a full-fledged Python object with reference counting, and so on. This operation, called boxing, is not a problem if we need to store a small number of numbers, but allocating millions gets very inefficient.</li>
+<li>Python list 里面的元素可以是不同类型的东西！而 numpy array 里面的元素类型须相同！</li>
+<li>Python list 里面存的都是指针！更占用内存空间！</li>
+</ol>
+</li>
+<li>Numpy array 的大小在创建时候固定了，而 Python list 是动态的，可以更改内容和大小。更改 numpy array 需要新创建一个并删除之前的。</li>
+<li>Lists in Python are meant for sequential collections of objects. There are no operations defined for, say, efficiently taking the dot product of two vectors, or summing vectors together. Also, Python lists have no way of optimizing the layout of their contents in memory, as they are indexable collections of pointers to Python objects (of any kind, not just numbers). Finally, Python lists are one-dimensional, and although we can create lists of lists, this is again very inefficient.</li>
+<li>The Python interpreter is slow compared to optimized, compiled code. Performing mathematical<br>operations on large collections of numerical data can be much faster<br>using optimized code written in a compiled, low-level language like C.</li>
+</ol>
 <h3 id="copy-复制"><a href="#copy-复制" class="headerlink" title="copy 复制"></a>copy 复制</h3><p>这个其实我明白，但是举例子的时候一下子有点懵。</p>
 <p>事实上一个好例子就是 list 里面有 list，因为 list 存的是指针嘛！因此 list 里面的 list 没有被 copy 过来。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># shallow copy</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a.copy()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="number">2</span>].append(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里注意如果修改 a[1] 是不会影响到 b[1] 的，因为 a[1] 是一个 int 类型直接被拷贝过来了。</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="number">1</span>] = <span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, <span class="number">3</span>, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 正确用法是使用自带库 copy</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> copy</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = copy.deepcopy(a)</span><br></pre></td></tr></table></figure>

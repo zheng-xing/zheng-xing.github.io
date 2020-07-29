@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="Creational PatternsFactory MethodAbstract FactoryBuilderSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp; getInstance();    setup() &amp;#123;&#x2F;&#x2F;...&amp;#125;private:    A">
+<meta name="description" content="设计模式简介 课程目标 理解松耦合设计思想 掌握面向对象设计原则 掌握重构技法改善设计 掌握 GOF 核心设计模式   什么是设计模式？ “每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。— Christopher Alexander   经典教材 《设计模式-可复用面向对象软件的基础》 主要是面向对象领域的设计模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="design-pattern">
 <meta property="og:url" content="http://yoursite.com/2020/01/15/design-pattern/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Creational PatternsFactory MethodAbstract FactoryBuilderSingleton12345678910111213141516171819class A &amp;#123;public:    static  A&amp; getInstance();    setup() &amp;#123;&#x2F;&#x2F;...&amp;#125;private:    A">
+<meta property="og:description" content="设计模式简介 课程目标 理解松耦合设计思想 掌握面向对象设计原则 掌握重构技法改善设计 掌握 GOF 核心设计模式   什么是设计模式？ “每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。— Christopher Alexander   经典教材 《设计模式-可复用面向对象软件的基础》 主要是面向对象领域的设计模">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-prototype-1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-composite.png">
@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-observer-2.png">
 <meta property="article:published_time" content="2020-01-15T13:09:00.000Z">
-<meta property="article:modified_time" content="2020-07-19T15:35:44.227Z">
+<meta property="article:modified_time" content="2020-07-29T01:17:33.974Z">
 <meta property="article:author" content="Zheng Xing">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="cpp">
@@ -384,7 +384,260 @@
       
 
       
-        <h1 id="Creational-Patterns"><a href="#Creational-Patterns" class="headerlink" title="Creational Patterns"></a>Creational Patterns</h1><h2 id="Factory-Method"><a href="#Factory-Method" class="headerlink" title="Factory Method"></a>Factory Method</h2><h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">    static  A&amp; getInstance();</span><br><span class="line">    setup() &#123;&#x2F;&#x2F;...&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    A();</span><br><span class="line">    A(const A&amp; rhs);</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A&amp; A::getInstance()&#123;</span><br><span class="line">    static A a;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; A::getInstance().setup();</span><br></pre></td></tr></table></figure>
+        <h1 id="设计模式简介"><a href="#设计模式简介" class="headerlink" title="设计模式简介"></a>设计模式简介</h1><ol start="0">
+<li>课程目标<ol>
+<li>理解松耦合设计思想</li>
+<li>掌握面向对象设计原则</li>
+<li>掌握重构技法改善设计</li>
+<li>掌握 GOF 核心设计模式</li>
+</ol>
+</li>
+<li>什么是设计模式？<ol>
+<li>“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。— Christopher Alexander</li>
+</ol>
+</li>
+<li>经典教材<ol>
+<li>《设计模式-可复用面向对象软件的基础》</li>
+<li>主要是面向对象领域的设计模式。（不涉及比如架构领域的设计模式，数据库里面的设计模式，etc）</li>
+<li>1994年的教材了，一些新的发展可能没有包括进来。</li>
+</ol>
+</li>
+<li>从面向对象谈起<ol>
+<li>底层思维：向下，如何把握机器底层从微观理解对象构造<ol>
+<li>语言构造</li>
+<li>编译转换</li>
+<li>内存模型</li>
+<li>运行时机制</li>
+</ol>
+</li>
+<li>抽象思维：向上，如何将我们的周围世界抽象为程序代码<ol>
+<li>面向对象</li>
+<li>组件封装</li>
+<li>设计模式</li>
+<li>架构模式</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>深入理解面向对象<ol>
+<li>向下：深入理解三大面向对象机制<ol>
+<li>封装，隐藏内部实现</li>
+<li>继承，复用现有代码</li>
+<li>多态，改写对象行为</li>
+</ol>
+</li>
+<li>向上：深刻把握面向对象机制所带来的抽象意义，理解如何使用这些机制来表达现实世界，掌握什么是“好的面向对象设计”</li>
+</ol>
+</li>
+<li>软件设计复杂的根本原因：变化<ol>
+<li>客户需求的变化</li>
+<li>技术平台的变化</li>
+<li>开发团队的变化</li>
+<li>市场环境的变化</li>
+</ol>
+</li>
+<li>如何解决复杂性<ol>
+<li>分解<ol>
+<li>即分而治之，把大问题分解为多个小问题，将复杂问题分解为多个简单问题</li>
+</ol>
+</li>
+<li>抽象<ol>
+<li>更高层次来讲，人们处理复杂性有一个通用的技术，即抽象。由于不能掌握全部的复杂对象，我们选择忽视它的非本质细节，而去处理泛化和理想化了的对象模型。</li>
+<li><mark>随着课程深入你会对抽象这个关键词理解得越来越深！我们所有的得设计模式也都是围绕这个关键词！</mark></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>软件设计的目标<ol>
+<li>什么是好的软件设计？<mark>软件设计的金科玉律：复用！！！</mark></li>
+</ol>
+</li>
+</ol>
+<p>举例</p>
+<ol>
+<li>抽象可以让我们以一个统一的方式去处理。</li>
+</ol>
+<h1 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h1><ol>
+<li>面向对象设计，为什么？<ol>
+<li><mark>变化是复用的天敌！</mark></li>
+<li><mark>面向对象设计最大的优势在于：抵御变化！</mark></li>
+</ol>
+</li>
+<li>重新认识面向对象<ol>
+<li>之前说的封装，继承和多态是从微观的角度来说的，这里从更抽象的角度来讨论。</li>
+<li>理解“隔离变化”<ol>
+<li>从宏观层面来看，面向对象的构建方式更能适应软件的变化，能将变化所带来的影响减为最小</li>
+</ol>
+</li>
+<li>各司己职<ol>
+<li>从微观层面来看，面向对象的方式更强调各个类的“责任”</li>
+<li>由于需求变化导致的新增类型不应该影响原来类型的实现—是所谓各负其责</li>
+</ol>
+</li>
+<li>对象是什么？<ol>
+<li>从语言实现层面来看，对象封装了代码和数据。</li>
+<li>从规格层面讲，对象是一系列可被使用的公共接口。</li>
+<li>从概念层面讲，对象是某种拥有责任的抽象。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>注意！<ol>
+<li>下面要介绍的八大设计原则要比具体的设计模式更重要！</li>
+<li>这节课提到的设计模式，有些今天已经不流行了，有些模式已经被某些语言机制给替代了，这都不重要。</li>
+<li>设计原则才是最重要的！！！不要把设计模式当成算法来学习！</li>
+</ol>
+</li>
+<li>面向接口设计<ol>
+<li><mark>产业强盛的标志：接口标准化！因为它的核心就是分工合作！</mark></li>
+</ol>
+</li>
+</ol>
+<h2 id="依赖倒置原则-DIP"><a href="#依赖倒置原则-DIP" class="headerlink" title="依赖倒置原则 DIP"></a>依赖倒置原则 DIP</h2><ol>
+<li>详细解释<ol>
+<li>高层模块（稳定）不应该依赖于低层模块（变化），二者都应该依赖于抽象（稳定）</li>
+<li>抽象（稳定）不应该依赖于实现细节（变化），实现细节应该依赖于抽象（稳定）</li>
+</ol>
+</li>
+</ol>
+<h2 id="开放封闭原则-OCP"><a href="#开放封闭原则-OCP" class="headerlink" title="开放封闭原则 OCP"></a>开放封闭原则 OCP</h2><ol>
+<li>开放封闭原则<ol>
+<li>对扩展开放，对更改封闭</li>
+<li>类模块应该是可扩展的，但是不可更改。</li>
+</ol>
+</li>
+<li>例子<ol>
+<li></li>
+</ol>
+</li>
+</ol>
+<h2 id="单一职责原则-SRP"><a href="#单一职责原则-SRP" class="headerlink" title="单一职责原则 SRP"></a>单一职责原则 SRP</h2><ol>
+<li>单一职责原则<ol>
+<li>一个类应该仅有一个引起它变化的原因</li>
+<li>变化的方向隐含着类的责任</li>
+</ol>
+</li>
+</ol>
+<h2 id="Liskov-替换原则-LSP"><a href="#Liskov-替换原则-LSP" class="headerlink" title="Liskov 替换原则 LSP"></a>Liskov 替换原则 LSP</h2><ol>
+<li>LSP<ol>
+<li>子类必须能够替换它们的基类（IS-A）</li>
+<li>继承表达类型抽象</li>
+</ol>
+</li>
+</ol>
+<h2 id="接口隔离原则-ISP"><a href="#接口隔离原则-ISP" class="headerlink" title="接口隔离原则 ISP"></a>接口隔离原则 ISP</h2><ol>
+<li>接口隔离原则<ol>
+<li>不应该强迫客户程序依赖他们不用的方法</li>
+<li>接口应该小而完备。（尽量少的 public 方法）</li>
+</ol>
+</li>
+</ol>
+<h2 id="优先使用对象组合，而不是类继承"><a href="#优先使用对象组合，而不是类继承" class="headerlink" title="优先使用对象组合，而不是类继承"></a>优先使用对象组合，而不是类继承</h2><ol>
+<li>详细解释<ol>
+<li>类继承通常为“白箱复用”，对象组合通常为“黑箱复用” （对象组合：classA 里面有一个 classB）</li>
+<li>继承在某种程度上破坏了封装性，子类父类耦合度高（即父类给子类暴露了太多）</li>
+<li>对象组合则只要求被组合的对象具有良好定义的接口，耦合度低</li>
+</ol>
+</li>
+</ol>
+<h2 id="封装变化点"><a href="#封装变化点" class="headerlink" title="封装变化点"></a>封装变化点</h2><ol>
+<li>详细解释<ol>
+<li>使用封装来创建对象之间的分阶层，让设计者可以再分界层的一侧进行修改，而不会对另一侧产生不良的影响，从而实现层次间的松耦合</li>
+</ol>
+</li>
+</ol>
+<h2 id="针对接口编程而不是针对实现编程"><a href="#针对接口编程而不是针对实现编程" class="headerlink" title="针对接口编程而不是针对实现编程"></a>针对接口编程而不是针对实现编程</h2><ol>
+<li>详细解释<ol>
+<li>不将变量类型声明为某个特定的具体类，而是声明为某个接口</li>
+<li>客户程序无需获知对象的具体类型，只需要知道对象所具有的接口</li>
+<li>减少系统中各部分的依赖关系，从而实现“高内聚、松耦合”的类型设计方案</li>
+</ol>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>将设计原则提升为设计经验</p>
+<ol>
+<li>设计习语 Design Idioms<ol>
+<li>Design Idioms 描述与特定编程语言相关的底层模式，技巧，习惯用法</li>
+</ol>
+</li>
+<li>设计模式 Design Patterns<ol>
+<li>Design Patterns 主要描述的是“类与相互通信的对象之间的组织关系，包括它们的角色、职责、协作方式等方面”。</li>
+</ol>
+</li>
+<li>架构模式 Architectural Patterns<ol>
+<li>Architectural Patterns 描述系统中与基本结构组织关系密切的高层模式，包括子系统划分，职责，以及如何组织他们之间关系的规则。</li>
+</ol>
+</li>
+</ol>
+<h1 id="模式分类"><a href="#模式分类" class="headerlink" title="模式分类"></a>模式分类</h1><h2 id="GOF-23-模式分类"><a href="#GOF-23-模式分类" class="headerlink" title="GOF-23 模式分类"></a>GOF-23 模式分类</h2><ol>
+<li>从目的来看:<ol>
+<li>创建型(Creational)模式:将对象的部分创建工作延迟到子 类或者其他对象，从而应对需求变化为对象创建时具体类型实 现引来的冲击。</li>
+<li>结构型(Structural)模式:通过类继承或者对象组合获得更灵 活的结构，从而应对需求变化为对象的结构带来的冲击。</li>
+<li>行为型(Behavioral)模式:通过类继承或者对象组合来划分 类与对象间的职责，从而应对需求变化为多个交互的对象带来 的冲击。</li>
+</ol>
+</li>
+<li>从范围来看:<ol>
+<li>类模式处理类与子类的静态关系（继承）</li>
+<li>对象模式处理对象间的动态关系（组合）</li>
+</ol>
+</li>
+</ol>
+<h2 id="从封装变化角度对模式分类"><a href="#从封装变化角度对模式分类" class="headerlink" title="从封装变化角度对模式分类"></a>从封装变化角度对模式分类</h2><ol>
+<li>组件协作:<ol>
+<li>Template Method</li>
+<li>Observer / Event</li>
+<li>Strategy</li>
+</ol>
+</li>
+<li>单一职责:<ol>
+<li>Decorator</li>
+<li>Bridge </li>
+</ol>
+</li>
+<li>对象创建:<ol>
+<li>Factory Method</li>
+<li>Abstract Factory</li>
+<li>Prototype</li>
+<li>Builder</li>
+</ol>
+</li>
+<li>对象性能:<ol>
+<li>Singleton</li>
+<li>Flyweight</li>
+</ol>
+</li>
+<li>接口隔离:<ol>
+<li>Façade</li>
+<li>Proxy</li>
+<li>Mediator</li>
+<li>Adapter</li>
+</ol>
+</li>
+<li>状态变化:<ol>
+<li>Memento</li>
+<li>State</li>
+</ol>
+</li>
+<li>数据结构:<ol>
+<li>Composite</li>
+<li>Iterator</li>
+<li>Chain of Resposibility</li>
+</ol>
+</li>
+<li>行为变化:<ol>
+<li>Command</li>
+<li>Visitor</li>
+</ol>
+</li>
+<li>领域问题:<ol>
+<li>Interpreter</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始语句</span><br><span class="line">in&#x3D;&gt;inputoutput: 输入值</span><br><span class="line">e&#x3D;&gt;end: 结束语句</span><br><span class="line">op&#x3D;&gt;operation: 执行操作</span><br><span class="line">cond&#x3D;&gt;condition: 是否成立？</span><br><span class="line">out&#x3D;&gt;inputoutput: 输出值</span><br><span class="line">st-&gt;in-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;out</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">out-&gt;e</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Creational-Patterns"><a href="#Creational-Patterns" class="headerlink" title="Creational Patterns"></a>Creational Patterns</h1><h2 id="Factory-Method"><a href="#Factory-Method" class="headerlink" title="Factory Method"></a>Factory Method</h2><h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">    static  A&amp; getInstance();</span><br><span class="line">    setup() &#123;&#x2F;&#x2F;...&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    A();</span><br><span class="line">    A(const A&amp; rhs);</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A&amp; A::getInstance()&#123;</span><br><span class="line">    static A a;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; A::getInstance().setup();</span><br></pre></td></tr></table></figure>
 
 <p>解释一下</p>
 <ol>
@@ -460,7 +713,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 </li>
 <li>第三个要注意的是，不要搞混了主函数里的 images 数组和上面提到的 <code>_prototypes[]</code> 数组！</li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
 <p>原型模式作为创建型模式中最特殊的一个模式，具体的创建过程，是由对象本身提供，这样我们在很多的场景下可以很方便的快速的构建新的对象。但是，原型模式的最大缺点是继承原型的子类都要实现Clone操作，这个是很困难的。例如，当所考虑的类已经存在时就难以新增Clone操作。当内部包括一些不支持拷贝或者有循环引用的对象时，实现克隆可能也会很困难。说以说，每一种设计模式都有它的优点和缺点，在设计的时候，我们需要进行权衡各方面的因素，扬长避短。</p>
 <h1 id="Structural-Patterns"><a href="#Structural-Patterns" class="headerlink" title="Structural Patterns"></a>Structural Patterns</h1><h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-composite.png" alt=""></p>
 <h2 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h2><h2 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h2><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><h1 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h1><h2 id="Chain-of-responsibility"><a href="#Chain-of-responsibility" class="headerlink" title="Chain of responsibility"></a>Chain of responsibility</h2><h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>在文章 <a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">cpp-summary</a> 里面介绍虚函数，虚函数表，和虚表指针的时候，那里提到了虚函数的一个常见用法。</p>
@@ -629,7 +882,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -651,7 +904,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -686,7 +939,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Creational-Patterns"><span class="nav-number">1.</span> <span class="nav-text">Creational Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Factory-Method"><span class="nav-number">1.1.</span> <span class="nav-text">Factory Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Factory"><span class="nav-number">1.2.</span> <span class="nav-text">Abstract Factory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder"><span class="nav-number">1.3.</span> <span class="nav-text">Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Singleton"><span class="nav-number">1.4.</span> <span class="nav-text">Singleton</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prototype"><span class="nav-number">1.5.</span> <span class="nav-text">Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式的作用"><span class="nav-number">1.5.1.</span> <span class="nav-text">原型模式的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要原型模式？"><span class="nav-number">1.5.2.</span> <span class="nav-text">为什么需要原型模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.5.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.5.4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个例子"><span class="nav-number">1.5.5.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#另一个例子"><span class="nav-number">1.5.6.</span> <span class="nav-text">另一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Structural-Patterns"><span class="nav-number">2.</span> <span class="nav-text">Structural Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter"><span class="nav-number">2.1.</span> <span class="nav-text">Adapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge"><span class="nav-number">2.2.</span> <span class="nav-text">Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composite"><span class="nav-number">2.3.</span> <span class="nav-text">Composite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decorator"><span class="nav-number">2.4.</span> <span class="nav-text">Decorator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facade"><span class="nav-number">2.5.</span> <span class="nav-text">Facade</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flyweight"><span class="nav-number">2.6.</span> <span class="nav-text">Flyweight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy"><span class="nav-number">2.7.</span> <span class="nav-text">Proxy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Behavioral-Patterns"><span class="nav-number">3.</span> <span class="nav-text">Behavioral Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-of-responsibility"><span class="nav-number">3.1.</span> <span class="nav-text">Chain of responsibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command"><span class="nav-number">3.2.</span> <span class="nav-text">Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator"><span class="nav-number">3.3.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mediator"><span class="nav-number">3.4.</span> <span class="nav-text">Mediator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memento"><span class="nav-number">3.5.</span> <span class="nav-text">Memento</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Method"><span class="nav-number">3.6.</span> <span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#observer"><span class="nav-number">3.7.</span> <span class="nav-text">observer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State"><span class="nav-number">3.8.</span> <span class="nav-text">State</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy"><span class="nav-number">3.9.</span> <span class="nav-text">Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visitor"><span class="nav-number">3.10.</span> <span class="nav-text">Visitor</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式简介"><span class="nav-number">1.</span> <span class="nav-text">设计模式简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象设计原则"><span class="nav-number">2.</span> <span class="nav-text">面向对象设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖倒置原则-DIP"><span class="nav-number">2.1.</span> <span class="nav-text">依赖倒置原则 DIP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开放封闭原则-OCP"><span class="nav-number">2.2.</span> <span class="nav-text">开放封闭原则 OCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则-SRP"><span class="nav-number">2.3.</span> <span class="nav-text">单一职责原则 SRP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Liskov-替换原则-LSP"><span class="nav-number">2.4.</span> <span class="nav-text">Liskov 替换原则 LSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口隔离原则-ISP"><span class="nav-number">2.5.</span> <span class="nav-text">接口隔离原则 ISP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先使用对象组合，而不是类继承"><span class="nav-number">2.6.</span> <span class="nav-text">优先使用对象组合，而不是类继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装变化点"><span class="nav-number">2.7.</span> <span class="nav-text">封装变化点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#针对接口编程而不是针对实现编程"><span class="nav-number">2.8.</span> <span class="nav-text">针对接口编程而不是针对实现编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.9.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模式分类"><span class="nav-number">3.</span> <span class="nav-text">模式分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GOF-23-模式分类"><span class="nav-number">3.1.</span> <span class="nav-text">GOF-23 模式分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从封装变化角度对模式分类"><span class="nav-number">3.2.</span> <span class="nav-text">从封装变化角度对模式分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Creational-Patterns"><span class="nav-number">4.</span> <span class="nav-text">Creational Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Factory-Method"><span class="nav-number">4.1.</span> <span class="nav-text">Factory Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Factory"><span class="nav-number">4.2.</span> <span class="nav-text">Abstract Factory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder"><span class="nav-number">4.3.</span> <span class="nav-text">Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Singleton"><span class="nav-number">4.4.</span> <span class="nav-text">Singleton</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prototype"><span class="nav-number">4.5.</span> <span class="nav-text">Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式的作用"><span class="nav-number">4.5.1.</span> <span class="nav-text">原型模式的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要原型模式？"><span class="nav-number">4.5.2.</span> <span class="nav-text">为什么需要原型模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">4.5.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">4.5.4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个例子"><span class="nav-number">4.5.5.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#另一个例子"><span class="nav-number">4.5.6.</span> <span class="nav-text">另一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">4.5.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Structural-Patterns"><span class="nav-number">5.</span> <span class="nav-text">Structural Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter"><span class="nav-number">5.1.</span> <span class="nav-text">Adapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge"><span class="nav-number">5.2.</span> <span class="nav-text">Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composite"><span class="nav-number">5.3.</span> <span class="nav-text">Composite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decorator"><span class="nav-number">5.4.</span> <span class="nav-text">Decorator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facade"><span class="nav-number">5.5.</span> <span class="nav-text">Facade</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flyweight"><span class="nav-number">5.6.</span> <span class="nav-text">Flyweight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy"><span class="nav-number">5.7.</span> <span class="nav-text">Proxy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Behavioral-Patterns"><span class="nav-number">6.</span> <span class="nav-text">Behavioral Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-of-responsibility"><span class="nav-number">6.1.</span> <span class="nav-text">Chain of responsibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command"><span class="nav-number">6.2.</span> <span class="nav-text">Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator"><span class="nav-number">6.3.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mediator"><span class="nav-number">6.4.</span> <span class="nav-text">Mediator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memento"><span class="nav-number">6.5.</span> <span class="nav-text">Memento</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Method"><span class="nav-number">6.6.</span> <span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#observer"><span class="nav-number">6.7.</span> <span class="nav-text">observer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State"><span class="nav-number">6.8.</span> <span class="nav-text">State</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy"><span class="nav-number">6.9.</span> <span class="nav-text">Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visitor"><span class="nav-number">6.10.</span> <span class="nav-text">Visitor</span></a></li></ol></li></ol></div>
             
 
           </div>

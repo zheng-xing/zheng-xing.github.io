@@ -249,6 +249,303 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/28/pytorch-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zheng Xing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/28/pytorch-summary/" itemprop="url">pytorch-summary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-28T10:11:29+08:00">
+                2020-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/28/pytorch-summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/07/28/pytorch-summary/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p><img src="file:///Users/zhengxing/Screenshots/pytorch-list-of-modules-with-intro.png" alt=""></p>
+<style>
+table th:nth-of-type(1){
+width: 20%;
+}
+table th:nth-of-type(2){
+width: 80%
+;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>torch</td>
+<td>The top-level PyTorch package and tensor library.</td>
+</tr>
+<tr>
+<td>torch.nn</td>
+<td>A subpackage that contains modules and extensible classes for building neural networks.</td>
+</tr>
+<tr>
+<td>torch.autograd</td>
+<td>A subpackage that supports all the differentiable Tensor operations in PyTorch.</td>
+</tr>
+<tr>
+<td>torch.nn.functional</td>
+<td>A functional interface that contains typical operations used for building neural networks like loss functions, activation functions, and convolution operations.</td>
+</tr>
+<tr>
+<td>torch.optim</td>
+<td>A subpackage that contains standard optimization operations like SGD and Adam.</td>
+</tr>
+<tr>
+<td>torch.utils</td>
+<td>A subpackage that contains utility classes like data sets and data loaders that make data preprocessing easier.</td>
+</tr>
+<tr>
+<td>torchvision</td>
+<td>A package that provides access to popular datasets, model architectures, and image transformations for computer vision.</td>
+</tr>
+</tbody></table>
+<h1 id="Tensor-操作"><a href="#Tensor-操作" class="headerlink" title="Tensor 操作"></a>Tensor 操作</h1><h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 列表转 tensor</span></span><br><span class="line">aa = [ [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>] ]</span><br><span class="line">t = torch.tensor(aa)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. numpy 向量转 tensor</span></span><br><span class="line">aa = np.array([ [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>] ])</span><br><span class="line">t = torch.from_numpy(aa)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 利用大写接受 shape 创建</span></span><br><span class="line">torch.empty(<span class="number">2</span>, <span class="number">3</span>)    <span class="comment"># 生成一个 2x3 的 0 矩阵</span></span><br><span class="line">torch.Tensor(<span class="number">2</span>, <span class="number">3</span>)    <span class="comment"># 生成一个 2x3 的随机矩阵</span></span><br><span class="line">torch.IntTensor(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">torch.FloatTensor(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 随机创建 Tensor</span></span><br><span class="line">a=torch.rand(<span class="number">3</span>,<span class="number">3</span>)    <span class="comment">#创建3*3的0到1均匀分布的矩阵</span></span><br><span class="line">a=torch.randn(<span class="number">3</span>,<span class="number">3</span>)    <span class="comment">#均值为0方差为1正态分布矩阵</span></span><br><span class="line"></span><br><span class="line">torch.rand_like(a)    <span class="comment">#等价于下一条</span></span><br><span class="line">torch.rand(a.shape)</span><br><span class="line"></span><br><span class="line">torch.randint(<span class="number">1</span>,<span class="number">10</span>,[<span class="number">3</span>,<span class="number">3</span>])<span class="comment">#创建3*3的1到10随机分布的整数矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 创建相同数的矩阵：</span></span><br><span class="line">torch.full([<span class="number">3</span>,<span class="number">3</span>],<span class="number">1</span>)    <span class="comment"># 生成3*3的全为1的矩阵</span></span><br><span class="line">torch.full([],<span class="number">1</span>)    <span class="comment"># 生成标量1</span></span><br><span class="line">torch.full([<span class="number">2</span>],<span class="number">1</span>)    <span class="comment"># 生成一个长度为2的值全为1的向量</span></span><br><span class="line">torch.ones(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">torch.zeros(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">torch.eye(<span class="number">3</span>,<span class="number">4</span>)    <span class="comment"># 生成对角为1矩阵，若不是对角矩阵，则多余出用0填充</span></span><br><span class="line">torch.eye(<span class="number">3</span>)    <span class="comment"># 3*3对角矩阵</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 创建规律数列矩阵：</span></span><br><span class="line">torch.arange(<span class="number">0</span>,<span class="number">10</span>)    <span class="comment"># 生成[0,1,2,3,4,5,6,7,8,9]</span></span><br><span class="line">torch.arange(<span class="number">0</span>,<span class="number">10</span>,<span class="number">2</span>)    <span class="comment"># 生成增量为2的数列</span></span><br><span class="line">torch.arange(<span class="number">10</span>)    <span class="comment"># 效果同于（0，10）</span></span><br><span class="line"></span><br><span class="line">torch.linspace(<span class="number">0</span>,<span class="number">10</span>,<span class="number">4</span>)    <span class="comment"># 生成[0.0000,3.3333,6,6667,10,0000]包括10的4等分向量</span></span><br><span class="line">torch.logspace(<span class="number">0</span>,<span class="number">-1</span>,steps=<span class="number">10</span>,base=<span class="number">10</span>)    <span class="comment"># 生成10个0到-1等分的数，再以其为指数，如第一个数#为1.000,最后一个数为0.100</span></span><br><span class="line">​</span><br><span class="line"><span class="comment"># 7.创建随机打散数组：</span></span><br><span class="line">torch.randperm(<span class="number">10</span>)    <span class="comment"># 生成0~9这10个数乱序的数组（常用作索引）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="分析性质"><a href="#分析性质" class="headerlink" title="分析性质"></a>分析性质</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">aa = [ [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>] ]</span><br><span class="line">t = torch.tensor(aa)</span><br><span class="line"></span><br><span class="line">type(t)    <span class="comment"># torch.Tensor</span></span><br><span class="line">t.shape    <span class="comment"># torch.Size([3, 3])</span></span><br><span class="line"></span><br><span class="line">t.reshape(<span class="number">1</span>, <span class="number">9</span>)    <span class="comment"># tensor([[1, 2, 3, 4, 5, 6, 7, 8, 9]])</span></span><br><span class="line">t.reshape(<span class="number">1</span>, <span class="number">9</span>).shape    <span class="comment"># torch.Size([1, 9])</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torch.eq(a,b)    <span class="comment"># 返回对比后的矩阵，若矩阵形状相同，那么会对没一个位置进行比较，返回一个同样形状的矩阵，相应位置若相同则返回1，不相等则为0</span></span><br><span class="line">torch.all(torch.eq(a,b))    <span class="comment"># a,b相同时返回1，否则为1。即all内的张量为全1矩阵会返回1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="切片-start-end-step"><a href="#切片-start-end-step" class="headerlink" title="切片(start : end : step)"></a>切片(start : end : step)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">img=torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">28</span>,<span class="number">28</span>)    <span class="comment"># 4张图片</span></span><br><span class="line"></span><br><span class="line">img[<span class="number">1</span>]    <span class="comment"># 获取第二张图片</span></span><br><span class="line">img[<span class="number">0</span>,<span class="number">0</span>].shape    <span class="comment"># 获取第一张图片的第一个通道的图片形状</span></span><br><span class="line">img[<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>]    <span class="comment"># 返回像素灰度值标量</span></span><br><span class="line"></span><br><span class="line">img[:<span class="number">2</span>]    <span class="comment"># 获得img[0]和img[1]</span></span><br><span class="line"><span class="comment">#img[:2,:1]==img[:2,:1,:,:]</span></span><br><span class="line">img[<span class="number">2</span>:]    <span class="comment"># 获得img[2],img[3],img[4]三张图片</span></span><br><span class="line">img[<span class="number">-1</span>:]    <span class="comment"># 获得img[4]</span></span><br><span class="line">img[:,:,::<span class="number">2</span>,::<span class="number">2</span>]    <span class="comment"># 对图片进行隔行（列）采样</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#还有一种索引中的...操作，有自动填充的功能,一般用于维数很多时使用。</span></span><br><span class="line">img[<span class="number">0</span>,...]    <span class="comment"># img.shape的结果是torch.Size([4,28,28]),这是和img[0,:]或者img[0]是一样的。</span></span><br><span class="line">img[<span class="number">0</span>,...,<span class="number">0</span>:<span class="number">28</span>:<span class="number">2</span>]    <span class="comment"># 此时由于写了最右边的索引，中间的...等价于:,:，即img[0,:,:,0:28:2]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="索引查找"><a href="#索引查找" class="headerlink" title="索引查找"></a>索引查找</h2><p>这里介绍 index_select/masked_select/take</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同样是上面的img</span></span><br><span class="line"><span class="comment">#比如要取前三张图片，那么就是针对第一个维度（图片数目）进行挑选</span></span><br><span class="line"></span><br><span class="line">img.index_select(<span class="number">0</span>,torch.tensor([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>]))    <span class="comment"># 第一个参数为轴，第二个参数为tensor类型的索引</span></span><br><span class="line">img.index_select(<span class="number">0</span>,torch.arange(<span class="number">3</span>))    <span class="comment"># 效果同上句</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用掩码mask</span></span><br><span class="line">x=torch.rand(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">mask=x.ge(<span class="number">0.5</span>)    <span class="comment"># 会把x中大于0.5的置为一，其他置为0，类似于阈值化操作。</span></span><br><span class="line">y=torch.masked_select(x,mask)    <span class="comment"># 将mask中值为1的元素取出来，比如mask有3个位置值为1</span></span><br><span class="line">y.shape    <span class="comment"># 结果为tensor.Size([3])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#利用take取元素</span></span><br><span class="line">x=torch.tensor([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">torch.take(x,torch.tensor([<span class="number">0</span>,<span class="number">2</span>,<span class="number">6</span>]))</span><br><span class="line"><span class="comment">#则最后结果为tensor([1,3,6]),也就是说会先将tensor压缩成一维向量，再按照索引取元素。</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="维度变换"><a href="#维度变换" class="headerlink" title="维度变换"></a>维度变换</h2><p><mark>！！！这里非常重要！！！</mark></p>
+<h3 id="view-reshape"><a href="#view-reshape" class="headerlink" title="view/reshape"></a>view/reshape</h3><p>view 和 reshape 的作用是一毛一样的！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">img=torch.rand(<span class="number">4</span>,<span class="number">1</span>,<span class="number">28</span>,<span class="number">28</span>)</span><br><span class="line"></span><br><span class="line">x=img.view(<span class="number">4</span>,<span class="number">28</span>*<span class="number">28</span>)</span><br><span class="line">img.view(<span class="number">4</span>,<span class="number">28</span>,<span class="number">28</span>)</span><br><span class="line"></span><br><span class="line">x.view(<span class="number">4</span>,<span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>)<span class="comment">#此操作可行但不合理，逻辑上的问题会造成信息污染</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="squeeze-unsqueeze"><a href="#squeeze-unsqueeze" class="headerlink" title="squeeze/unsqueeze"></a>squeeze/unsqueeze</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## squeeze 减少维度数, unsqueeze 扩展维度数 ##</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># squeeze只关心有值的，可以挤压该值只有1个的维度，则最后会保留值总数目</span></span><br><span class="line">x = torch.rand(<span class="number">1</span>,<span class="number">32</span>,<span class="number">1</span>,<span class="number">1</span>)    <span class="comment"># 1张图，有32个通道，每个通道一个像素</span></span><br><span class="line">x.squeeze()    <span class="comment"># 形状变为[32]</span></span><br><span class="line">x.squeeze(<span class="number">0</span>)    <span class="comment"># [32,1,1]</span></span><br><span class="line">x.squeeze(<span class="number">1</span>)    <span class="comment"># [1,32,1,1], 并没有发生压缩，因为该维度上有值，不能减少这一维度，不会报错</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># unsqueeze会在参数维度上进行，若有此维度则会先将当前维度后移再拓展</span></span><br><span class="line">img = torch.rand(<span class="number">4</span>,<span class="number">1</span>,<span class="number">28</span>,<span class="number">28</span>)</span><br><span class="line">img.unsqueeze(<span class="number">0</span>).shape    <span class="comment"># 结果为torch.Size([1,4,1,28,28]),物理意义为batch</span></span><br><span class="line">img.unsqueeze(<span class="number">-1</span>).shape    <span class="comment"># 结果为torch.Size([4,1,28,28,1]),等价于unsqueeze(4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如图片要在某个维度上面做加减，那么仅仅有一维数据是不够的，此时就需要将一维数据扩展维度</span></span><br><span class="line">b = torch.rand(<span class="number">32</span>)    <span class="comment"># torch.Size([32])</span></span><br><span class="line">f = torch.rand(<span class="number">4</span>,<span class="number">32</span>,<span class="number">14</span>,<span class="number">14</span>)    <span class="comment"># 要做到在每个channel上增加某一bias</span></span><br><span class="line">b = b.unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">2</span>).unsqueeze(<span class="number">0</span>)    <span class="comment"># 形状为[1,32,1,1]</span></span><br><span class="line"><span class="comment"># 但仅仅如此是不够的，我们知道矩阵进行加减操作是需要形状完全一致的，所以形状必须为[4,32,14,14],这就需要在某一维度上进行拓展的操作，需要了解后面的api(expand)才可以解决。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="expand-repeat"><a href="#expand-repeat" class="headerlink" title="expand/repeat"></a>expand/repeat</h3><p>expand 操作返回 tensor 的一个新视图，单个维度扩大为更大的尺寸。tensor也可以扩大为更高维，新增加的维度将附在前面。 <mark>扩大tensor不需要分配新内存，只是仅仅新建一个tensor的视图，其中通过将stride设为0，一维将会扩展位更高维。</mark>任何一个一维的在不分配新内存情况下可扩展为任意的数值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## expand 仅在有需要时增加数据的扩展(starstarstar)/repeat主动增加数据的扩展##</span></span><br><span class="line"><span class="comment">#为了将[1,32,1,1]扩展为[4,32,14,14]:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># expand</span></span><br><span class="line"><span class="comment"># 这里接上面的代码，此时 b 的形状是 [1, 32, 1, 1]</span></span><br><span class="line">b.expend(<span class="number">4</span>,<span class="number">32</span>,<span class="number">14</span>,<span class="number">14</span>)    <span class="comment"># 直接输入想要的形状，但是只有原维度上的数值为1时才可以进行扩展</span></span><br><span class="line">b.expend(<span class="number">4</span>,<span class="number">33</span>,<span class="number">14</span>,<span class="number">14</span>)    <span class="comment"># 报错</span></span><br><span class="line">b.expend(<span class="number">4</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>)    <span class="comment"># -1 所在的维度不变，仅怎加第0维的内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># repeat，注意参数输入的是在该维度上拷贝的次数而不是形状！</span></span><br><span class="line">b.repeat(<span class="number">4</span>,<span class="number">32</span>,<span class="number">1</span>,<span class="number">1</span>)    <span class="comment"># [4,1024,1,1] 1024=32*32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#正确操作</span></span><br><span class="line">b.repeat(<span class="number">4</span>,<span class="number">1</span>,<span class="number">14</span>,<span class="number">14</span>)    <span class="comment"># [4,32,14,14]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="transpose-permute"><a href="#transpose-permute" class="headerlink" title="transpose/permute"></a>transpose/permute</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于二维向量来说：</span></span><br><span class="line">a = torch.rand(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">a.t()    <span class="comment"># 即完成了转置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于任意维度张量的转置操作：transpose</span></span><br><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">32</span>,<span class="number">32</span>)</span><br><span class="line">a.transpose(<span class="number">1</span>,<span class="number">3</span>)    <span class="comment"># 接收参数为要进行交换那两个维度，[4,32,32,3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收index来进行转置：permute</span></span><br><span class="line">a.permute(<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>)    <span class="comment"># 形状为[4,32,32,3]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Broadcasting"><a href="#Broadcasting" class="headerlink" title="Broadcasting:"></a>Broadcasting:</h2><p>在矩阵相加时，如果两矩阵的形状不一致，则会自动运行broadcast</p>
+<ol>
+<li>有点类似于先 unsqueeze 再 expand</li>
+<li>自动会在第 0 维处插入一个维度,并且同时将形状为1的部分自动转换成想要运算的对象的形状，这表示着在 broadcast 前先要将后面的维度数调至想要的样子再使用。</li>
+<li>例如，将形状为(32)的向量转化为 (4,32,14,14), 则先要 unsueeze 到(32,1,1), 才会自动 broadcast为(4,32,14,14).</li>
+<li>转换成物理意义容易理解,比如矩阵加上一个数就是 broadcast.比如上面为图片数据时,(32)就是对32个通道想要加的不同bias，会自动广播为对每个灰度值上的bias。（真正运算的是该数据的最基本单位）。加上（14，14）就是对每一张图的每个通道的图上加上一个(14,14)的bias。</li>
+</ol>
+<h2 id="拼接与拆分-cat-stack-spilit-chunk"><a href="#拼接与拆分-cat-stack-spilit-chunk" class="headerlink" title="拼接与拆分(cat/stack/spilit/chunk):"></a>拼接与拆分(cat/stack/spilit/chunk):</h2><h3 id="cat-拼接"><a href="#cat-拼接" class="headerlink" title="cat 拼接"></a>cat 拼接</h3><p><font color='red'>torch.cat(seq, dim=0, out=None)</font>：按照已经存在的维度进行concatenate。</p>
+<p>在指定的维度dim上对序列seq进行连接操作。例如：</p>
+<p>参数：</p>
+<ol>
+<li>seq (sequence of Tensors) - Python序列或相同类型的张量序列</li>
+<li>dim (int, optional) - 沿着此维度连接张量</li>
+<li>out (Tensor, optional) - 输出参数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">18</span>,<span class="number">18</span>)</span><br><span class="line">b = torch.rand(<span class="number">5</span>,<span class="number">3</span>,<span class="number">18</span>,<span class="number">18</span>)</span><br><span class="line">c = torch.rand(<span class="number">4</span>,<span class="number">1</span>,<span class="number">18</span>,<span class="number">18</span>)</span><br><span class="line">d = a.copy()</span><br><span class="line"></span><br><span class="line">torch.cat([a,b],dim=<span class="number">0</span>)<span class="comment">#拼接得到(9,3,18,18)的数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#若为2维数据，dim=0 则是竖向拼接，dim=0 就是横向拼接。dim所指维度可以不同，但其他维度形状必须一致</span></span><br><span class="line">torch.cat([a,c],dim=<span class="number">1</span>)    <span class="comment"># 就会得到(4,4,18,18)的数据。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="stack增维度拼接"><a href="#stack增维度拼接" class="headerlink" title="stack增维度拼接"></a>stack增维度拼接</h3><p><mark>这个不是很好理解！当 dim=0 的时候还好，其他情况下难理解！</mark></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.stack([a,b],dim=<span class="number">0</span>) <span class="comment"># 得到形状为(2,4,3,18,18)。使用时列表内对象的形状需要一致。</span></span><br></pre></td></tr></table></figure>
+
+<p>a = torch.IntTensor([[1,2,3],[11,22,33]])</p>
+<p>b = torch.IntTensor([[4,5,6],[44,55,66]])</p>
+<p>c = torch.stack([a,b],0)</p>
+<p>d = torch.stack([a,b],1)</p>
+<p>e = torch.stack([a,b],2)</p>
+<p>c ：tensor([[[ 1,  2,  3],</p>
+<pre><code> [11, 22, 33]],
+
+[[ 4,  5,  6],
+
+ [44, 55, 66]]], dtype=torch.int32)</code></pre><p>d ：tensor([[[ 1,  2,  3],</p>
+<pre><code> [ 4,  5,  6]],
+
+[[11, 22, 33],
+
+ [44, 55, 66]]], dtype=torch.int32)</code></pre><p>e ：tensor([[[ 1,  4],</p>
+<pre><code> [ 2,  5],
+
+ [ 3,  6]],
+
+[[11, 44],
+
+ [22, 55],
+
+ [33, 66]]], dtype=torch.int32)</code></pre><p>c, dim = 0时</p>
+<p>c = [ a, b]</p>
+<p>d, dim =1 时</p>
+<p>d = [ [a[0] , b[0] ] , [a[1], b[1] ] ]</p>
+<p>e, dim = 2 时</p>
+<p>e=[[[a[0][0],b[0][0]],[a[0][1],b[0][1]],[a[0][2],b[0][2]]],[[a[1][0],b[1][0]],[a[1][1],b[0][1]],[a[1][2],b[1][2]]]]</p>
+<h3 id="split拆分"><a href="#split拆分" class="headerlink" title="split拆分"></a>split拆分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据欲拆分长度：</span></span><br><span class="line">a1,a2 = a.split(<span class="number">2</span>,dim=<span class="number">0</span>)    <span class="comment"># 拆分长度为2.对第0维按照2个一份进行拆分。拆分获得两个形状为(2,3,18,18)的张量。</span></span><br><span class="line">a1,a2 = a.split([<span class="number">3</span>,<span class="number">1</span>],dim=<span class="number">0</span>)    <span class="comment"># 不同长度拆分。获得(3,3,18,18)和(1,3,18,18)两个形状的张量。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="chunk拆分"><a href="#chunk拆分" class="headerlink" title="chunk拆分"></a>chunk拆分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据欲拆分数量</span></span><br><span class="line">a1,a2,a3,a4=a.chunk(<span class="number">4</span>,dim=<span class="number">0</span>)    <span class="comment"># 将张量依第0维拆分成4个(1,3,18,18)的张量。等效于a.split(1,dim=0)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># + 等价于 torch.add()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 乘法</span></span><br><span class="line"><span class="comment"># tensor 直接用 * 运算符的话, 其结果为 element wise, 矩阵乘法为 torch.matmul 或者 @</span></span><br><span class="line"><span class="comment"># 高维tensor矩阵相乘实际上是对多个二维矩阵进行并行运算</span></span><br><span class="line">a=torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">28</span>,<span class="number">64</span>)</span><br><span class="line">b=torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">64</span>,<span class="number">32</span>)</span><br><span class="line">a@b    <span class="comment"># 结果得到的形状为(4,3,28,32)</span></span><br><span class="line"><span class="comment"># 若(4,3,28,64)@(4,1,64,32) 则会自动调用广播机制，把 (4,1,64,32) 转变为 (4,3,64,32) 再相乘。</span></span><br><span class="line"><span class="comment"># 无法调用广播机制的乘法则会报错。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 平方</span></span><br><span class="line">a = torch.full([<span class="number">2</span>,<span class="number">2</span>],<span class="number">2</span>) <span class="comment"># 创建一个(2,2)的全2矩阵</span></span><br><span class="line">a.pow(<span class="number">2</span>)    <span class="comment"># a的每个元素都平方</span></span><br><span class="line">a**<span class="number">2</span>    <span class="comment"># 等价于上一句</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开方</span></span><br><span class="line">a.sqrt()    <span class="comment"># 平方根</span></span><br><span class="line">a**<span class="number">0.5</span>    <span class="comment"># 等价于上一句</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># exp,log</span></span><br><span class="line">a.torch.exp(torch.ones(<span class="number">2</span>,<span class="number">2</span>))</span><br><span class="line">torch.log(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 近似</span></span><br><span class="line"><span class="comment"># floor()向下取整，ceil()向上取整，round()四舍五入。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 取整取小数</span></span><br><span class="line"><span class="comment"># trunc()取整，frac()取小数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># clamp取范围</span></span><br><span class="line">a = torch.tensor([[<span class="number">3</span>,<span class="number">5</span>],[<span class="number">6</span>,<span class="number">8</span>]])</span><br><span class="line">a.clamp(<span class="number">6</span>)    <span class="comment"># 得到[[6,6],[6,8]],小于6的都变为6</span></span><br><span class="line">a.clamp(<span class="number">5</span>,<span class="number">6</span>)    <span class="comment"># 得到[[5,5],[6,6]],小于下限变为下限，大于上限变为上限。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="统计属性"><a href="#统计属性" class="headerlink" title="统计属性"></a>统计属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 范数</span></span><br><span class="line"><span class="comment"># 求多少 p 范数只需要在 norm(p) 的参数中修改 p 即可</span></span><br><span class="line">a.norm(<span class="number">1</span>)    <span class="comment"># 求a的一范数，范数也可以加dim=</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 求最大值和最小值与其相关的索引</span></span><br><span class="line">a.min()</span><br><span class="line">a.max()</span><br><span class="line">a.argmax()    <span class="comment"># 会得到索引值，返回的永远是一个标量，多维张量会先拉成向量再求得其索引。拉伸的过程为每一行加起来变成一整行，而不是matlab中的列拉成一整列。</span></span><br><span class="line">a.argmin()</span><br><span class="line">a.argmax(dim=<span class="number">1</span>)    <span class="comment"># 如果不想获取拉伸后的索引值就需要在指定维度上进行argmax，比如如果a为(2，2)的矩阵，那么这句话的结果就可能是[1,1],表示第一行第一个在此行最大，第二行第一个在此行最大。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#累加总和</span></span><br><span class="line">a.sum()</span><br><span class="line"></span><br><span class="line"><span class="comment">#累乘综合</span></span><br><span class="line">a.prod()</span><br><span class="line"></span><br><span class="line"><span class="comment">#dim,keepdim</span></span><br><span class="line"><span class="comment">#假设a的形状为(4,10)</span></span><br><span class="line">a.max(dim=<span class="number">1</span>)<span class="comment">#结果会得到一个(4)的张量，表示4个样本中每个样本10个特征的最大值组成的张量。(max换成argmax也是同理)。</span></span><br><span class="line">a.max(dim=<span class="number">1</span>,keepdim=<span class="literal">True</span>)<span class="comment">#同时返回a.argmax(dim=1)得到的结果，以保持维度数目和原来一致。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#top-k,k-th</span></span><br><span class="line">a.topk(<span class="number">5</span>)<span class="comment">#返回张量a前5个最大值组成的向量</span></span><br><span class="line">a.topk(<span class="number">5</span>,dim=<span class="number">1</span>,largest=<span class="literal">False</span>)<span class="comment">#关闭largest求最小的5个</span></span><br><span class="line">a.kthvalue(<span class="number">8</span>,dim=<span class="number">1</span>)<span class="comment">#返回第八小的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#比较操作</span></span><br><span class="line"><span class="comment">#都是进行element-wise操作</span></span><br><span class="line">torch.eq(a,b)<span class="comment">#返回的是张量</span></span><br><span class="line">torch.equal(a,b)<span class="comment">#返回的是True或者False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="where-gather"><a href="#where-gather" class="headerlink" title="where/gather"></a>where/gather</h2><p>函数<font color='red'>torch.gather(input, dim, index, out=None) → Tensor</font><br>沿给定轴 dim ,将输入索引张量 index 指定位置的值进行聚合.<br>对一个 3 维张量,输出可以定义为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gather</span></span><br><span class="line">out[i][j][k] = input[index[i][j][k]][j][k]  <span class="comment"># if dim == 0</span></span><br><span class="line">out[i][j][k] = input[i][index[i][j][k]][k]  <span class="comment"># if dim == 1</span></span><br><span class="line">out[i][j][k] = input[i][j][index[i][j][k]]  <span class="comment"># if dim == 2</span></span><br></pre></td></tr></table></figure>
+
+<p>Parameters:</p>
+<ol>
+<li>input (Tensor) – 源张量</li>
+<li>dim (int) – 索引的轴</li>
+<li>index (LongTensor) – 聚合元素的下标(index需要是torch.longTensor类型)</li>
+<li>out (Tensor, optional) – 目标张量</li>
+</ol>
+<p>一个应用：在动手学习深度学习中学到了一个函数gather，原文是说可以通过gather得到标签的预测概率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y_hat = torch.tensor([[<span class="number">0.1</span>,<span class="number">0.3</span>,<span class="number">0.6</span>],[<span class="number">0.3</span>,<span class="number">0.2</span>,<span class="number">0.5</span>]])</span><br><span class="line">y = torch.LongTensor([<span class="number">0</span>,<span class="number">2</span>])</span><br><span class="line">y_hat.gather(<span class="number">1</span>,y.view(<span class="number">-1</span>,<span class="number">1</span>)) </span><br><span class="line">tensor([[<span class="number">0.1000</span>],</span><br><span class="line">        [<span class="number">0.5000</span>]])</span><br></pre></td></tr></table></figure>
+
+<p>where 函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.where(condition,x,y)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="DataSet-DataLoader"><a href="#DataSet-DataLoader" class="headerlink" title="DataSet/DataLoader"></a>DataSet/DataLoader</h1><h1 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h1><h1 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-md/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1512,7 +1809,260 @@
       
         
           
-            <h1 id="Creational-Patterns"><a href="#Creational-Patterns" class="headerlink" title="Creational Patterns"></a>Creational Patterns</h1><h2 id="Factory-Method"><a href="#Factory-Method" class="headerlink" title="Factory Method"></a>Factory Method</h2><h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">    static  A&amp; getInstance();</span><br><span class="line">    setup() &#123;&#x2F;&#x2F;...&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    A();</span><br><span class="line">    A(const A&amp; rhs);</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A&amp; A::getInstance()&#123;</span><br><span class="line">    static A a;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; A::getInstance().setup();</span><br></pre></td></tr></table></figure>
+            <h1 id="设计模式简介"><a href="#设计模式简介" class="headerlink" title="设计模式简介"></a>设计模式简介</h1><ol start="0">
+<li>课程目标<ol>
+<li>理解松耦合设计思想</li>
+<li>掌握面向对象设计原则</li>
+<li>掌握重构技法改善设计</li>
+<li>掌握 GOF 核心设计模式</li>
+</ol>
+</li>
+<li>什么是设计模式？<ol>
+<li>“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。— Christopher Alexander</li>
+</ol>
+</li>
+<li>经典教材<ol>
+<li>《设计模式-可复用面向对象软件的基础》</li>
+<li>主要是面向对象领域的设计模式。（不涉及比如架构领域的设计模式，数据库里面的设计模式，etc）</li>
+<li>1994年的教材了，一些新的发展可能没有包括进来。</li>
+</ol>
+</li>
+<li>从面向对象谈起<ol>
+<li>底层思维：向下，如何把握机器底层从微观理解对象构造<ol>
+<li>语言构造</li>
+<li>编译转换</li>
+<li>内存模型</li>
+<li>运行时机制</li>
+</ol>
+</li>
+<li>抽象思维：向上，如何将我们的周围世界抽象为程序代码<ol>
+<li>面向对象</li>
+<li>组件封装</li>
+<li>设计模式</li>
+<li>架构模式</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>深入理解面向对象<ol>
+<li>向下：深入理解三大面向对象机制<ol>
+<li>封装，隐藏内部实现</li>
+<li>继承，复用现有代码</li>
+<li>多态，改写对象行为</li>
+</ol>
+</li>
+<li>向上：深刻把握面向对象机制所带来的抽象意义，理解如何使用这些机制来表达现实世界，掌握什么是“好的面向对象设计”</li>
+</ol>
+</li>
+<li>软件设计复杂的根本原因：变化<ol>
+<li>客户需求的变化</li>
+<li>技术平台的变化</li>
+<li>开发团队的变化</li>
+<li>市场环境的变化</li>
+</ol>
+</li>
+<li>如何解决复杂性<ol>
+<li>分解<ol>
+<li>即分而治之，把大问题分解为多个小问题，将复杂问题分解为多个简单问题</li>
+</ol>
+</li>
+<li>抽象<ol>
+<li>更高层次来讲，人们处理复杂性有一个通用的技术，即抽象。由于不能掌握全部的复杂对象，我们选择忽视它的非本质细节，而去处理泛化和理想化了的对象模型。</li>
+<li><mark>随着课程深入你会对抽象这个关键词理解得越来越深！我们所有的得设计模式也都是围绕这个关键词！</mark></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>软件设计的目标<ol>
+<li>什么是好的软件设计？<mark>软件设计的金科玉律：复用！！！</mark></li>
+</ol>
+</li>
+</ol>
+<p>举例</p>
+<ol>
+<li>抽象可以让我们以一个统一的方式去处理。</li>
+</ol>
+<h1 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h1><ol>
+<li>面向对象设计，为什么？<ol>
+<li><mark>变化是复用的天敌！</mark></li>
+<li><mark>面向对象设计最大的优势在于：抵御变化！</mark></li>
+</ol>
+</li>
+<li>重新认识面向对象<ol>
+<li>之前说的封装，继承和多态是从微观的角度来说的，这里从更抽象的角度来讨论。</li>
+<li>理解“隔离变化”<ol>
+<li>从宏观层面来看，面向对象的构建方式更能适应软件的变化，能将变化所带来的影响减为最小</li>
+</ol>
+</li>
+<li>各司己职<ol>
+<li>从微观层面来看，面向对象的方式更强调各个类的“责任”</li>
+<li>由于需求变化导致的新增类型不应该影响原来类型的实现—是所谓各负其责</li>
+</ol>
+</li>
+<li>对象是什么？<ol>
+<li>从语言实现层面来看，对象封装了代码和数据。</li>
+<li>从规格层面讲，对象是一系列可被使用的公共接口。</li>
+<li>从概念层面讲，对象是某种拥有责任的抽象。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>注意！<ol>
+<li>下面要介绍的八大设计原则要比具体的设计模式更重要！</li>
+<li>这节课提到的设计模式，有些今天已经不流行了，有些模式已经被某些语言机制给替代了，这都不重要。</li>
+<li>设计原则才是最重要的！！！不要把设计模式当成算法来学习！</li>
+</ol>
+</li>
+<li>面向接口设计<ol>
+<li><mark>产业强盛的标志：接口标准化！因为它的核心就是分工合作！</mark></li>
+</ol>
+</li>
+</ol>
+<h2 id="依赖倒置原则-DIP"><a href="#依赖倒置原则-DIP" class="headerlink" title="依赖倒置原则 DIP"></a>依赖倒置原则 DIP</h2><ol>
+<li>详细解释<ol>
+<li>高层模块（稳定）不应该依赖于低层模块（变化），二者都应该依赖于抽象（稳定）</li>
+<li>抽象（稳定）不应该依赖于实现细节（变化），实现细节应该依赖于抽象（稳定）</li>
+</ol>
+</li>
+</ol>
+<h2 id="开放封闭原则-OCP"><a href="#开放封闭原则-OCP" class="headerlink" title="开放封闭原则 OCP"></a>开放封闭原则 OCP</h2><ol>
+<li>开放封闭原则<ol>
+<li>对扩展开放，对更改封闭</li>
+<li>类模块应该是可扩展的，但是不可更改。</li>
+</ol>
+</li>
+<li>例子<ol>
+<li></li>
+</ol>
+</li>
+</ol>
+<h2 id="单一职责原则-SRP"><a href="#单一职责原则-SRP" class="headerlink" title="单一职责原则 SRP"></a>单一职责原则 SRP</h2><ol>
+<li>单一职责原则<ol>
+<li>一个类应该仅有一个引起它变化的原因</li>
+<li>变化的方向隐含着类的责任</li>
+</ol>
+</li>
+</ol>
+<h2 id="Liskov-替换原则-LSP"><a href="#Liskov-替换原则-LSP" class="headerlink" title="Liskov 替换原则 LSP"></a>Liskov 替换原则 LSP</h2><ol>
+<li>LSP<ol>
+<li>子类必须能够替换它们的基类（IS-A）</li>
+<li>继承表达类型抽象</li>
+</ol>
+</li>
+</ol>
+<h2 id="接口隔离原则-ISP"><a href="#接口隔离原则-ISP" class="headerlink" title="接口隔离原则 ISP"></a>接口隔离原则 ISP</h2><ol>
+<li>接口隔离原则<ol>
+<li>不应该强迫客户程序依赖他们不用的方法</li>
+<li>接口应该小而完备。（尽量少的 public 方法）</li>
+</ol>
+</li>
+</ol>
+<h2 id="优先使用对象组合，而不是类继承"><a href="#优先使用对象组合，而不是类继承" class="headerlink" title="优先使用对象组合，而不是类继承"></a>优先使用对象组合，而不是类继承</h2><ol>
+<li>详细解释<ol>
+<li>类继承通常为“白箱复用”，对象组合通常为“黑箱复用” （对象组合：classA 里面有一个 classB）</li>
+<li>继承在某种程度上破坏了封装性，子类父类耦合度高（即父类给子类暴露了太多）</li>
+<li>对象组合则只要求被组合的对象具有良好定义的接口，耦合度低</li>
+</ol>
+</li>
+</ol>
+<h2 id="封装变化点"><a href="#封装变化点" class="headerlink" title="封装变化点"></a>封装变化点</h2><ol>
+<li>详细解释<ol>
+<li>使用封装来创建对象之间的分阶层，让设计者可以再分界层的一侧进行修改，而不会对另一侧产生不良的影响，从而实现层次间的松耦合</li>
+</ol>
+</li>
+</ol>
+<h2 id="针对接口编程而不是针对实现编程"><a href="#针对接口编程而不是针对实现编程" class="headerlink" title="针对接口编程而不是针对实现编程"></a>针对接口编程而不是针对实现编程</h2><ol>
+<li>详细解释<ol>
+<li>不将变量类型声明为某个特定的具体类，而是声明为某个接口</li>
+<li>客户程序无需获知对象的具体类型，只需要知道对象所具有的接口</li>
+<li>减少系统中各部分的依赖关系，从而实现“高内聚、松耦合”的类型设计方案</li>
+</ol>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>将设计原则提升为设计经验</p>
+<ol>
+<li>设计习语 Design Idioms<ol>
+<li>Design Idioms 描述与特定编程语言相关的底层模式，技巧，习惯用法</li>
+</ol>
+</li>
+<li>设计模式 Design Patterns<ol>
+<li>Design Patterns 主要描述的是“类与相互通信的对象之间的组织关系，包括它们的角色、职责、协作方式等方面”。</li>
+</ol>
+</li>
+<li>架构模式 Architectural Patterns<ol>
+<li>Architectural Patterns 描述系统中与基本结构组织关系密切的高层模式，包括子系统划分，职责，以及如何组织他们之间关系的规则。</li>
+</ol>
+</li>
+</ol>
+<h1 id="模式分类"><a href="#模式分类" class="headerlink" title="模式分类"></a>模式分类</h1><h2 id="GOF-23-模式分类"><a href="#GOF-23-模式分类" class="headerlink" title="GOF-23 模式分类"></a>GOF-23 模式分类</h2><ol>
+<li>从目的来看:<ol>
+<li>创建型(Creational)模式:将对象的部分创建工作延迟到子 类或者其他对象，从而应对需求变化为对象创建时具体类型实 现引来的冲击。</li>
+<li>结构型(Structural)模式:通过类继承或者对象组合获得更灵 活的结构，从而应对需求变化为对象的结构带来的冲击。</li>
+<li>行为型(Behavioral)模式:通过类继承或者对象组合来划分 类与对象间的职责，从而应对需求变化为多个交互的对象带来 的冲击。</li>
+</ol>
+</li>
+<li>从范围来看:<ol>
+<li>类模式处理类与子类的静态关系（继承）</li>
+<li>对象模式处理对象间的动态关系（组合）</li>
+</ol>
+</li>
+</ol>
+<h2 id="从封装变化角度对模式分类"><a href="#从封装变化角度对模式分类" class="headerlink" title="从封装变化角度对模式分类"></a>从封装变化角度对模式分类</h2><ol>
+<li>组件协作:<ol>
+<li>Template Method</li>
+<li>Observer / Event</li>
+<li>Strategy</li>
+</ol>
+</li>
+<li>单一职责:<ol>
+<li>Decorator</li>
+<li>Bridge </li>
+</ol>
+</li>
+<li>对象创建:<ol>
+<li>Factory Method</li>
+<li>Abstract Factory</li>
+<li>Prototype</li>
+<li>Builder</li>
+</ol>
+</li>
+<li>对象性能:<ol>
+<li>Singleton</li>
+<li>Flyweight</li>
+</ol>
+</li>
+<li>接口隔离:<ol>
+<li>Façade</li>
+<li>Proxy</li>
+<li>Mediator</li>
+<li>Adapter</li>
+</ol>
+</li>
+<li>状态变化:<ol>
+<li>Memento</li>
+<li>State</li>
+</ol>
+</li>
+<li>数据结构:<ol>
+<li>Composite</li>
+<li>Iterator</li>
+<li>Chain of Resposibility</li>
+</ol>
+</li>
+<li>行为变化:<ol>
+<li>Command</li>
+<li>Visitor</li>
+</ol>
+</li>
+<li>领域问题:<ol>
+<li>Interpreter</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始语句</span><br><span class="line">in&#x3D;&gt;inputoutput: 输入值</span><br><span class="line">e&#x3D;&gt;end: 结束语句</span><br><span class="line">op&#x3D;&gt;operation: 执行操作</span><br><span class="line">cond&#x3D;&gt;condition: 是否成立？</span><br><span class="line">out&#x3D;&gt;inputoutput: 输出值</span><br><span class="line">st-&gt;in-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;out</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">out-&gt;e</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Creational-Patterns"><a href="#Creational-Patterns" class="headerlink" title="Creational Patterns"></a>Creational Patterns</h1><h2 id="Factory-Method"><a href="#Factory-Method" class="headerlink" title="Factory Method"></a>Factory Method</h2><h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">    static  A&amp; getInstance();</span><br><span class="line">    setup() &#123;&#x2F;&#x2F;...&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    A();</span><br><span class="line">    A(const A&amp; rhs);</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A&amp; A::getInstance()&#123;</span><br><span class="line">    static A a;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; A::getInstance().setup();</span><br></pre></td></tr></table></figure>
 
 <p>解释一下</p>
 <ol>
@@ -1588,7 +2138,7 @@ LandSatImage::draw 5</code></pre><p>注意：</p>
 </li>
 <li>第三个要注意的是，不要搞混了主函数里的 images 数组和上面提到的 <code>_prototypes[]</code> 数组！</li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
 <p>原型模式作为创建型模式中最特殊的一个模式，具体的创建过程，是由对象本身提供，这样我们在很多的场景下可以很方便的快速的构建新的对象。但是，原型模式的最大缺点是继承原型的子类都要实现Clone操作，这个是很困难的。例如，当所考虑的类已经存在时就难以新增Clone操作。当内部包括一些不支持拷贝或者有循环引用的对象时，实现克隆可能也会很困难。说以说，每一种设计模式都有它的优点和缺点，在设计的时候，我们需要进行权衡各方面的因素，扬长避短。</p>
 <h1 id="Structural-Patterns"><a href="#Structural-Patterns" class="headerlink" title="Structural Patterns"></a>Structural Patterns</h1><h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/cpp-design-pattern-composite.png" alt=""></p>
 <h2 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h2><h2 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h2><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><h1 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h1><h2 id="Chain-of-responsibility"><a href="#Chain-of-responsibility" class="headerlink" title="Chain of responsibility"></a>Chain of responsibility</h2><h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>在文章 <a href="https://zheng-xing.github.io/2020/01/05/cpp-summary/#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8" target="_blank" rel="noopener">cpp-summary</a> 里面介绍虚函数，虚函数表，和虚表指针的时候，那里提到了虚函数的一个常见用法。</p>
@@ -3777,397 +4327,6 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/01/leetcode-dp-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Xing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/01/leetcode-dp-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url">leetcode-dp-动态规划</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-01T13:35:23+08:00">
-                2020-01-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/01/leetcode-dp-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/01/01/leetcode-dp-动态规划/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="找零钱-coin-change-2-lc0518"><a href="#找零钱-coin-change-2-lc0518" class="headerlink" title="找零钱 coin change 2 lc0518"></a>找零钱 coin change 2 lc0518</h2><p>[题目]<br>给定不超过 100 万元的现金总额，兑换成数量不限的 100, 50, 20, 10, 5, 2, 1 的组合，共有多少种组合呢？</p>
-<p>[思路一]<br>这个是视频里讲得思路</p>
-<ul>
-<li>定义 dp[i][j]: 使用面额小于等于 i 的钱币，凑成 j 元钱，共有多少种组合方法。</li>
-<li>dp[100][500] = dp[50][500] + dp[100][400]</li>
-<li>dp[i][j] = dp[i_small][j] + dp[i][j-1]<ul>
-<li>不考虑下界溢出的情况</li>
-</ul>
-</li>
-</ul>
-<p>[思路二！错误！！！]</p>
-<ul>
-<li>我觉得把，用个一维的数组来做 dp 就可以了。<ul>
-<li>DP[target] 表示用给定的钱币凑出来 target 的组合数量，那么</li>
-<li>DP[target] 显然等于 DP[target-1] + DP[target-2] + DP[target-5] + … + DP[target-100]</li>
-</ul>
-</li>
-<li>就跟走楼梯的方法一模一样啊！！！</li>
-<li><mark>我擦！！！这个方法是错误的！！！因为会出现同样的组合，但是因为加入的顺序不同而重复计算了！！！</mark><ul>
-<li>比如用 {1, 2} 来组合成 3元。</li>
-<li>按照这里的计算方法 dp[1] = 1, dp[2] = 2, dp[3] = 1 + 2 = 3</li>
-<li>但是事实上，组合成 3 只有 {1, 1, 1} 和 {1, 2} 两种方式，上面的算法里面把 {2, 1} 也算进来了。</li>
-</ul>
-</li>
-</ul>
-<p>[思路三]</p>
-<ul>
-<li>这个是类似于 combination sum (leetcode 0039) 的思路！</li>
-<li>这个肯定是可以做出来的，但是超时了！！！</li>
-</ul>
-<h2 id="最小编辑距离"><a href="#最小编辑距离" class="headerlink" title="最小编辑距离"></a>最小编辑距离</h2><p>[题目]<br>Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.</p>
-<p>You have the following 3 operations permitted on a word:</p>
-<ol>
-<li>Insert a character</li>
-<li>Delete a character</li>
-<li>Replace a character</li>
-</ol>
-<p>[分析]<br>直接使用 DP 的话因为要考虑删除字符，有点不好理解，这里先转化成一个对齐的问题！</p>
-<table>
-<thead>
-<tr>
-<th>S</th>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>F</th>
-<th>-</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>T</td>
-<td>D</td>
-<td>B</td>
-<td>-</td>
-<td>F</td>
-<td>G</td>
-</tr>
-</tbody></table>
-<ol>
-<li>S = “ABCF”, T = “DBFG”</li>
-<li>对应位置相同时候不扣分，不同则扣一分（修改了）</li>
-<li>两个特殊字符”-“ 不会对应</li>
-<li>S 位置 “-“ 代表增加字符</li>
-<li>T 位置 “-“ 代表删掉字符</li>
-<li>目标是使得扣分最少</li>
-</ol>
-<p>这个问题的 DP 思路就很好想到了</p>
-<ol>
-<li>假定 DP[i][j] 表示 S[0…i-1] 和 T[0…j-1] 对齐了</li>
-<li>现在需要看 S[i] == T[j] ?<ol>
-<li>如果相等, 说明 DP[i+1][j+1] = DP[i][j]</li>
-<li>如果不相等，则有三种操作方式<ol>
-<li>S[i] 替换成 T[j], DP[i+1][j+1] = DP[i][j] + 1</li>
-<li>删掉 S[i], DP[i+1][j+1] = DP[i][j+1] + 1</li>
-<li>删掉 T[j], DP[i+1][j+1] = DP[i+1][j] + 1</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>初值<ol>
-<li>DP[0][j] = j, DP[i][0] = i</li>
-</ol>
-</li>
-<li>同样，空间可以优化一下，稍微需要点技巧。</li>
-</ol>
-<h2 id="两次走棋盘"><a href="#两次走棋盘" class="headerlink" title="两次走棋盘"></a>两次走棋盘</h2><p>[题目]</p>
-<ul>
-<li>Maximum points from top left of matrix to bottom right and return back</li>
-<li>给定 MxN 的矩阵，每个位置是一个非负的权值，从左上角开始，每次只能朝右和下走，走到右下角；然后，从右下角开始，每次只能超左和上走，走到左上角。求权值总和最大的路径。若相同格子走过两次，则该位置的权值只算一次。</li>
-</ul>
-<p>[思路]</p>
-<ol>
-<li>错误的思路一：贪心，先从左上到右下，再从右下到左上！这样子做选的路径两条路将会一模一样，因为重复的结点权值只算一次，这样子肯定不行。</li>
-<li>错误的思路二：接错误一，如果你第一次走的时候把走过的结点权值改成 0，然后第二次走再选最大的路径。这样子也是不对的！</li>
-<li>正确的思路：这题的一个技巧是把第二个图翻转过来，跟第一条路放到一起，二者同时走，即从左上角同时出发有两条路，终点都是右下角！</li>
-<li>有了这个转换之后，显然，就可以用 row1, col1, row2, row4 来表示状态了！注意在任何时刻都满足条件： row1 + col1 = row2 + col2. 因此可以只用三个变量 row1, col1, row2 来表示状态。</li>
-<li>在任意时刻，如果两条路汇合到同一个位置，那么这个位置的权值只计算一次，如果在两个不同的位置，那么两个权值都计算上！</li>
-</ol>
-<p>[代码]<br>这里的代码是自上而下的一个 DP.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="keyword">int</span> row1, <span class="keyword">int</span> col1, <span class="keyword">int</span> row2, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; goldMatrix, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; dp)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> col2 = row1 + col1 - row2;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> m = goldMatrix.<span class="built_in">size</span>(), n = goldMatrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if they reach bottom right location</span></span><br><span class="line">    <span class="keyword">if</span>(row1 == m<span class="number">-1</span> &amp;&amp; row1 == row2 &amp;&amp; col1 == n<span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> goldMatrix[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(row1 == m || row2 == m || col1 == n || col2 == n)&#123;</span><br><span class="line">        <span class="keyword">return</span> INT_MIN;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The same state has been calculated previously</span></span><br><span class="line">    <span class="keyword">if</span>(dp[row1][col1][row2] != <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[row1][col1][row2];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// They are at the same spot</span></span><br><span class="line">    <span class="keyword">if</span>(row1 == row2)&#123; </span><br><span class="line">        res += goldMatrix[row1][col1];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res += (goldMatrix[row1][col1] + goldMatrix[row2][col2]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// first move right, second move right</span></span><br><span class="line">    dp1 = helper(row1, col1+<span class="number">1</span>, row2, goldMatrix, dp);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// first move right, second move down</span></span><br><span class="line">    dp2 = helper(row1, col1+<span class="number">1</span>, row2+<span class="number">1</span>, goldMatrix, dp);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// first move down, second move right</span></span><br><span class="line">    dp3 = helper(row1+<span class="number">1</span>, col, row2, goldMatrix, dp);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// first move down, second move down</span></span><br><span class="line">    dp4 = helper(row1 + <span class="number">1</span>, col, row2 + <span class="number">1</span>, goldMatrix, dp);</span><br><span class="line"></span><br><span class="line">    res += <span class="built_in">max</span>(dp1, <span class="built_in">max</span>(dp2, <span class="built_in">max</span>(dp3, dp4)));</span><br><span class="line"></span><br><span class="line">    dp[row1][col1][row2] = res;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">collectGold</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; goldMatrix)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = goldMatrix.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> n = goldMatrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n, <span class="number">-1</span>))</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, goldMatrix, dp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 错位排列</span><br><span class="line">[问题]</span><br><span class="line"><span class="number">1.</span> 把数字 <span class="number">1</span> 到 n 做个排列，要求数字 i 不能位于第 i 个位置。问：这样的排列一共有多少种?</span><br><span class="line"><span class="number">2.</span> 这个问题最早是由 Danial Bernoulli （著名的伯努利家族成员）提出的。</span><br><span class="line"></span><br><span class="line">[思路]</span><br><span class="line"><span class="number">1.</span> (n<span class="number">-1</span>)! 这个结果是不对的，不能排除掉重复的结果！</span><br><span class="line"><span class="number">2.</span> 先考虑 n</span><br><span class="line">    <span class="number">1.</span> n 可以放置在 <span class="number">1</span> 到 n<span class="number">-1</span> 一共 n<span class="number">-1</span> 种可能。假设放在了 k 位置</span><br><span class="line"><span class="number">3.</span> 现在考虑数字 k，有两种情况</span><br><span class="line">    <span class="number">1.</span> 第一种情况，数字 k 放到了 位置 n，那么剩下的可能就是 DP(n<span class="number">-2</span>) 了。</span><br><span class="line">    <span class="number">2.</span> 第二种情况下，数字 k 不能放到位置 n，这时候把数字 k 想象成数字 n（数字 n 本来已经用掉了，可以用 k 替代它继续做问题），而剩下的 n<span class="number">-2</span> 个数字也各有一个位置不能放！其实这就是 DP(n<span class="number">-1</span>) 啊！</span><br><span class="line"><span class="number">4.</span> 所以 DP 的转移公式是</span><br><span class="line">    <span class="number">1.</span> DP[n] = (n<span class="number">-1</span>)(DP[n<span class="number">-1</span>] + DP[n<span class="number">-2</span>])</span><br><span class="line"></span><br><span class="line">![Screen Shot <span class="number">2020</span><span class="number">-01</span><span class="number">-01</span> at <span class="number">17.16</span><span class="number">.10</span>.png](https:<span class="comment">//ws1.sinaimg.cn/large/6a607485gy1gahya0ozdgj20l20c043w.jpg)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Dungeon-Game-lc0174"><a href="#Dungeon-Game-lc0174" class="headerlink" title="Dungeon Game lc0174"></a>Dungeon Game lc0174</h2><p>[题目]</p>
-<ol>
-<li>也是走棋盘的题目的变种。</li>
-<li>一个骑士从棋盘的左上角开始走，公主在棋盘的右下角。</li>
-<li>每个棋盘的位置有一个数字，可正可负，代表骑士走到这个位置其血量会发生的变化。</li>
-<li>骑士在任何时候，其血量如果降到 0 或者 负数就会立刻死亡。</li>
-<li>请问骑士最开始的时候最低需要多少血量，才能保证救到公主后还活着？</li>
-</ol>
-<p>[分析]</p>
-<ol>
-<li>说一下我最开始的思路。看到题目就知道是 dp 问题，然后就想着去模拟骑士的走法了！<ol>
-<li>我想的是维护两个 dp 矩阵</li>
-<li>一个是走到当前位置需要的初始最低血量</li>
-<li>另外还需要维护的是在这个最低的初始血量下，走到当前位置时候拥有多少血量！</li>
-<li>不过在推导递推公式时候遇到了麻烦。</li>
-<li>虽然我知道每个位置只能从上面或者左边的位置过来</li>
-<li>但是我不知道在 (low_min_hp, high_cur_hp) 和 (high_min_hp, low_cur_hp) 里面该如何选！</li>
-<li>纠结半天还是没有考虑清楚。</li>
-</ol>
-</li>
-<li>后来参考答案才发现从左上到右下这个步骤是搞不定的，正确的思路应该是倒着考虑，从公主那里往前推<ol>
-<li>此时就只需要维护一个最低血量的 dp 矩阵就可以了，其中 <code>dp[i][j]</code> 表示从这个位置走到公主那里需要的最低血量，可以保证走到公主那里后剩的血量至少为 1.</li>
-<li>为啥不需要维护当前的血量了呢，因为如果这个当前血量大于 1，那么我们就把它设成 1 就可以了啊</li>
-</ol>
-</li>
-</ol>
-<p>[代码如下]</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Use hp[i][j] to store the min hp needed at position (i, j), </span></span><br><span class="line"><span class="comment">// then do the calculation from right-bottom to left-up.</span></span><br><span class="line"><span class="comment">// Note: adding dummy row and column would make the code cleaner.</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculateMinimumHP</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;dungeon)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> M = dungeon.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> N = dungeon[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">// hp[i][j] represents the min hp needed at position (i, j)</span></span><br><span class="line">        <span class="comment">// Add dummy row and column at bottom and right side</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="title">hp</span><span class="params">(M + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(N + <span class="number">1</span>, INT_MAX))</span></span>;</span><br><span class="line">        hp[M][N - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        hp[M - <span class="number">1</span>][N] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = M - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = N - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">int</span> need = <span class="built_in">min</span>(hp[i + <span class="number">1</span>][j], hp[i][j + <span class="number">1</span>]) - dungeon[i][j];</span><br><span class="line">                hp[i][j] = need &lt;= <span class="number">0</span> ? <span class="number">1</span> : need;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> hp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="三字符字符串组合"><a href="#三字符字符串组合" class="headerlink" title="三字符字符串组合"></a>三字符字符串组合</h2><p>[题目]<br>仅由三个字符 A, B, C 构成字符串，且字符串任意三个相邻元素不能完全相同。如 “ACCCAB” 不合法，”ABBCBCA” 合法。求满足条件的长度为 n 的字符串个数。note: 假定不考虑整数溢出，并且要求时间和空间复杂度不高于 O(N)。</p>
-<p>[分析]</p>
-<ol>
-<li>若当前已经有了所有长度为 n-1 的合法字符串，如何在末端增加一个字符，形成长度为 n 的字符串呢？</li>
-<li>将长度为 n-1 字符串分成”末尾两个字符不相等“和”末尾两个字符相等“两种情况，各自数目记做 dp[n-1][0], dp[n-1][1]:<ol>
-<li>dp[n][0] = 2 * dp[n-1][0] + 2 * dp[n-1][1]</li>
-<li>dp[n][1] = dp[n-1][0]</li>
-<li>初始条件是 dp[1][0] = 3, dp[1][1] = 0</li>
-</ol>
-</li>
-</ol>
-<h3 id="改进空间复杂度"><a href="#改进空间复杂度" class="headerlink" title="改进空间复杂度"></a>改进空间复杂度</h3><ol start="3">
-<li><mark>状态转移方程总结与改进</mark><ol>
-<li>滚动数组法</li>
-<li>dp[0] = 2 * dp[0] + 2 * dp[1]</li>
-<li>dp[1] = dp[0]</li>
-<li>此法将空间复杂度由 O(N) 降到 O(1)</li>
-</ol>
-</li>
-</ol>
-<p>[代码]</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CalcCount</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nNonRepeat = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> nRepeat = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        t = nNonRepeat;</span><br><span class="line">        nNonRepeat = <span class="number">2</span> * (nNonRepeat + nRepeat);</span><br><span class="line">        nRepeat = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nNonRepeat + nRepeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="改进时间复杂度"><a href="#改进时间复杂度" class="headerlink" title="改进时间复杂度"></a>改进时间复杂度</h3><p><img src="https://raw.githubusercontent.com/zheng-xing/ImageStorage/master/2020-01-04-at-15-36-26.png" alt=""></p>
-<p>而一个矩阵的 n 次幂可以用递归方法来做。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Matrix2x2</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">int</span> d;</span><br><span class="line"></span><br><span class="line">    Matrix2x2(<span class="keyword">int</span> aa, <span class="keyword">int</span> bb, <span class="keyword">int</span> cc, <span class="keyword">int</span> dd) : a(aa), b(bb), c(cc), d(dd) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> aa, <span class="keyword">int</span> bb, <span class="keyword">int</span> cc, <span class="keyword">int</span> dd)</span></span>&#123;</span><br><span class="line">        a = aa;</span><br><span class="line">        b = bb;</span><br><span class="line">        c = cc;</span><br><span class="line">        d = dd;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MatrixMultiply</span><span class="params">(Matrix2x2 &amp; m, Matrix2x2 &amp; n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = m.a * n.a + m.b * n.c;</span><br><span class="line">    <span class="keyword">int</span> b = m.a * n.b + m.b * n.d;</span><br><span class="line">    <span class="keyword">int</span> c = m.c * n.a + m.d * n.c;</span><br><span class="line">    <span class="keyword">int</span> d = m.c * n.b + m.d * n.d;</span><br><span class="line">    m.Set(a, b, c, d);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MatrixN</span><span class="params">(Matrix2x2 &amp; m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">        m.Set(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);  <span class="comment">// 单位阵</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(n % <span class="number">2</span> == <span class="number">0</span>)&#123;    <span class="comment">// 偶数</span></span><br><span class="line">        MatrixN(m, n/<span class="number">2</span>);</span><br><span class="line">        MatrixMultiply(m, m);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;           <span class="comment">// 奇数</span></span><br><span class="line">        Matrix2x2 x = m;</span><br><span class="line">        MatrixN(m, n/<span class="number">2</span>);</span><br><span class="line">        MatrixMultiply(m, m);</span><br><span class="line">        MatrixMultiply(m, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CalcCount2</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nNonRepeat = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> nRepeat = <span class="number">0</span>;</span><br><span class="line">    <span class="function">Matrix2x2 <span class="title">m</span><span class="params">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    MatrixN(m, n<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span> * (m.a + m.c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="打气球-leetcode-312"><a href="#打气球-leetcode-312" class="headerlink" title="打气球 leetcode 312"></a>打气球 leetcode 312</h2><p>[题目]<br>给定一串气球，要全部打坏。每个气球上有一个整数，打坏它的得分等于它和左右邻居上的一共三个整数的乘积。<br>如果没有左右邻居，那么视为 1，求最大总得分。</p>
-<p>[分析]</p>
-<ol>
-<li>这个题目拿到手一看就是用 DP</li>
-<li>可以先假定用 <code>DP[i][j]</code> 表示气球 i 到气球 j 这一串气球都打完的得分是多少。</li>
-<li>问题的难点在于？<ol>
-<li>DP 的递推式该怎么样写？</li>
-<li>打完一个气球后，本来不相邻的邻居现在变成邻居了，怎么办？</li>
-</ol>
-</li>
-<li>关键思路在于: <mark>总有最后一个消灭的气球</mark></li>
-<li>假定 <code>DP[i][j]</code> 里面气球 k 最后一个打破<ol>
-<li>那么 <code>DP[i][k-1]</code> 是一个子问题，要最大得分</li>
-<li><code>DP[k+1][j]</code> 也是一个子问题，要最大得分</li>
-<li>两个字问题被气球 k 隔离，“边界”的气球不会变</li>
-</ol>
-</li>
-<li>因此递推关系式如下<ol>
-<li>\(DP[i][j] = max_{k} (DP[i][k-1] + DP[k+1][j] + nums[k-1] * nums[k] * nums[k+1])\)</li>
-<li><mark>上面的式子是错误的！</mark></li>
-<li>\(DP[i][j] = max_{k} (DP[i][k-1] + DP[k+1][j] + nums[i-1] * nums[k] * nums[j+1])\)</li>
-<li>要注意如果 k-1 &lt; i, 那么 <code>DP[i][k-1]</code> 要理解成 0</li>
-</ol>
-</li>
-<li>最终结果是 <code>DP[0][n-1]</code></li>
-<li>更新顺序是: (j-i) 从小到大</li>
-<li>时间复杂度 O(N^3)</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxCoins</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">DP</span><span class="params">(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n))</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> len = <span class="number">1</span>; len &lt;= n; ++len)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; (i+len) &lt;= n; ++i)&#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + len - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i; k &lt;= j; ++k)&#123;</span><br><span class="line">                DP[i][j] = <span class="built_in">max</span>(dp[i][j], ((i &lt;= k<span class="number">-1</span>) ? DP[i][k<span class="number">-1</span>] : <span class="number">0</span>) + ((k + <span class="number">1</span> &lt;= j) ? DP[k+<span class="number">1</span>][j] : <span class="number">0</span>)</span><br><span class="line">                + ((i - <span class="number">1</span> &gt;= <span class="number">0</span>) ? nums[i<span class="number">-1</span>] : <span class="number">1</span>) * nums[k] * ((j + <span class="number">1</span> &lt; n) ? nums[j + <span class="number">1</span>] : <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Count-Square-Submatrices-with-All-Ones-lc1277"><a href="#Count-Square-Submatrices-with-All-Ones-lc1277" class="headerlink" title="Count Square Submatrices with All Ones lc1277"></a>Count Square Submatrices with All Ones lc1277</h2><p>[题目]</p>
-<ul>
-<li>Given a m * n matrix of ones and zeros, return how many square submatrices have all ones.</li>
-<li>1 x 1 的方阵也算进来</li>
-</ul>
-<p>[思路一]</p>
-<ul>
-<li>这一题特别像找 largest square matrix with all ones 那道题</li>
-<li>当时我用了辅助矩阵去记录行里面最长的连续 1 个数，列里面最长的连续 1 的个数。</li>
-<li>这里也可以用类似的，代码如下</li>
-</ul>
-<p>[代码一]</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countSquares</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> rowContinuousOnes[m][n];</span><br><span class="line">    <span class="keyword">int</span> colContinuousOnes[m][n];</span><br><span class="line">    <span class="keyword">int</span> largestSquare[m][n];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            rowContinuousOnes[i][j] = j == <span class="number">0</span> ? matrix[i][j] : (matrix[i][j] == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span> + rowContinuousOnes[i][j<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">            colContinuousOnes[i][j] = i == <span class="number">0</span> ? matrix[i][j] : (matrix[i][j] == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span> + colContinuousOnes[i<span class="number">-1</span>][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span> || j == <span class="number">0</span>)&#123;</span><br><span class="line">                largestSquare[i][j] = matrix[i][j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                largestSquare[i][j] = <span class="built_in">min</span>(&#123;largestSquare[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>, rowContinuousOnes[i][j], colContinuousOnes[i][j]&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            ans += largestSquare[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[思路二]</p>
-<ul>
-<li>实际上，我们不需要使用这两个辅助的矩阵就可以完成 dp 矩阵的递归！</li>
-<li>只需要利用 dp 本身就可以了。</li>
-<li>递推关系如下<ul>
-<li>dp[i][j] means the size of biggest square with A[i][j] as bottom-right corner.</li>
-<li>dp[i][j] also means the number of squares with A[i][j] as bottom-right corner.</li>
-<li>If A[i][j] == 0, no possible square.</li>
-<li>If A[i][j] == 1,<ul>
-<li>we compare the size of square dp[i-1][j-1], dp[i-1][j] and dp[i][j-1].</li>
-<li>min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 is the maximum size of square that we can find.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>[代码二]</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countSquares</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; A)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.<span class="built_in">size</span>(); ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; A[<span class="number">0</span>].<span class="built_in">size</span>(); res += A[i][j++])</span><br><span class="line">            <span class="keyword">if</span> (A[i][j] &amp;&amp; i &amp;&amp; j)</span><br><span class="line">                A[i][j] += <span class="built_in">min</span>(&#123;A[i - <span class="number">1</span>][j - <span class="number">1</span>], A[i - <span class="number">1</span>][j], A[i][j - <span class="number">1</span>]&#125;);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="uncrossed-lines-lc1035"><a href="#uncrossed-lines-lc1035" class="headerlink" title="uncrossed lines lc1035"></a>uncrossed lines lc1035</h2><p>[题目]</p>
-<ul>
-<li>We write the integers of A and B (in the order they are given) on two separate horizontal lines.</li>
-<li>Now, we may draw connecting lines: a straight line connecting two numbers A[i] and B[j] such that:<ul>
-<li>A[i] == B[j];</li>
-</ul>
-</li>
-<li>The line we draw does not intersect any other connecting (non-horizontal) line.</li>
-<li>Note that a connecting lines cannot intersect even at the endpoints: each number can only belong to one connecting line.</li>
-<li>Return the maximum number of connecting lines we can draw in this way.</li>
-<li><a href="https://leetcode.com/problems/uncrossed-lines/" target="_blank" rel="noopener">题目在这里</a></li>
-</ul>
-<p>[分析]</p>
-<ul>
-<li>很典型的动归题目</li>
-<li><mark>这里主要是比较一下几种解法的代码优化策略。</mark></li>
-</ul>
-<p>[代码]</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 版本一：我的写法</span></span><br><span class="line"><span class="comment">// 完成了任务，但是写法不够简洁，体现在两个地方</span></span><br><span class="line"><span class="comment">// 单独拉出来处理 dp 数组的第一行和第一列，不够优美</span></span><br><span class="line"><span class="comment">// 可以一步对 dp 进行赋值，使用 memset</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxUncrossedLines</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = A.<span class="built_in">size</span>(), n = B.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> dp[m][n];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = A[<span class="number">0</span>] == B[<span class="number">0</span>] ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m; i++)&#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = A[i] == B[<span class="number">0</span>] ? <span class="number">1</span> : dp[i<span class="number">-1</span>][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; j++)&#123;</span><br><span class="line">            dp[<span class="number">0</span>][j] = A[<span class="number">0</span>] == B[j] ? <span class="number">1</span> : dp[<span class="number">0</span>][j<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(A[i] == B[j])&#123;</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j], dp[i][j<span class="number">-1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 版本二：解决了上面两个问题。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">maxUncrossedLines</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = A.<span class="built_in">size</span>(), n = B.<span class="built_in">size</span>(), dp[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">                dp[i][j] = A[i - <span class="number">1</span>] == B[j - <span class="number">1</span>] ? dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span> : <span class="built_in">max</span>(dp[i][j - <span class="number">1</span>], dp[i - <span class="number">1</span>][j]);</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4222,7 +4381,7 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -4244,7 +4403,7 @@ B class virtual display():y=20</code></pre><p>[总结]<br>基类的指针指向�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

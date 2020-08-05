@@ -807,6 +807,67 @@
 <p>对象的具体细则：（了解即可）</p>
 <p>int：那么大家都知道对于整数来说，小数据池的范围是-5~256 ，如果多个变量都是指向同一个（在这个范围内的）数字，他们在内存中指向的都是一个内存地址。</p>
 <h3 id="下划线开头的命名"><a href="#下划线开头的命名" class="headerlink" title="下划线开头的命名"></a>下划线开头的命名</h3><h2 id="Scaling-with-Generators"><a href="#Scaling-with-Generators" class="headerlink" title="Scaling with Generators"></a>Scaling with Generators</h2><p>generator 不同于一般的一个 list，它是lazy execution，里面的元素用到的时候才会运算取出来。<br>但是要注意，generator 只能用一次，用过以后其位置就跑到了最后面了。</p>
+<h3 id="三大概念简介"><a href="#三大概念简介" class="headerlink" title="三大概念简介"></a>三大概念简介</h3><p><mark>可迭代对象，迭代器，生成器 这三个概念互相关联，并不是孤立的。在可迭代对象的基础上发展了迭代器，在迭代器的基础上又发展了生成器。</mark></p>
+<p>循环读数据可分为下面三种应用场景，对应着容器（可迭代对象），迭代器和生成器：</p>
+<ol>
+<li>for x in container: 为了遍历 python 内部序列容器（如list）, 这些类型内部实现了 <code>__getitem__()</code> 方法，可以从 0 开始按顺序遍历序列容器中的元素。</li>
+<li>for x in iterator: 为了循环用户自定义的迭代器，需要实现 <code>__iter__</code> 和 <code>__next__</code>方法，<code>__iter__</code>是迭代协议，具体每次迭代的执行逻辑在 <code>__next__</code> 或 next 方法里</li>
+<li>for x in generator: 为了节省循环的内存和加速，使用生成器来实现惰性加载，在迭代器的基础上加入了 <code>yield</code> 语句，最简单的例子是 range(5)</li>
+</ol>
+<p>代码举例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 普通循环 for x in list</span></span><br><span class="line">numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,]</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">  print(n) <span class="comment"># 1,2,3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># for循环实际干的事情</span></span><br><span class="line"><span class="comment"># iter输入一个可迭代对象list，返回迭代器</span></span><br><span class="line"><span class="comment"># next方法取数据</span></span><br><span class="line">my_iterator = iter(numbers)</span><br><span class="line">next(my_iterator) <span class="comment"># 1</span></span><br><span class="line">next(my_iterator) <span class="comment"># 2</span></span><br><span class="line">next(my_iterator) <span class="comment"># 3</span></span><br><span class="line">next(my_iterator) <span class="comment"># StopIteration exception</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 迭代器循环 for x in iterator</span></span><br><span class="line"><span class="keyword">for</span> i,n <span class="keyword">in</span> enumerate(numbers):</span><br><span class="line">  print(i,n) <span class="comment"># 0,1 / 1,3 / 2,3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 生成器循环 for x in generator</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">  print(i) <span class="comment"># 0,1,2</span></span><br></pre></td></tr></table></figure>
+
+<p>上面示例代码中python内置函数iter和next的用法：</p>
+<ol>
+<li>iter函数，调用 <code>__iter__</code>，返回一个迭代器</li>
+<li>next函数，输入迭代器，调用 <code>__next__</code>，取出数据</li>
+</ol>
+<p>比较容易混淆的是 <code>__iter__</code>和 <code>__next__</code> 两个方法。它们的区别是：</p>
+<ol>
+<li><code>__iter__</code> 是为了可以迭代，真正执行取数据的逻辑是<code>__next__</code>方法实现的，实际调用是通过 <code>next(iterator)</code>完成</li>
+<li><code>__iter__</code> 可以返回自身（return self），实际读取数据的实现放在 <code>__next__</code> 方法</li>
+<li><code>__iter__</code> 可以和 yield 搭配，返回生成器对象</li>
+<li><code>__iter__</code> 返回自身的做法有点类似 python中的类型系统。为了保持一致性，python中一切皆对象。</li>
+</ol>
+<p>每个对象创建后，都有类型指针，而类型对象的指针指向元对象，元对象的指针指向自身。</p>
+<p>生成器，是在 <code>__iter__</code> 方法中加入yield语句，好处有：</p>
+<ol>
+<li>减少循环判断逻辑的复杂度</li>
+<li>惰性取值，节省内存和时间</li>
+</ol>
+<p>yield作用：</p>
+<ol>
+<li>代替函数中的return语句</li>
+<li>记住上一次循环迭代器内部元素的位置</li>
+</ol>
+<h3 id="iterable-object"><a href="#iterable-object" class="headerlink" title="iterable object"></a>iterable object</h3><ol>
+<li>Python中的iterable object（可迭代对象）是指存储了元素的容器对象，并且该容器对象实现了<strong>iter</strong>()方法，容器对象中的元素可以通过<strong>iter</strong>()方法访问。</li>
+<li>常见的iterable object有：<ol>
+<li>list、tuple、set、dict、str等序列类型或者集合</li>
+<li>文件对象</li>
+<li>在类定义中实现了 <code>__iter__()</code> 方法的对象</li>
+<li>迭代器和生成器（generator）</li>
+</ol>
+</li>
+</ol>
+<p>代码示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserDefine</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        self.data = data</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> iter(self.data)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#def __getitem__(self, index):</span></span><br><span class="line">    <span class="comment">#    return self.data[index]</span></span><br><span class="line">       </span><br><span class="line">it_ob = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">user_define = UserDefine(it_ob)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">print(isinstance(user_define,collections.Iterable))</span><br><span class="line">print(isinstance(user_define,collections.Iterator))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> user_define:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+<p>Note:</p>
+<ol>
+<li>上面代码中如果把 <code>__iter__()</code> 注释掉而改为实现那个被注释了的 <code>__getitem__()</code> 方法，也同样可以使用 for in 遍历 <code>user_define</code> 的元素</li>
+<li>但是调用 isinstance 判断是否为 Iterable 时会返回 False。</li>
+<li><mark>所以说，iterable object 可以通过 for … in 循环遍历元素，但是可以通过 for in 循环遍历元素的不一定是 iterable object。</mark></li>
+</ol>
+<h3 id="iterator"><a href="#iterator" class="headerlink" title="iterator"></a>iterator</h3><p>Python 中的 iterator（迭代器）是指存储了元素的容器对象，并且该容器对象<mark>同时实现了 <code>__iter__()</code> 和<code>__next__()</code> 方法</mark>，每次调用该容器对象返回自身的下一个元素。其中 <code>__iter__()</code> 方法返回对象自身（对象自身必须为迭代器），而 <code>__next__()</code>方法则显式得返回下一个元素。</p>
+<p>当使用 for … in 循环遍历 iterable object 时实际包含2个操作:</p>
+<ol>
+<li>调用 <code>__iter__()</code> 返回一个迭代器</li>
+<li>不断调用 <code>__next__()</code> 获取下一个元素直到返回 StopIteration。</li>
+</ol>
+<p>代码示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserDefine</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        self.data = data</span><br><span class="line">        self.index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.index = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.index &gt; len(self.data)<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        out_data = self.data[self.index]</span><br><span class="line">        self.index += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> out_data</span><br><span class="line">    </span><br><span class="line">it_o = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">user_define = UserDefine(it_o)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">print(isinstance(user_define,collections.Iterable))</span><br><span class="line">print(isinstance(user_define,collections.Iterator))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> user_define:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
 <h3 id="generator-iterable-iterator"><a href="#generator-iterable-iterator" class="headerlink" title="generator, iterable, iterator"></a>generator, iterable, iterator</h3><ol>
 <li>一个 list 是 iterable 的</li>
 <li>使用 iter(list) 获得一个 iterator</li>

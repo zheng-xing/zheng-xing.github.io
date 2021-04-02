@@ -1232,6 +1232,15 @@ Connection: close
 <p>同时，f-string的性能是比%和format都有提升的，我们做一个简单的测试，分别使用%操作符、format和f-string将下面语句执行10000次：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'My name is %s and i'</span>m %s years old.<span class="string">' % (name, age)</span></span><br><span class="line"><span class="string">'</span>My name <span class="keyword">is</span> &#123;&#125; <span class="keyword">and</span> i<span class="string">'m &#123;&#125; years old.'</span>.format(name, age)</span><br><span class="line"><span class="string">f'My name is <span class="subst">&#123;name&#125;</span> and i'</span>m &#123;age&#125; years old.<span class="string">'</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="string-编码"><a href="#string-编码" class="headerlink" title="string 编码"></a>string 编码</h3><p>这里主要想指出来 Python2.7 和 Python3.6 对待 string 的编码是非常不一样的！</p>
+<ol>
+<li>在 python2.7 中，string 的默认编码是 ASCII 码，在做编码转换时，通常需要以 unicode 作为中间编码，所以在 python2 中先将其他编码的字符串解码（decode）成 unicode，再从 unicode 编码（encode）成另一种编码。通常使用如下：<code>str.decode(&#39;utf-8&#39;).encode(&#39;utf-8&#39;)</code></li>
+<li>python2.7 中 bytes 只是 str 的别名，可以被 json.dumps(a) 使用！这一点实际上是不正确的，在 python3 中改了过来， bytes 和 str 是不相同的，不能使用 json.dumps(a) 如果 type(a) 为 bytes.</li>
+<li>python3 最重要的新特性之一就是<mark>对字符串和二进制数据流做了明确的区分。文本总是 Unicode，有 str 类型表示。二进制数据则由 bytes 类型表示。</mark> python3 不会以任意隐式的方式混用 str 和 bytes，你不能拼接字符串和字节流，也无法在字节流里搜索字符串（反之亦然）。也不能将字符串传入参数为字节流的函数（反之亦然）。<br>但是在 python3 中，默认编码就是 unicode，所以不需要解码，直接就可以编码成另一种编码。比如: <code>str.encode(&#39;utf-8&#39;)</code></li>
+<li><mark>注意 a.decode(‘GBK’) 的参数”GBK”意思是，a 本来是 GBK 的编码，现在想转换成 unicode.</mark> </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># py2.7</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># py3 中默认编码就是 unicode，字符串不需要在前面加上u。</span></span><br><span class="line"><span class="comment">#     使用 encode() 后返回的是 bytes 对象！不能使用 json.dumps() 否则会报错。</span></span><br><span class="line"></span><br><span class="line">a = <span class="string">"菜鸟教程"</span> <span class="comment"># 这个字符串此时是 unicode </span></span><br><span class="line">print(a, type(a))    <span class="comment"># "菜鸟教程"  &lt;class 'str'&gt;</span></span><br><span class="line"></span><br><span class="line">a_utf8 = a.encode(<span class="string">'UTF-8'</span>)</span><br><span class="line">print(a_utf8, type(a_utf8))    <span class="comment"># b'\xe8\x8f\x9c\xe9\xb8\x9f\xe6\x95\x99\xe7\xa8\x8b'    &lt;class 'bytes'&gt;</span></span><br><span class="line"></span><br><span class="line">aa = a_utf8.decode(<span class="string">'UTF-8'</span>)</span><br><span class="line">print(aa, type(aa))    <span class="comment"># '菜鸟教程'  &lt;class 'str'&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="小数据池和代码块"><a href="#小数据池和代码块" class="headerlink" title="小数据池和代码块"></a>小数据池和代码块</h3><h4 id="代码块的缓存机制"><a href="#代码块的缓存机制" class="headerlink" title="代码块的缓存机制"></a>代码块的缓存机制</h4><p>前提条件：在同一个代码块内。</p>
 <p>机制内容：Python在执行同一个代码块的初始化对象的命令时，会检查是否其值是否已经存在，如果存在，会将其重用。换句话说：执行同一个代码块时，遇到初始化对象的命令时，他会将初始化的这个变量与值存储在一个字典中，在遇到新的变量时，会先在字典中查询记录，如果有同样的记录那么它会重复使用这个字典中的之前的这个值。所以在你给出的例子中，文件执行时（同一个代码块）会把i1、i2两个变量指向同一个对象，满足缓存机制则他们在内存中只存在一个，即：id相同。</p>
 <p>适用对象： int（float），str，bool。</p>
@@ -2063,7 +2072,7 @@ Note: 有一点要注意，a handler can only make itself more selective than it
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
